@@ -1,29 +1,65 @@
 # Title
+WattWatch USA (Where is your energy coming from?)
 
 # Sustainable Development Goal(s)
+1.  Affordable and Clean Energy
+2. Industry, Innovation, and Infrastructure
 
 # Features
 
-## Feature 1: 
+## Feature 1: State Comparisons
 
-* Person responsible:
-* User story:
-* Acceptance Criteria:
+* Person responsible: Gabe
+* User story: As a user, I want to see two (or more?) states' statistics side by side so that they can be compared
+* Acceptance Criteria: If I input North Dakota and South Dakota as my states to compare, then the two states' data appear side by side.
 
-## Feature 2: 
+## Feature 2: Data Display for entire USA
 
-* Person responsible:
-* User story:
-* Acceptance Criteria:
+* Person responsible: Rafael
+* User story: As a user I want to see data for the whole US so that I am more informed.
+* Acceptance Criteria: If I scroll down on the webpage I should be able to see a bunch of graphs/information on aggregate data for energy consumption, renewable production, etc. for the US.
 
-## Feature 3: 
+## Feature 3: Individual State Displays
 
-* Person responsible:
-* User story:
-* Acceptance Criteria:
+* Person responsible: Hongmiao
+* User story: As a user I want to see data for a specific state so that I am more informed about energy consumption for each state.
+* Acceptance Criteria: If I click a state on the map, I should be able to see information, data, and graphs about the energy consumption for this state.
+
 
 # Datasets Metadata
+## Emissions2024 
+- https://www.eia.gov/electricity/data/emissions/  
+- Downloaded: Sun Jan 11, 2026
+- Author: US Energy Information Administration
+- Exact Name: 2024 Carbon Dioxide Emissions at Electric Power Plants
+- Data from US Energy Information Administration is for public use 
+- Suggested citation: US Energy Information Administration, (November, 2025)
+
+## Table_1.1_Primary_Energy_Overview
+- https://catalog.data.gov/dataset/monthly-and-annual-energy-consumption-by-sector 
+- Downloaded: Friday Jan 9, 2026
+- Author/Maintainer: U.S. Energy Information Administration / William Jeffers
+- Exact Name:  Monthly and Annual Energy Consumption by Sector
+- Data is for public use
+- Suggested citation: US Energy Information Administration (March, 2019)
+
+## Small_scale_solar_2025
+- https://www.eia.gov/electricity/data/eia861m/#netmeter under small scale pv estimate
+- Downloaded: Fri jan 9, 2026
+- Author: US Energy Information Administration
+- Exact Name: Estimated Small Scale Solar PV Capacity and Generation
+- Data is for public use
+- Suggested citation: US Energy Information Administration (October, 2025)
+
+## sales_revenue
+- https://www.eia.gov/electricity/data.php under sales consumption 
+- Downloaded: Mon Jan 12, 2026
+- Authorr: US Energy Information Administration
+- Exact Name: Sales_Revenue
+- Data is for public use
+- Suggested citation: US Energy Information Administration (December, 2025)
 
 # Mock up
-
+![Website Mock Up](WebsiteMockup.jpg)
 # Data story
+Gabe's dad does solar, he searched up solar we gound EIA.gov, we love EIA.gov.
