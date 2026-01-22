@@ -16,8 +16,8 @@ WattWatch USA (Where is *your* energy coming from?)
 ## Feature 2: Data Display for entire USA
 
 * Person responsible: Rafael
-* User story: As a user I want to see data for the whole US so that I am more informed.
-* Acceptance Criteria: If I scroll down on the webpage I should be able to see a bunch of graphs/information on aggregate data for energy consumption, renewable production, etc. for the US.
+* User story: As a user I want to see price data for the entire US so that I am more informed.
+* Acceptance Criteria: The user will be able to enter a command (python3 code.py -price "US") and the average energy prices for the US will be displayed. 
 
 ## Feature 3: Individual State Displays
 
