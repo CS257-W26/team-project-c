@@ -26,10 +26,16 @@ We will meet on Thursdays from 2:00 PM - 3:00 PM. As well as other times as need
 Gabe - M 1-2 and W 2-3
 Rafael - M 1-2 and Th 2:30 - 3:30
 Hongmiao W 2-3 and Th 2:30-3:30
-# Communication
-Team members must notify the group when starting or finishing a task. For example, “I finished drawing a picture, and I will merge it later today.” For new tasks that need to be completed, they may be added to a to-dos google doc that we made. We will google drive as well as git hub in combination with text group chat to support team communication and work.
-
-If communication is difficult for a team member, we will ask them is there is anything we can do to make it easier, and we will always be able to touch base in class.
+# Communication and Decision Making
+* We will communicate mainly over sms whenever needed (ideally daily). We will also use some Google Docs on a shared drive to keep track of to-dos, problems, etc
+* Team members who are having trouble communicating are expected to explain themselves. If this problem persists, we will reassess communication standards during our weekly meeting.
+* We will use Google services, sms, and email to communicate.
+* Decisions will be made by a majority vote.
+* For satisfactory participation, team members must complete their tasks promptly. We all have lives, so we will not use specific deadlines (besides the deadlines of the curriculum)
 
 # Conflict resolution
-Decision-making will involve a discussion about potential issues, then having a vote. The majority decides. When the minority is adamant on an issue or feature, then we will discuss after it is implemented to reassess.
+* For someone who is struggling to complete their work, we will implement a three-strike system. Both the first 2 strikes are a verbal warning. If the issue continues, then we will have a meeting with Anya.
+* Conflicts will be resolved by the following process:
+  - If the conflict can be solved by a vote, we will use that to decide.
+  - If the conflict cannot be resolved by a vote, the third team member will act as a mediator and attempt to improve the situation.
+  - If this fails or the conflict involves all three team members, then we will seek help elsewhere. A meeting with Anya, for example.
