@@ -23,7 +23,7 @@ WattWatch USA (Where is *your* energy coming from?)
 
 * Person responsible: Hongmiao
 * User story: As a user I want to see data for a specific state so that I am more informed about energy consumption for each state.
-* Acceptance Criteria: If I click a state on the map, I should be able to see information, data, and graphs about the energy consumption for this state.
+* Acceptance Criteria: The user will be able to enter a command (python3 code.py "Minnesota"), then all available energy data for Minnesota will be displayed. 
 
 
 # Datasets Metadata
