@@ -5,3 +5,8 @@ Template for long-term team projects for CS257 Software Design
 Rafael 
 Gabe
 Hongmiao
+# Dependencies
+Python CSV module
+# Example
+python3 command_line.py --price "MN"
+This will display the price data for MN, more states can be added as a space-separated list. "US" is a state and will display the average/aggregate data for the whole US.
