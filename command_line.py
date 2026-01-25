@@ -10,9 +10,10 @@ from ProductionCode.tableMaker import TableMaker
 def main():
     myTable = TableMaker()
     myTable.addNewEntry({"state": "MN", "year": "1990"})
-    myTable.addNewEntry({"state": "WY", "year": "2005" , "totalRevenue" : "1"})
+    myTable.addNewEntry({"state": "WY", "year": "2005" , "totalRevenue" : "1.2"})
     myTable.addNewEmptyEntry("US", "2026")
     myTable.addDataForEntry("US", "2026", ("co2Tons", "5000"))
+    myTable.addDataForEntry("MN", "1990", ("totalFuelConsumptionGeneration", "100"))
     myTable.printTable()
 
 
