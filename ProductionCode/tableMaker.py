@@ -5,13 +5,12 @@ import io
 
 #variables
 displayAlliases = [
-    ("state"                          , "                                "),
+    ("state"                          , "State                           "),
     ("year"                           , "Year                            "),
     ("generation"                     , "Generation                 (kWh)"),
     ("thermalOutput"                  , "Useful Thermal Output    (MMBtu)"),
     ("totalFuelConsumption"           , "Total Fuel Consumption   (MMBtu)"),
-    ("totalFuelConsumptionGeneration" , "Total Fuel Consumption for      |\
-                                        Electric Generation       (MMBtu)"),
+    ("totalFuelConsumptionGeneration" , "Total Fuel Consumption for      |\nElectric Generation      (MMBtu)"),
     ("co2Tons"                        , "CO2 Emmissions            (Tons)"),
     ("co2MetricTons"                  , "CO2 Emmissions     (Metric Tons)"),
     ("residentialRevenue"             , "Residential Revenue        ($1K)"),
@@ -79,20 +78,34 @@ class TableMaker:
         
         buffer = io.StringIO()
 
+        colSizes = self.getColSizes();
+
         for i in range(0,len(displayAlliases)):
             if self.isFullRowEmpty(displayAlliases[i][0]):
                 continue
             line = displayAlliases[i][1]
-            for entry in self.entries:
-                if entry.get(displayAlliases[i][0]) == None:
-                    line += " | NULL         "
-                else: 
-                    line += " | " + entry.get(displayAlliases[i][0])
+            for j in range(0, len(self.entries)):
+                if self.entries[j].get(displayAlliases[i][0]) == None:
+                    line += f"| {'NULL':<{colSizes[j]}}"
+                else:
+                    try:
+                        value = float(self.entries[j].get(displayAlliases[i][0]))
+                        #value = f"{float(self.entries[j].get(displayAlliases[i][0])):,.2f}"
+                        if value % 1 == 0: 
+                            line += f"| {int(value):<{colSizes[j]}}"
+                        else:
+                            value = f"{value:,.2f}"
+                            line += f"| {value:<{colSizes[j]}}"
+                    except ValueError:
+                        value = self.entries[j].get(displayAlliases[i][0])
+                        line += f"| {value:<{colSizes[j]}}"
             buffer.write(line + "\n")
 
             if i == 1:
-                #TODO update to print relative to size of entries
-                buffer.write("--------------------\n")
+                buffer.write("--------------------------------")
+                for size in colSizes:
+                    buffer.write("|" + "-" * (size+1))
+                buffer.write("\n")
 
         print(buffer.getvalue())
         buffer.close()
@@ -103,3 +116,25 @@ class TableMaker:
             if entry.get(rowName) != None:
                 return False
         return True
+
+    def getColSizes(self):
+        sizes = []
+        for entry in self.entries:
+            largestEntry = 4
+            for i in range(0, len(displayAlliases)):
+                value = entry.get(displayAlliases[i][0])
+                if value == None:
+                    continue
+                try:
+                    value = float(value)
+                    if value % 1 == 0:
+                        value = str(int(value))
+                    else:
+                        value = f"{float(value):,.2f}"
+                    if len(value) > largestEntry:
+                        largestEntry = len(value)
+                except ValueError:
+                    if len(value) > largestEntry:
+                        largestEntry = len(value)
+            sizes.append(largestEntry + 1)
+        return sizes
