@@ -76,10 +76,8 @@ class TableMaker:
 
 
     def print_table(self):
-        """Displays the table""" 
-        
+        """Displays the table"""   
         buffer = io.StringIO()
-
         colSizes = self.get_col_sizes()
 
         for i in range(0,len(DISPLAY_ALLIASES)):

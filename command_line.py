@@ -1,6 +1,5 @@
-import sys
 import argparse
-from ProductionCode.tableMaker import TableMaker
+from ProductionCode.table_maker import TableMaker
 from ProductionCode.states import states_list
 
 def main():
@@ -13,7 +12,9 @@ def main():
     parser.add_argument('-e', '--emissions', action='store_true',
                         help='add emissions to output') 
     parser.add_argument('args', nargs='*',type=str,
-                        help="A space seperated list of states to display, use all caps two letter state codes, 'US' displays the totals/averages for the whole US")
+                        help="A space seperated list of states to display,\
+use all caps two letter state codes,\
+'US' displays the totals/averages for the whole US")
     
     args = parser.parse_args()
 
@@ -28,17 +29,18 @@ def main():
     #args
     for entry in args.args:
         if entry not in states_list:
-            parser.error(entry + "is not a given state. Please use uppercase two letter state codes or 'US'")
+            parser.error(entry + " is not a given state. \
+Please use uppercase two letter state codes or 'US'")
 
     myTable = TableMaker()
-    """
-    myTable.addNewEntry({"state": "MN", "year": "1990"})
-    myTable.addNewEntry({"state": "WY", "year": "2005" , "totalRevenue" : "1.2"})
-    myTable.addNewEmptyEntry("US", "2026")
-    myTable.addDataForEntry("US", "2026", ("co2Tons", "5000"))
-    myTable.addDataForEntry("MN", "1990", ("totalFuelConsumptionGeneration", "100")
-    """
-    myTable.printTable()
+    
+    myTable.add_new_entry({"state": "MN", "year": "1990"})
+    myTable.add_new_entry({"state": "WY", "year": "2005" , "totalRevenue" : "1.2"})
+    myTable.add_new_empty_entry("US", "2026")
+    myTable.add_data_for_entry("US", "2026", ("co2Tons", "50000000"))
+    myTable.add_data_for_entry("MN", "1990", ("totalFuelConsumptionGeneration", "100"))
+    
+    myTable.print_table()
 
 
 
