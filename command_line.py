@@ -66,6 +66,36 @@ def getEmissionData(state):
         except:
             return None
 
+    if state == "US":
+        totals = {
+            "generation": 0.0,
+            "thermalOutput": 0.0,
+            "totalFuelConsumption": 0.0,
+            "totalFuelConsumptionGeneration": 0.0,
+            "co2Tons": 0.0,
+            "co2MetricTons": 0.0
+        }
+        found_any = False
+
+        with open(EMISSIONS_FILE, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row.get("Year") != year_to_use:
+                    continue
+
+                found_any = True
+                totals["generation"] += (toNumber(row.get("Generation (kWh)")) or 0.0)
+                totals["thermalOutput"] += (toNumber(row.get("Useful Thermal Output (MMBtu)")) or 0.0)
+                totals["totalFuelConsumption"] += (toNumber(row.get("Total Fuel Consumption (MMBtu)")) or 0.0)
+                totals["totalFuelConsumptionGeneration"] += (toNumber(row.get("Fuel Consumption for Electric Generation (MMBtu)")) or 0.0)
+                totals["co2Tons"] += (toNumber(row.get("Tons of CO2 Emissions")) or 0.0)
+                totals["co2MetricTons"] += (toNumber(row.get("Metric Tonnes of CO2 Emissions")) or 0.0)
+
+        if not found_any:
+            raise KeyError("No emissions data found for US in " + year_to_use)
+
+        return totals
+
     with open(EMISSIONS_FILE, newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -79,7 +109,8 @@ def getEmissionData(state):
                     "co2MetricTons": toNumber(row.get("Metric Tonnes of CO2 Emissions"))
                 }
 
-    raise KeyError("No emissions data found for " + state + " in " + year_to_use)             
+    raise KeyError("No emissions data found for " + state + " in " + year_to_use)
+           
 
 
 def getData(states, flags):
@@ -90,7 +121,15 @@ def getData(states, flags):
     flags: [prices_flag, emission_flag]
     """
     results = []
-    year_label = "2024" if flags[1] else ""
+
+    if flags[0] and flags[1]:
+        year_label = LATEST_EMISSIONS_YEAR + " / 2025"
+    elif flags[1]:
+        year_label = LATEST_EMISSIONS_YEAR
+    elif flags[0]:
+        year_label = "2025"
+    else:
+        year_label = ""
 
     for state in states:
         entry = {
@@ -103,7 +142,7 @@ def getData(states, flags):
             entry.update(emissions)
         
         if flags[0]:
-            prices = getPriceData(state)
+            prices = get_price_data(state)
             entry.update(prices)
         
         results.append(entry)
