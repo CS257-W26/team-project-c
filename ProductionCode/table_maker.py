@@ -4,7 +4,7 @@ Each entry has two required fields"""
 import io
 
 #variables
-DISPLAY_ALLIASES = [
+DISPLAY_ALIASES = [
     ("state"                          , "State                           "),
     ("year"                           , "Year                            "),
     ("generation"                     , "Generation                 (kWh)"),
@@ -66,7 +66,7 @@ class TableMaker:
         """adds a new data entry for the state and year.
         raises an error if entry for state and year does not exist 
         data is a tuple (key, data) and key must be an acceptable key for this class
-        (See DISPLAY_ALLIASES)"""
+        (See DISPLAY_ALIASES)"""
         if not isinstance(data, tuple):
             raise TypeError("Data must be a tuple of (key, value)")
         for entry in self.entries:
@@ -82,20 +82,19 @@ class TableMaker:
         buffer = io.StringIO()
         colSizes = self.get_col_sizes()
 
-        for i in range(0,len(DISPLAY_ALLIASES)):
-            if self.is_row_empty(DISPLAY_ALLIASES[i][0]):
+        for i, alias in enumerate(DISPLAY_ALIASES):
+            if self.is_row_empty(alias[0]):
                 continue
-            line = DISPLAY_ALLIASES[i][1]
-            for j in range(0, len(self.entries)):
-                if self.entries[j].get(DISPLAY_ALLIASES[i][0]) == None:
+            line = alias[1]
+            for j, _ in enumerate(self.entries):
+                if self.entries[j].get(alias[0]) is None:
                     line += f"| {'NULL':<{colSizes[j]}}"
                 else:
-                    value = self.entries[j].get(DISPLAY_ALLIASES[i][0])
-                    if DISPLAY_ALLIASES[i][0] is not 'year':
+                    value = self.entries[j].get(alias[0])
+                    if alias[0] != 'year':
                         value = self.format_entry(value)
                     line += f"| {value:<{colSizes[j]}}"
-            if i < len(DISPLAY_ALLIASES)-1:
-                buffer.write(line + "\n")
+            buffer.write(line + "\n")
 
             if i == 1:
                 buffer.write("--------------------------------")
@@ -106,10 +105,10 @@ class TableMaker:
         print(buffer.getvalue())
         buffer.close()
 
-    def is_row_empty(self, rowName):
+    def is_row_empty(self, row_name):
         """returns True if one or more entries is present in a row. Used for print_table()"""
         for entry in self.entries:
-            if entry.get(rowName) != None:
+            if entry.get(row_name) is not None:
                 return False
         return True
 
@@ -117,16 +116,15 @@ class TableMaker:
         """gets the width for each col based on the widest piece of data (character wise)"""
         sizes = []
         for entry in self.entries:
-            largestEntry = 4
-            for i in range(0, len(DISPLAY_ALLIASES)):
-                value = entry.get(DISPLAY_ALLIASES[i][0])
-                if value == None:
+            largest_entry = 4
+            for alias in DISPLAY_ALIASES:
+                value = entry.get(alias[0])
+                if value is None:
                     continue
-                if DISPLAY_ALLIASES[i][0] is not 'year':
+                if alias[0] != 'year':
                     value = self.format_entry(value)
-                    if len(value) > largestEntry:
-                        largestEntry = len(value)
-            sizes.append(largestEntry + 1)
+                    largest_entry = max(largest_entry, len(value))
+            sizes.append(largest_entry + 1)
         return sizes
 
     def format_entry(self, entry):
@@ -143,4 +141,3 @@ class TableMaker:
             return value
         except ValueError:
             return entry
-
