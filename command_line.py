@@ -38,17 +38,13 @@ use all caps two letter state codes,\
         if entry not in states_list:
             parser.error(entry + " is not a given state. \
 Please use uppercase two letter state codes or 'US'")
-    retrieved_data = getData(args.args, flags=flags)
+
+    completeData = getData(args.args, flags)
     myTable = TableMaker()
-    for state in retrieved_data:
-        myTable.add_new_entry(state)
-    '''
-    myTable.add_new_entry({"state": "MN", "year": "1990"})
-    myTable.add_new_entry({"state": "WY", "year": "2005" , "totalRevenue" : "1.2"})
-    myTable.add_new_empty_entry("US", "2026")
-    myTable.add_data_for_entry("US", "2026", ("co2Tons", "50000000"))
-    myTable.add_data_for_entry("MN", "1990", ("totalFuelConsumptionGeneration", "100"))
-    '''
+
+    for i in completeData:
+        myTable.add_new_entry(i)
+      
     myTable.print_table()
 def getEmissionData(state):
     """
