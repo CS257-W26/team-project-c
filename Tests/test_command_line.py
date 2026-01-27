@@ -1,5 +1,8 @@
+'''
+File contains tests for command_line.py 
+'''
 import unittest
-from command_line import get_price_data, get_US_data, getEmissionData, getData, main
+from command_line import get_price_data, getEmissionData, getData, main
 from test_constants import valid_ca_table, valid_ga_e_table, valid_wa_nm_table
 import sys
 from io import StringIO
@@ -19,16 +22,6 @@ class commandLineTestRW(unittest.TestCase):
         self.assertEqual(data_ks24["residentialRevenue"],1769141)
         self.assertEqual(data_ks24["totalPrice"], 11.46)
         self.assertEqual(data_ks24["commercialSales"],13728250)
-    def test_get_us_data(self):
-        '''
-        Docstring for test_get_us_data
-        Test getUSData function from command_line.py
-        :param self: Description
-        '''
-        usData = get_US_data()
-        self.assertEqual(usData["state"], "US")
-        self.assertEqual(usData["commercialSales"], 1246808835)
-        self.assertEqual(usData["transportationPrice"], 12.13)
 
 class TestGetEmissionData(unittest.TestCase):
     def test_valid_state(self):

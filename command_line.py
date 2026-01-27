@@ -8,10 +8,13 @@ EMISSIONS_FILE = "Data/state_year_power_summary.csv"
 LATEST_EMISSIONS_YEAR = "2024"
 
 def main():
+    '''
+    Docstring for main - Handles user input with argparse and calls functions to get data and displays info
+    '''
     parser = argparse.ArgumentParser(
         description="Acesses and displays most recent emmisions and prices data by state.\n\n\
         Note: no year selection available ... yet",
-        epilog='Example: command_line.py -p CA NM MT'
+        epilog='Example: python3 command_line.py -p KS -> will display price information for Kansas in 2024'
     )
     parser.add_argument('-p', '--prices', action='store_true',
                         help='add prices to output     (default is all data)')  
@@ -31,13 +34,11 @@ use all caps two letter state codes, \
         flags[1] = args.emissions
     else:
         flags = [True] * 2
-    
     #args
     for entry in args.args:
         if entry not in states_list:
             parser.error(entry + " is not a given state. \
 Please use uppercase two letter state codes or 'US'")
-
 
     completeData = getData(args.args, flags)
     myTable = TableMaker()
@@ -46,8 +47,6 @@ Please use uppercase two letter state codes or 'US'")
         myTable.add_new_entry(i)
       
     myTable.print_table()
-
-
 def getEmissionData(state):
     """
     Returns emissions data for one state using the most recent year
@@ -110,9 +109,6 @@ def getEmissionData(state):
                 }
 
     raise KeyError("No emissions data found for " + state + " in " + year_to_use)
-           
-
-
 def getData(states, flags):
     """
     Returns an array of dict entries for TableMaker.
@@ -148,8 +144,6 @@ def getData(states, flags):
         results.append(entry)
 
     return results
-
-#Rafael
 def get_price_data(state):
     '''
     Docstring for getPriceData
@@ -160,35 +154,49 @@ def get_price_data(state):
     dict["state"] = KS if state param is KS
     dict["residentialRevenue"] = residential revenue for year 2025 in KS, summed values from all months 
     '''
-    '''
-    To make table (i think)
-    priceDict = {valid dict}
-    priceTable = TableMaker()
-    priceTable.addNewEntry(priceDict)
-
-    '''
-
     return get_price_data_state(state, 2025) 
 
-
-#Rafael
+'''
+REMOVED - no longer needed
 def get_US_data():
-    '''
+    ''
     Will get data for entire us to be displayed
     Calls to getPriceData() and getEmmissionsData() with US as the state
     will store retreived data as a dict of dict with usData["price"] storing price dict and usData["emissions"] storing emissions dict
-    '''
+    ''
     usData = {}
     priceDict = get_price_data("US")
-    #emissionsDict = getEmmissionsData("US")
+    emissionsDict = getEmissionData("US")
     for key, value in priceDict.items():
         usData[key] = value
-    '''
     for key,value in emissionsDict.items():
         usData[key] = value
-    '''
-    return usData   
+    return usData
+'''
+'''
+REMOVED - no longer needed
+def show_help(): 
+    print("Usage: python3 command_line.py State --prices --emissions\n"\
+        "--prices: optional tag - add tag to display information on prices\n"\
+        "--emissions: optional tag - add tag to display information on emissions\n"\
+        "no tag defaults to all info\n"\
+        "State input must be of valid form ie 2 letter symbol; California = CA\n"\
+        "   - US is the symbol used to get info for entire US\n"\
+        "The year of retreived data is most recent data so 2025 (for now)"    
+        )
 
+    Usage: python3 command_line.py State --prices --emissions 
+    --prices: optional tag - add tag to display information on prices
+    --emissions: optional tag - add tag to display information on emissions
+    no tag defaults to all info 
+    State input must be of valid form ie 2 letter symbol; California = CA
+        - US is the symbol used to get info for entire US
 
+    Help: 
+        retrieve information from the data sets about energy prices, emissions, and generation
+        Usage: python3 command_line.py State --prices --year 2023
+    Prices tag: Get the price data 
+
+'''
 if __name__ == "__main__":
     main()
