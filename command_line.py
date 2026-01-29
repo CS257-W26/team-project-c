@@ -20,8 +20,12 @@ def main():
 
     for i in completeData:
         myTable.add_new_entry(i)
-      
-    myTable.print_table()
+
+    if args.compareMode:
+        myTable.print_comparison_table()
+    else:
+        myTable.print_table()
+    
 
 def settup_argument_parser():
     """Setsup ArgumentParser object"""
@@ -34,6 +38,8 @@ def settup_argument_parser():
                         help='add prices to output (default is all data)')  
     parser.add_argument('-e', '--emissions', action='store_true',
                         help='add emissions to output (default is all data)') 
+    parser.add_argument('-c', '--compareMode', action='store_true',
+                        help='output displayed with a net +/- as compared to the first state inputed')
     parser.add_argument('args', nargs='*',type=str,
                         help="A space seperated list of states to display, \
                         use all caps two letter state codes, \
