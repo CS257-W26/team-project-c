@@ -112,7 +112,7 @@ class Data:
             self.data_dict[us_year_key]["state"] = "US"
             self.data_dict[us_year_key]["year"] =int(year)
         for key in self.data_dict.keys():
-            if self.data_dict[key]["year"] != year and self.data_dict[key]["state"] == "US":
+            if self.data_dict[key]["year"] != year or self.data_dict[key]["state"] == "US":
                 continue
             #This will all be replaced with like a mapping but not rn
             self.data_dict[us_year_key]["residentialRevenue"] = self.data_dict[us_year_key].get("residentialRevenue", 0) + self.data_dict[key]["residentialRevenue"]
