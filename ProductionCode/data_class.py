@@ -55,6 +55,7 @@ class Data:
                 self.data_dict[key][price] = round(self.data_dict[key][price]/num_months, 2)
                 if self.data_dict[key]["state"] == "US":
                     self.data_dict[key][customer] *= 51 
+                    self.data_dict[key][price] /= 51
                 
     def load_price_row(self, row):
         '''
