@@ -2,7 +2,7 @@ import argparse
 import sys
 import csv
 from ProductionCode.table_maker import TableMaker
-from ProductionCode.states import states_list
+from ProductionCode.config import STATES_LIST
 from ProductionCode.data_class import Data
 
 def main():
@@ -57,7 +57,7 @@ def parse_input():
 
     #args
     for entry in args.args:
-        if entry not in states_list:
+        if entry not in STATES_LIST:
             parser.error(entry + " is not a given state. \
 Please use uppercase two letter state codes or 'US'")
             sys.exit(1)

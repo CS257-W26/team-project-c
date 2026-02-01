@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import patch
 
 import flask_app as app
+from flask_app import python_bug
 from ProductionCode.data_class import Data
 
 
@@ -26,11 +27,10 @@ class TestFlaskApp(unittest.TestCase):
 
         body = response.get_data(as_text=True)
         self.assertIn("Welcome to the homepage", body)
-        self.assertIn("/api/US2025", body)
 
     def test_get_year_data_success(self):
         '''tests that getting data works for valid input'''
-        response = self.client.get('/api/US2025/',follow_redirects=True)
+        response = self.client.get('/api/us/2025/',follow_redirects=True)
 
         #self.assertEqual(response.status_code, 200)
         body = response.get_data(as_text=True)
@@ -43,13 +43,26 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIn("Transportation Price", body)
         self.assertIn("14.08", body)
 
-    def test_get_year_data_key_error_results_in_500(self):
-        '''tests that an invalid dictionary key gives 500 error'''
-        response = self.client.get('/api/FAKE9999/',follow_redirects=True)
-        self.assertEqual(response.status_code, 500)
+    def test_single_state_fail(self):
+        """Test an icorrectly formated path"""
+        response = self.client.get('/api/caa/2015/', follow_redirects=True)
+        self.assertIn(b'could not be parsed', response.data)
 
-        body = response.get_data(as_text=True)
-        self.assertIn("technical issue", body)
+    def test_multi_state_comparison(self):
+        """tests two state comparison"""
+        response = self.client.get('/api/iafl/2015/compare/', follow_redirects=True)
+        self.assertIn(b'+8,029,474', response.data)
+        self.assertIn(b'+2', response.data)
+
+    def test_multi_state_comparison_fail(self):
+        """Test an icorrectly formated path"""
+        response = self.client.get('/api/cann/2015/compare/', follow_redirects=True)
+        self.assertIn(b'cann could not be parsed.', response.data)
+
+    def test_python_bug(self):
+        """test_500_page output"""
+        response = python_bug(Exception())
+        self.assertIn(500, response)
 
     def test_404_error_handler(self):
         '''tests that invalid route give 404 error'''
@@ -59,43 +72,14 @@ class TestFlaskApp(unittest.TestCase):
         body = response.get_data(as_text=True)
         self.assertIn("wrong format", body)
 
-    def test_load_data_calls_data_load(self):
-        '''Tests load data function'''
-        with patch.object(app.data, "load_data") as mock_load:
-            app.load_data()
-            mock_load.assert_called_once()
-
-    def test_make_table_invalid_entry_type(self):
-        '''tests make table function doesnt accept invalid'''
-        with self.assertRaises(TypeError):
-            app.make_table("not a dict")
-
-    def test_make_table_valid_entry(self):
-        '''tests make table with valid entry'''
-        entry = {"state": "US", "year": 2025}
-        table = app.make_table(entry)
-
-        self.assertEqual(len(table.entries), 1)
-        self.assertEqual(table.entries[0]["state"], "US")
-
     def test_get_year_data_renders_html(self):
         '''Tests template rendering'''
-        response = self.client.get("/api/US2025/", follow_redirects= True)
+        response = self.client.get("/api/us/2025/", follow_redirects= True)
         body = response.get_data(as_text=True)
 
         self.assertIn("<html>", body)
         self.assertIn("<pre>", body)
         self.assertIn("</html>", body)
-
-    def test_get_year_data_with_minimal_entry(self):
-        '''Tests empty(ish) table'''
-        app.data.data_dict["US2026"] = {
-            "state": "US",
-            "year": 2026
-        }
-
-        response = self.client.get("/api/US2026/")
-        self.assertEqual(response.status_code, 200)
 
     def test_page_not_found_handler_direct(self):
         '''Tests page not found'''

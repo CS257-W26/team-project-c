@@ -173,8 +173,9 @@ class Data:
             key = state + str(year)
             entry = self.data_dict.get(key)
             if entry is None:
-                raise KeyError(key + " is not in dataset")
-            entry = filter_entry(entry, flags)
-            return_list.append(entry)
+                return_list.append({'state': state, 'year': year})
+            else:
+                entry = filter_entry(entry, flags)
+                return_list.append(entry)
         return return_list
             
