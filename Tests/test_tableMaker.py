@@ -3,7 +3,7 @@
 import unittest
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.data_class import Data
-from Tests.test_constants import valid_table, valid_mn_table, valid_us_price_table, valid_nd_sd_table
+from Tests.test_constants import VALID_TABLE, VALID_MN_TABLE, VALID_US_PRICE_TABLE, VALID_ND_SD_TABLE
 
 class TestTableMakerInput(unittest.TestCase):
     """Tests the TableMaker class input functions"""
@@ -69,7 +69,7 @@ class TestTableMakerOutput(unittest.TestCase):
     def test_get_table(self):
         """test a simple get_table"""
         output = self.table.get_table().strip()
-        self.assertEqual(output, valid_table)
+        self.assertEqual(output, VALID_TABLE)
     def test_get_comparison_table(self):
         """test the comparison table get function"""
         self.table.add_data_for_entry("MN", "1990", ("co2Tons", 40000000))
@@ -90,7 +90,7 @@ class TestTableOutputUserStories(unittest.TestCase):
         us_table = TableMaker()
         us_table.add_new_entry(us_price_data[0])
         output = us_table.get_table().strip()
-        self.assertEqual(output, valid_us_price_table)
+        self.assertEqual(output, VALID_US_PRICE_TABLE)
     def test_two_state_display(self):
         """test two state display"""
         two_state_data = self.database.get_data(["ND", "SD"], [True, True], 2024)
@@ -106,7 +106,7 @@ class TestTableOutputUserStories(unittest.TestCase):
         one_state_table = TableMaker()
         one_state_table.add_new_entry(one_state_data[0])
         output = one_state_table.get_table().strip()
-        self.assertEqual(output, valid_mn_table)
+        self.assertEqual(output, VALID_MN_TABLE)
 
 
 if __name__ == '__main__':

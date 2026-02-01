@@ -80,7 +80,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_get_year_data_renders_html(self):
         '''Tests template rendering'''
-        response = self.client.get("/api/US2025/")
+        response = self.client.get("/api/US2025/", follow_redirects= True)
         body = response.get_data(as_text=True)
 
         self.assertIn("<html>", body)

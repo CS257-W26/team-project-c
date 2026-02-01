@@ -15,7 +15,6 @@ def load_data():
     Loads data into the global data object 
     '''
     data.load_data()
-    #print(flask_data_dict["KS2025"])
 
 @app.route('/')
 def homepage():
@@ -39,7 +38,7 @@ def make_table(entry: dict) -> TableMaker:
     return table
 
 @api.route('/<string:key>/')
-def get_year_data(key):
+def get_year_data(key : str):
     '''Get data for key in url'''
     try:
         entry = data.data_dict[key]
@@ -52,7 +51,7 @@ def get_year_data(key):
                 </body>
             </html>
             """,
-            table=table.get_table_string()
+            table=table.get_table()
         )
     except Exception:
         abort(500)
