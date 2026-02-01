@@ -4,6 +4,9 @@ for the command line functions to access
 '''
 import csv
 
+EMISSIONS_FILE = "Data/state_year_power_summary.csv"
+LATEST_EMISSIONS_YEAR = "2024"
+
 def get_price_data_state(state, year):
     '''
     Docstring for get_price_data_state
@@ -138,6 +141,119 @@ def fixed_dict_format(totals_dict, state):
     state_dict["totalSales"] = totals_dict["total"]["sales"]
     state_dict["totalPrice"] = totals_dict["total"]["priceAvg"]
     return state_dict
+
+def getEmissionData(state):
+    """
+    Returns emissions data for one state using the most recent year
+    in state_year_power_summary.csv
+    """
+    year_to_use = LATEST_EMISSIONS_YEAR
+
+    def toNumber(value):
+        if value is None:
+            return None
+        s = str(value).replace(",","").strip()
+        if s == "":
+            return None
+        try:
+            return float(s)
+        except:
+            return None
+
+    if state == "US":
+        totals = {
+            "generation": 0.0,
+            "thermalOutput": 0.0,
+            "totalFuelConsumption": 0.0,
+            "totalFuelConsumptionGeneration": 0.0,
+            "co2Tons": 0.0,
+            "co2MetricTons": 0.0
+        }
+        found_any = False
+
+        with open(EMISSIONS_FILE, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if row.get("Year") != year_to_use:
+                    continue
+
+                found_any = True
+                totals["generation"] += (toNumber(row.get("Generation (kWh)")) or 0.0)
+                totals["thermalOutput"] += (toNumber(row.get("Useful Thermal Output (MMBtu)")) or 0.0)
+                totals["totalFuelConsumption"] += (toNumber(row.get("Total Fuel Consumption (MMBtu)")) or 0.0)
+                totals["totalFuelConsumptionGeneration"] += (toNumber(row.get("Fuel Consumption for Electric Generation (MMBtu)")) or 0.0)
+                totals["co2Tons"] += (toNumber(row.get("Tons of CO2 Emissions")) or 0.0)
+                totals["co2MetricTons"] += (toNumber(row.get("Metric Tonnes of CO2 Emissions")) or 0.0)
+
+        if not found_any:
+            raise KeyError("No emissions data found for US in " + year_to_use)
+
+        return totals
+
+    with open(EMISSIONS_FILE, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row.get("State") == state and row.get("Year") == year_to_use:
+                return {
+                    "generation": toNumber(row.get("Generation (kWh)")),
+                    "thermalOutput": toNumber(row.get("Useful Thermal Output (MMBtu)")),
+                    "totalFuelConsumption": toNumber(row.get("Total Fuel Consumption (MMBtu)")),
+                    "totalFuelConsumptionGeneration": toNumber(row.get("Fuel Consumption for Electric Generation (MMBtu)")),
+                    "co2Tons": toNumber(row.get("Tons of CO2 Emissions")),
+                    "co2MetricTons": toNumber(row.get("Metric Tonnes of CO2 Emissions"))
+                }
+
+    raise KeyError("No emissions data found for " + state + " in " + year_to_use)
+
+def get_data(states, flags):
+    """
+    Returns an array of dict entries for TableMaker.
+
+    states: list like ["MN","ND"]
+    flags: [prices_flag, emission_flag]
+    """
+    results = []
+
+    if flags[0] and flags[1]:
+        year_label = LATEST_EMISSIONS_YEAR + " / 2025"
+    elif flags[1]:
+        year_label = LATEST_EMISSIONS_YEAR
+    elif flags[0]:
+        year_label = "2025"
+    else:
+        year_label = ""
+
+    for state in states:
+        entry = {
+            "state": state,
+            "year": year_label
+        }
+
+        if flags[1]:
+            emissions = getEmissionData(state)
+            entry.update(emissions)
+        
+        if flags[0]:
+            prices = get_price_data(state)
+            entry.update(prices)
+        
+        results.append(entry)
+
+    return results
+
+def get_price_data(state):
+    '''
+    Docstring for getPriceData
+    
+    :param state: two letter state code
+    :return dictionary: format is entries for state and year then entries for each column in dataset like residentialReveune or totalPrice
+    Example:
+    dict["state"] = KS if state param is KS
+    dict["residentialRevenue"] = residential revenue for year 2025 in KS, summed values from all months 
+    '''
+    return get_price_data_state(state, 2025) 
+
+
 def main():
     ''' 
     Main 

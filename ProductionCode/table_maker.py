@@ -76,7 +76,7 @@ class TableMaker:
                 return
         raise KeyError("Entry does not exists")
 
-    def print_table(self):
+    def get_table(self):
         """Displays the table"""   
         buffer = io.StringIO()
         colSizes = self.get_col_sizes()
@@ -93,8 +93,9 @@ class TableMaker:
                     buffer.write("|" + "-" * (size+1))
                 buffer.write("\n")
 
-        print(buffer.getvalue())
+        table_str = buffer.getvalue()
         buffer.close()
+        return table_str
 
     def get_table_row(self, alias, colSizes):
         """returns a fromated row for the table"""
@@ -109,16 +110,16 @@ class TableMaker:
                 line += f"| {value:<{colSizes[j]}}"
         return line
 
-    def print_comparison_table(self):
+    def get_comparison_table(self):
         """adds comparison cols to a table if multiple entries present
         each col is compared with the leftmost col and the difference is displayed eg.
-        >table.add_comparisons()
-        >table.print_table()
         State                           | WA             | NM             |
         Year                            | 2025           | 2025           |
         --------------------------------|----------------|----------------|----------------
         Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 | -1,013,408,538
-        Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        | -9,568,936"""
+        Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        | -9,568,936
+        ...
+        """
 
         buffer = io.StringIO()
         colSizes = self.get_col_sizes()
@@ -165,8 +166,9 @@ class TableMaker:
 
                 buffer.write("\n")
 
-        print(buffer.getvalue())
+        table_str = buffer.getvalue()
         buffer.close()
+        return table_str
 
     def generate_comparisons(self):
         """generate a list of dictionaries of comparisons"""

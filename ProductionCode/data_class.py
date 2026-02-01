@@ -1,7 +1,10 @@
 import csv
 class Data:
     '''
-    Class which will handle loading of all the data into one dictionary,
+    Class which acts as a local database. 
+    - loads all the data into one dictionary,
+    - returns data by get_data function #TODO
+    data_dict:
     each key in dictionary will be StateYear ie "MN2024"
     access an entry with data.data_dict["MN2024"]["generation"]
     to add a dictionary to table: data.data_dict["MN2024"]
@@ -9,7 +12,7 @@ class Data:
     def __init__(self):
         self.data_dict = {}
 
-    def to_num_or_zero(entry):
+    def to_num_or_zero(self, entry):
         '''
         Docstring for self.to_num_or_zero
         converts the entry for the data into a numeric type
@@ -86,7 +89,7 @@ class Data:
             for field_name, idx in zip(field_names, idxs):
                 key = type + field_name
 
-                if field_name == "Price" and self.self.to_num_or_zero(row[idx]) == 0:
+                if field_name == "Price" and self.to_num_or_zero(row[idx]) == 0:
                     empty_price_count += 1
 
                 self.data_dict[state_year_key][key] = (
@@ -142,8 +145,8 @@ class Data:
             reader = csv.DictReader(emission_file)
             for row in reader:
                 key = row.get("State") + str(row.get("Year"))
-                self.data_dict[key]["generation"] = self.self.to_num_or_zero(row.get("Generation (kWh)"))
-                self.data_dict[key]["thermalOutput"] = self.self.to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
+                self.data_dict[key]["generation"] = self.to_num_or_zero(row.get("Generation (kWh)"))
+                self.data_dict[key]["thermalOutput"] = self.to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
                 self.data_dict[key]["totalFuelConsumption"] = self.to_num_or_zero(row.get("Total Fuel Consumption (MMBtu)"))
                 self.data_dict[key]["totalFuelConsumptionGeneration"] = self.to_num_or_zero(row.get("Fuel Consumption for Electric Generation (MMBtu)"))
                 self.data_dict[key]["co2Tons"] = self.to_num_or_zero(row.get("Tons of CO2 Emissions"))
