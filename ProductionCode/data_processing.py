@@ -1,5 +1,9 @@
 """This module contains functions and litterals for data formatting and stripping"""
 
+from ProductionCode.config import DICTIONARY_KEYS_ORDERED
+from ProductionCode.config import DICTIONARY_KEYS_EMMISIONS_INDEXES
+from ProductionCode.config import DICTIONARY_KEYS_PRICES_INDEXES
+
 DECIMAL_PLACES = 2
 
 def format_string(string):
@@ -16,3 +20,51 @@ def format_string(string):
         return value
     except ValueError:
         return string
+
+def to_num_or_zero(entry):
+    '''
+    Docstring for self.to_num_or_zero
+    converts the entry for the data into a numeric type
+    :param entry: the value to be converted
+    :return : returns the value as a float
+    '''
+    if entry is None:
+        return 0
+    if isinstance(entry, (int, float)):
+        value = float(entry)
+    elif isinstance(entry, str):
+        entry = entry.strip().strip('"')
+        if entry == "." or entry == "":
+            return 0
+        entry = entry.replace(",", "")
+        try:
+            value = float(entry)
+        except ValueError:
+            return 0
+    else: return 0
+    if value.is_integer():
+        return int(value)
+    else:
+        return round(value, 2)
+
+def filter_entry(entry, flags):
+    '''
+    filters data out of entry based on flags.
+    :param entry: dict to be filtered
+    :param flags: what data to include/ommit [prices, emmisions]
+    :retrun: filtered dict
+    '''
+    if not flags[0]:
+        for i in DICTIONARY_KEYS_PRICES_INDEXES:
+            try:
+                entry.pop(DICTIONARY_KEYS_ORDERED[i])
+            except KeyError:
+                pass
+    if not flags[1]:
+        for i in DICTIONARY_KEYS_EMMISIONS_INDEXES:
+            try:
+                entry.pop(DICTIONARY_KEYS_ORDERED[i])
+            except KeyError:
+                pass
+    return entry
+            

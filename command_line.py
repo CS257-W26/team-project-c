@@ -5,12 +5,8 @@ from ProductionCode.table_maker import TableMaker
 from ProductionCode.states import states_list
 from ProductionCode.data_class import Data
 
-#TODO DEPRECIATE
-from ProductionCode.data_retrieval import get_data
-
 def main():
     '''Handles user input with argparse calls data retrival functions, displays to command line'''
-    #process input
 
     args = parse_input()
     flags = get_flags(args)
@@ -18,8 +14,7 @@ def main():
     database = Data()
     database.load_data()
 
-    #get data
-    completeData = get_data(args.args, flags)
+    completeData = database.get_data(args.args, flags, 2024)
     myTable = TableMaker()
 
     for i in completeData:

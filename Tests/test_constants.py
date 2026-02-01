@@ -9,7 +9,7 @@ CO2 Emmissions            (Tons)| NULL | NULL | 50,000,000
 total Revenue              ($1K)| NULL | 1.20 | NULL"""
 
 valid_ca_table = """State                           | CA             
-Year                            | 2025           
+Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 97,548,285,658 
 Useful Thermal Output    (MMBtu)| 58,032,798     
@@ -18,26 +18,26 @@ Total Fuel Consumption for      |
 Electric Generation      (MMBtu)| 681,143,617    
 CO2 Emmissions            (Tons)| 43,645,341     
 CO2 Emmissions     (Metric Tons)| 39,594,436     
-Residential Revenue        ($1K)| 22,774,432     
-Residential Sales          (MWh)| 70,422,342     
-Residential Customers           | 14,240,133     
-Residential Price    (cents/kWh)| 32.44          
-Commercial Revenue         ($1K)| 25,163,599     
-Commercial Sales           (MWh)| 95,373,077     
-Commercial Customers            | 1,775,758      
-Commercial Price     (cents/kWh)| 26.21          
-Industrial Revenue         ($1K)| 7,812,009      
-Industrial Sales           (MWh)| 35,470,004     
-Industrial Customers            | 145,731        
-Industrial Price     (cents/kWh)| 21.72          
-Transportation Revenue     ($1K)| 100,886        
-Transportation Sales       (MWh)| 595,049        
-Transportation Customers        | 13             
-Transportation Price (cents/kWh)| 16.91          
-total Revenue              ($1K)| 55,850,924     
-total Sales                (MWh)| 201,860,469    
-total Customers                 | 16,161,635     
-total Price          (cents/kWh)| 27.49"""
+Residential Revenue        ($1K)| 27,443,697     
+Residential Sales          (MWh)| 85,850,540     
+Residential Customers           | 14,217,179.08  
+Residential Price    (cents/kWh)| 32.07          
+Commercial Revenue         ($1K)| 29,399,925     
+Commercial Sales           (MWh)| 115,125,594    
+Commercial Customers            | 1,777,301.08   
+Commercial Price     (cents/kWh)| 25.32          
+Industrial Revenue         ($1K)| 9,477,809      
+Industrial Sales           (MWh)| 44,025,910     
+Industrial Customers            | 146,325.75     
+Industrial Price     (cents/kWh)| 21.19          
+Transportation Revenue     ($1K)| 120,097        
+Transportation Sales       (MWh)| 715,099        
+Transportation Customers        | 12.58          
+Transportation Price (cents/kWh)| 16.79          
+total Revenue              ($1K)| 66,441,529     
+total Sales                (MWh)| 245,717,144    
+total Customers                 | 16,140,818.50  
+total Price          (cents/kWh)| 26.82"""
 
 valid_ga_e_table = """State                           | GA             
 Year                            | 2024           
@@ -51,7 +51,7 @@ CO2 Emmissions            (Tons)| 47,088,360
 CO2 Emmissions     (Metric Tons)| 42,717,893"""
 
 valid_wa_nm_table = """State                           | WA             | NM             
-Year                            | 2025           | 2025           
+Year                            | 2024           | 2024           
 --------------------------------|----------------|----------------
 Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 
 Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        
@@ -60,29 +60,29 @@ Total Fuel Consumption for      |
 Electric Generation      (MMBtu)| 174,834,966    | 188,281,551    
 CO2 Emmissions            (Tons)| 12,798,157     | 14,773,195     
 CO2 Emmissions     (Metric Tons)| 11,610,306     | 13,402,031     
-Residential Revenue        ($1K)| 4,171,296      | 941,033        
-Residential Sales          (MWh)| 32,028,521     | 6,215,761      
-Residential Customers           | 3,406,879      | 921,341        
-Residential Price    (cents/kWh)| 13.16          | 15.06          
-Commercial Revenue         ($1K)| 2,997,604      | 892,115        
-Commercial Sales           (MWh)| 26,311,854     | 7,926,320      
-Commercial Customers            | 407,217        | 147,369        
-Commercial Price     (cents/kWh)| 11.40          | 11.20          
-Industrial Revenue         ($1K)| 1,146,597      | 756,119        
-Industrial Sales           (MWh)| 17,104,864     | 12,402,315     
-Industrial Customers            | 26,180         | 9,522          
-Industrial Price     (cents/kWh)| 6.71           | 6.10           
-Transportation Revenue     ($1K)| 9,858          | 0              
-Transportation Sales       (MWh)| 81,611         | 0              
+Residential Revenue        ($1K)| 4,595,905      | 1,043,284      
+Residential Sales          (MWh)| 38,626,766     | 7,347,618      
+Residential Customers           | 3,368,974.67   | 936,097.08     
+Residential Price    (cents/kWh)| 11.98          | 14.14          
+Commercial Revenue         ($1K)| 3,307,357      | 1,011,139      
+Commercial Sales           (MWh)| 33,101,748     | 9,592,788      
+Commercial Customers            | 405,310.42     | 148,101.75     
+Commercial Price     (cents/kWh)| 10.02          | 10.49          
+Industrial Revenue         ($1K)| 1,200,157      | 725,316        
+Industrial Sales           (MWh)| 18,159,320     | 13,355,947     
+Industrial Customers            | 26,383.75      | 9,256.08       
+Industrial Price     (cents/kWh)| 6.61           | 5.43           
+Transportation Revenue     ($1K)| 10,922         | 0              
+Transportation Sales       (MWh)| 93,797         | 0              
 Transportation Customers        | 5              | 0              
-Transportation Price (cents/kWh)| 12.09          | 0              
-total Revenue              ($1K)| 8,325,351      | 2,589,267      
-total Sales                (MWh)| 75,526,843     | 26,544,396     
-total Customers                 | 3,840,281      | 1,078,234      
-total Price          (cents/kWh)| 11.04          | 9.71"""
+Transportation Price (cents/kWh)| 11.65          | 0              
+total Revenue              ($1K)| 9,114,338      | 2,779,737      
+total Sales                (MWh)| 89,981,630     | 30,296,355     
+total Customers                 | 3,800,673.83   | 1,093,454.92   
+total Price          (cents/kWh)| 10.12          | 9.14"""
 
 valid_nd_sd_table = """State                           | ND             | SD            
-Year                            | 2025           | 2025          
+Year                            | 2024           | 2024          
 --------------------------------|----------------|---------------
 Generation                 (kWh)| 25,668,864,763 | 3,839,359,578 
 Useful Thermal Output    (MMBtu)| 7,839,786      | 1,468,469     
@@ -91,30 +91,30 @@ Total Fuel Consumption for      |
 Electric Generation      (MMBtu)| 281,475,282    | 37,167,960    
 CO2 Emmissions            (Tons)| 30,374,329     | 3,325,000     
 CO2 Emmissions     (Metric Tons)| 27,555,161     | 3,016,390     
-Residential Revenue        ($1K)| 489,689        | 596,428       
-Residential Sales          (MWh)| 4,117,201      | 4,434,263     
-Residential Customers           | 399,645        | 443,344       
-Residential Price    (cents/kWh)| 12.23          | 13.60         
-Commercial Revenue         ($1K)| 705,979        | 481,715       
-Commercial Sales           (MWh)| 9,510,387      | 4,415,955     
-Commercial Customers            | 77,714         | 79,613        
-Commercial Price     (cents/kWh)| 7.43           | 10.90         
-Industrial Revenue         ($1K)| 855,769        | 229,809       
-Industrial Sales           (MWh)| 11,219,822     | 2,639,036     
-Industrial Customers            | 10,877         | 4,366         
-Industrial Price     (cents/kWh)| 7.63           | 8.70          
+Residential Revenue        ($1K)| 565,148        | 664,939       
+Residential Sales          (MWh)| 4,910,755      | 5,170,067     
+Residential Customers           | 397,836.33     | 433,542.67    
+Residential Price    (cents/kWh)| 11.77          | 12.97         
+Commercial Revenue         ($1K)| 812,799        | 539,258       
+Commercial Sales           (MWh)| 11,309,335     | 5,111,480     
+Commercial Customers            | 77,193.17      | 78,290.17     
+Commercial Price     (cents/kWh)| 7.19           | 10.54         
+Industrial Revenue         ($1K)| 981,890        | 277,780       
+Industrial Sales           (MWh)| 13,549,610     | 3,355,657     
+Industrial Customers            | 10,863.50      | 4,313.58      
+Industrial Price     (cents/kWh)| 7.25           | 8.27          
 Transportation Revenue     ($1K)| 0              | 0             
 Transportation Sales       (MWh)| 0              | 0             
 Transportation Customers        | 0              | 0             
 Transportation Price (cents/kWh)| 0              | 0             
-total Revenue              ($1K)| 2,051,440      | 1,307,955     
-total Sales                (MWh)| 24,847,406     | 11,489,256    
-total Customers                 | 488,237        | 527,324       
-total Price          (cents/kWh)| 8.27           | 11.40"""
+total Revenue              ($1K)| 2,359,831      | 1,481,978     
+total Sales                (MWh)| 29,769,699     | 13,637,205    
+total Customers                 | 485,893        | 516,146.42    
+total Price          (cents/kWh)| 7.93           | 10.87"""
 
 
 valid_mn_table = """State                           | MN             
-Year                            | 2025           
+Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 27,814,120,731 
 Useful Thermal Output    (MMBtu)| 17,095,959     
@@ -123,47 +123,47 @@ Total Fuel Consumption for      |
 Electric Generation      (MMBtu)| 251,190,061    
 CO2 Emmissions            (Tons)| 22,476,702     
 CO2 Emmissions     (Metric Tons)| 20,390,541     
-Residential Revenue        ($1K)| 3,109,470      
-Residential Sales          (MWh)| 19,485,710     
-Residential Customers           | 2,617,362      
-Residential Price    (cents/kWh)| 15.97          
-Commercial Revenue         ($1K)| 2,390,786      
-Commercial Sales           (MWh)| 19,199,872     
-Commercial Customers            | 311,253        
-Commercial Price     (cents/kWh)| 12.42          
-Industrial Revenue         ($1K)| 1,519,293      
-Industrial Sales           (MWh)| 16,265,802     
-Industrial Customers            | 9,407          
-Industrial Price     (cents/kWh)| 9.34           
-Transportation Revenue     ($1K)| 1,524          
-Transportation Sales       (MWh)| 11,763         
+Residential Revenue        ($1K)| 3,408,954      
+Residential Sales          (MWh)| 22,062,758     
+Residential Customers           | 2,581,181.67   
+Residential Price    (cents/kWh)| 15.49          
+Commercial Revenue         ($1K)| 2,729,308      
+Commercial Sales           (MWh)| 22,468,439     
+Commercial Customers            | 308,457.33     
+Commercial Price     (cents/kWh)| 12.13          
+Industrial Revenue         ($1K)| 1,831,204      
+Industrial Sales           (MWh)| 20,015,580     
+Industrial Customers            | 9,404.58       
+Industrial Price     (cents/kWh)| 9.14           
+Transportation Revenue     ($1K)| 1,949          
+Transportation Sales       (MWh)| 15,331         
 Transportation Customers        | 1              
-Transportation Price (cents/kWh)| 13.10          
-total Revenue              ($1K)| 7,021,077      
-total Sales                (MWh)| 54,963,144     
-total Customers                 | 2,938,023      
-total Price          (cents/kWh)| 12.75"""
+Transportation Price (cents/kWh)| 12.88          
+total Revenue              ($1K)| 7,971,414      
+total Sales                (MWh)| 64,562,108     
+total Customers                 | 2,899,044.58   
+total Price          (cents/kWh)| 12.33"""
 
-valid_us_price_table = """State                           | US            
-Year                            | 2025          
---------------------------------|---------------
-Residential Revenue        ($1K)| 222,032,916   
-Residential Sales          (MWh)| 1,285,315,546 
-Residential Customers           | 143,918,481   
-Residential Price    (cents/kWh)| 17.99         
-Commercial Revenue         ($1K)| 168,213,048   
-Commercial Sales           (MWh)| 1,246,808,835 
-Commercial Customers            | 19,600,422    
-Commercial Price     (cents/kWh)| 14.08         
-Industrial Revenue         ($1K)| 75,739,319    
-Industrial Sales           (MWh)| 876,774,834   
-Industrial Customers            | 1,130,415     
-Industrial Price     (cents/kWh)| 10.38         
-Transportation Revenue     ($1K)| 838,132       
-Transportation Sales       (MWh)| 6,061,921     
-Transportation Customers        | 51            
-Transportation Price (cents/kWh)| 12.13         
-total Revenue              ($1K)| 466,823,401   
-total Sales                (MWh)| 3,414,961,050 
-total Customers                 | 164,649,420   
-total Price          (cents/kWh)| 14.50"""
+valid_us_price_table = """State                           | US               
+Year                            | 2024             
+--------------------------------|------------------
+Residential Revenue        ($1K)| 244,367,406      
+Residential Sales          (MWh)| 1,482,873,606    
+Residential Customers           | 7,300,347,727.25 
+Residential Price    (cents/kWh)| 17.13            
+Commercial Revenue         ($1K)| 185,043,252      
+Commercial Sales           (MWh)| 1,450,941,245    
+Commercial Customers            | 993,518,998.00   
+Commercial Price     (cents/kWh)| 13.31            
+Industrial Revenue         ($1K)| 84,094,819       
+Industrial Sales           (MWh)| 1,034,584,212    
+Industrial Customers            | 56,913,811.25    
+Industrial Price     (cents/kWh)| 9.76             
+Transportation Revenue     ($1K)| 890,326          
+Transportation Sales       (MWh)| 6,982,850        
+Transportation Customers        | 4,109.75         
+Transportation Price (cents/kWh)| 6.67             
+total Revenue              ($1K)| 514,395,778      
+total Sales                (MWh)| 3,975,381,862    
+total Customers                 | 8,350,784,646.25 
+total Price          (cents/kWh)| 13.73"""

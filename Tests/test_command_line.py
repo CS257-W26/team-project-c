@@ -11,6 +11,7 @@ if __name__ == '__main__':
     unittest.main()
 
 class TestCommandLine(unittest.TestCase):
+    #self.maxDiff=None
     """Full stack tests for the command_line"""
     def test_one_state(self):
         """test one state input"""
