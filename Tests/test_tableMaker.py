@@ -1,10 +1,8 @@
 """Tests for TableMaker class"""
 
 import unittest
-import sys
-from io import StringIO
 from ProductionCode.table_maker import TableMaker
-from command_line import getData
+from ProductionCode.data_class import Data
 from Tests.test_constants import valid_table, valid_mn_table, valid_us_price_table, valid_nd_sd_table
 
 class TestTableMakerInput(unittest.TestCase):
@@ -52,19 +50,15 @@ class TestTableMakerInput(unittest.TestCase):
 
 class TestTableMakerOutput(unittest.TestCase):
     """Test the TableMaker class output functions"""
+    maxDiff=None
     def setUp(self):
         """setup"""
         self.table = TableMaker()
         self.table.add_new_entry({"state": "MN", "year": "1990"})
-        self.table.add_new_entry({"state": "WY", "year": "2005" , "totalRevenue" : "1.2"})
+        self.table.add_new_entry({"state": "WY", "year": "2005" , "totalRevenue" : 1.2})
         self.table.add_new_empty_entry("US", "2026")
-        self.table.add_data_for_entry("US", "2026", ("co2Tons", "50000000"))
-        self.table.add_data_for_entry("MN", "1990", ("totalFuelConsumptionGeneration", "100"))
-    def test_format_entry(self):
-        """test format_entry function"""
-        self.assertEqual(self.table.format_entry('4000'), '4,000')
-        self.assertEqual(self.table.format_entry('63.6432'), '63.64')
-        self.assertEqual(self.table.format_entry('str'), 'str')
+        self.table.add_data_for_entry("US", "2026", ("co2Tons", 50000000))
+        self.table.add_data_for_entry("MN", "1990", ("totalFuelConsumptionGeneration", 100))
     def test_get_col_sizes(self):
         """test get_col_sizes function"""
         self.assertEqual(self.table.get_col_sizes(), [5,5,11])
@@ -72,39 +66,46 @@ class TestTableMakerOutput(unittest.TestCase):
         """test is_row_empty function"""
         self.assertFalse(self.table.is_row_empty('co2Tons'))
         self.assertTrue(self.table.is_row_empty('generation'))
-    def test_print_table(self):
-        """test a simple table print"""
-        sys.stdout = StringIO()
-        self.table.print_table()
-        output = sys.stdout.getvalue().strip()
+    def test_get_table(self):
+        """test a simple get_table"""
+        output = self.table.get_table().strip()
         self.assertEqual(output, valid_table)
+    def test_get_comparison_table(self):
+        """test the comparison table get function"""
+        self.table.add_data_for_entry("MN", "1990", ("co2Tons", 40000000))
+        output = self.table.get_comparison_table().strip()
+        self.assertIn("+10,000,000", output, "error in comparison")
+        
     
 class TestTableOutputUserStories(unittest.TestCase):
+    """Tests for user stories"""
     maxDiff=None
+    def setUp(self):
+        """setup"""
+        self.database = Data()
+        self.database.load_data()
     def test_us_display(self):
-        us_price_data = getData(["US"], [True, False])
+        """test displaying us data"""
+        us_price_data = self.database.get_data(["US"], [True, False], 2024)
         us_table = TableMaker()
         us_table.add_new_entry(us_price_data[0])
-        sys.stdout = StringIO()
-        us_table.print_table()
-        output = sys.stdout.getvalue().strip()
+        output = us_table.get_table().strip()
         self.assertEqual(output, valid_us_price_table)
     def test_two_state_display(self):
-        two_state_data = getData(["ND", "SD"], [True, True])
+        """test two state display"""
+        two_state_data = self.database.get_data(["ND", "SD"], [True, True], 2024)
         two_state_table = TableMaker()
         two_state_table.add_new_entry(two_state_data[0])
         two_state_table.add_new_entry(two_state_data[1])
-        sys.stdout = StringIO()
-        two_state_table.print_table()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, valid_nd_sd_table)
+        output = two_state_table.get_comparison_table().strip()
+        self.assertIn("-21,829,505,185", output, "generation difference not present")
+        self.assertIn("+3.35", output, "commercial price difference not present")
     def test_single_state_display(self):
-        one_state_data = getData(["MN"], [True, True])
+        """test single state display"""
+        one_state_data = self.database.get_data(["MN"], [True, True], 2024)
         one_state_table = TableMaker()
         one_state_table.add_new_entry(one_state_data[0])
-        sys.stdout = StringIO()
-        one_state_table.print_table()
-        output = sys.stdout.getvalue().strip()
+        output = one_state_table.get_table().strip()
         self.assertEqual(output, valid_mn_table)
 
 

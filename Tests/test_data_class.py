@@ -1,3 +1,5 @@
+"""Tests for Data.py"""
+
 import unittest
 from ProductionCode.data_class import Data
 class DataClass(unittest.TestCase):
@@ -26,3 +28,20 @@ class DataClass(unittest.TestCase):
     def test_raise_key_error(self):
         with self.assertRaises(KeyError):
             self.test_data.data_dict["Mn"]
+
+class TestGetData(unittest.TestCase):
+    def setUp(self):
+        self.database = Data()
+        self.database.load_data()
+
+    def test_emissions_only(self):
+        states = ["MN", "ND"]
+        flags = [False, True]
+
+        entries = self.database.get_data(states, flags, 2024)
+        self.assertEqual(len(entries), 2)
+
+        for entry in entries:
+            self.assertIn("state", entry)
+            self.assertIn("year", entry)
+            self.assertIn("co2Tons", entry)

@@ -1,39 +1,20 @@
 import csv
+from ProductionCode.data_processing import to_num_or_zero, filter_entry
 class Data:
     '''
-    Class which will handle loading of all the data into one dictionary,
+    Class which acts as a local database. 
+    - loads all the data into one dictionary,
+    - returns data by get_data function #TODO
+    data_dict:
     each key in dictionary will be StateYear ie "MN2024"
-    access an entry with data.data_dict["MN2024"]["generation"]
-    to add a dictionary to table: data.data_dict["MN2024"]
+    access an entry with data.data_dict["MN2024"]["generation"] #TODO use functions
+    to add a dictionary to table: data.data_dict["MN2024"] #TODO read only class?
     '''
+    EMISSIONS_GENERATION_FILE = "Data/state_year_power_summary.csv"
+    REVENUE_FILE = "Data/sales_revenue.csv"
+
     def __init__(self):
         self.data_dict = {}
-
-    def to_num_or_zero(entry):
-        '''
-        Docstring for self.to_num_or_zero
-        converts the entry for the data into a numeric type
-        :param entry: the value for a specific cell in data set
-        :return : returns the value of the cell as a float
-        '''
-        if entry is None:
-            return 0
-        if isinstance(entry, (int, float)):
-            value = float(entry)
-        elif isinstance(entry, str):
-            entry = entry.strip().strip('"')
-            if entry == "." or entry == "":
-                return 0
-            entry = entry.replace(",", "")
-            try:
-                value = float(entry)
-            except ValueError:
-                return 0
-        else: return 0
-        if value.is_integer():
-            return int(value)
-        else:
-            return round(value, 2)
     
     def average_customers_prices(self):
         '''
@@ -55,6 +36,7 @@ class Data:
                 self.data_dict[key][price] = round(self.data_dict[key][price]/num_months, 2)
                 if self.data_dict[key]["state"] == "US":
                     self.data_dict[key][customer] *= 51 
+                    self.data_dict[key][price] /= 51
                 
     def load_price_row(self, row):
         '''
@@ -85,12 +67,12 @@ class Data:
             for field_name, idx in zip(field_names, idxs):
                 key = type + field_name
 
-                if field_name == "Price" and self.self.to_num_or_zero(row[idx]) == 0:
+                if field_name == "Price" and to_num_or_zero(row[idx]) == 0:
                     empty_price_count += 1
 
                 self.data_dict[state_year_key][key] = (
                     self.data_dict[state_year_key].get(key, 0)
-                    + self.to_num_or_zero(row[idx])
+                    + to_num_or_zero(row[idx])
                 )
 
     def load_us_price_data(self):
@@ -112,9 +94,9 @@ class Data:
             self.data_dict[us_year_key]["state"] = "US"
             self.data_dict[us_year_key]["year"] =int(year)
         for key in self.data_dict.keys():
-            if self.data_dict[key]["year"] != year and self.data_dict[key]["state"] == "US":
+            if self.data_dict[key]["year"] != year or self.data_dict[key]["state"] == "US":
                 continue
-            #This will all be replaced with like a mapping but not rn
+            #TODO This will all be replaced with like a mapping but not rn
             self.data_dict[us_year_key]["residentialRevenue"] = self.data_dict[us_year_key].get("residentialRevenue", 0) + self.data_dict[key]["residentialRevenue"]
             self.data_dict[us_year_key]["residentialSales"] = self.data_dict[us_year_key].get("residentialSales", 0) + self.data_dict[key]["residentialSales"]
             self.data_dict[us_year_key]["residentialCustomers"] = self.data_dict[us_year_key].get("residentialCustomers", 0) + self.data_dict[key]["residentialCustomers"]
@@ -137,24 +119,24 @@ class Data:
             self.data_dict[us_year_key]["totalPrice"] = self.data_dict[us_year_key].get("totalPrice", 0) + self.data_dict[key]["totalPrice"]
 
     def load_emission_data(self):
-        with open("Data/state_year_power_summary.csv", mode='r') as emission_file:
+        with open(self.EMISSIONS_GENERATION_FILE, mode='r') as emission_file:
             reader = csv.DictReader(emission_file)
             for row in reader:
                 key = row.get("State") + str(row.get("Year"))
-                self.data_dict[key]["generation"] = self.self.to_num_or_zero(row.get("Generation (kWh)"))
-                self.data_dict[key]["thermalOutput"] = self.self.to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
-                self.data_dict[key]["totalFuelConsumption"] = self.to_num_or_zero(row.get("Total Fuel Consumption (MMBtu)"))
-                self.data_dict[key]["totalFuelConsumptionGeneration"] = self.to_num_or_zero(row.get("Fuel Consumption for Electric Generation (MMBtu)"))
-                self.data_dict[key]["co2Tons"] = self.to_num_or_zero(row.get("Tons of CO2 Emissions"))
-                self.data_dict[key]["co2MetricTons"] = self.to_num_or_zero(row.get("Metric Tonnes of CO2 Emissions"))
+                self.data_dict[key]["generation"] = to_num_or_zero(row.get("Generation (kWh)"))
+                self.data_dict[key]["thermalOutput"] = to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
+                self.data_dict[key]["totalFuelConsumption"] = to_num_or_zero(row.get("Total Fuel Consumption (MMBtu)"))
+                self.data_dict[key]["totalFuelConsumptionGeneration"] = to_num_or_zero(row.get("Fuel Consumption for Electric Generation (MMBtu)"))
+                self.data_dict[key]["co2Tons"] = to_num_or_zero(row.get("Tons of CO2 Emissions"))
+                self.data_dict[key]["co2MetricTons"] = to_num_or_zero(row.get("Metric Tonnes of CO2 Emissions"))
 
                 us_key = "US" + str(row.get("Year"))
-                self.data_dict[us_key]["generation"] = self.data_dict[us_key].get("generation",0) + self.to_num_or_zero(row.get("Generation (kWh)"))
-                self.data_dict[us_key]["thermalOutput"] = self.data_dict[us_key].get("thermalOutput",0) + self.to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
-                self.data_dict[us_key]["totalFuelConsumption"] = self.data_dict[us_key].get("totalFuelConsumption",0) + self.to_num_or_zero(row.get("Total Fuel Consumption (MMBtu)"))
-                self.data_dict[us_key]["totalFuelConsumptionGeneration"] = self.data_dict[us_key].get("totalFuelConsumptionGeneration",0) + self.to_num_or_zero(row.get("Fuel Consumption for Electric Generation (MMBtu)"))
-                self.data_dict[us_key]["co2Tons"] = self.data_dict[us_key].get("co2Tons",0) + self.to_num_or_zero(row.get("Tons of CO2 Emissions"))  
-                self.data_dict[us_key]["co2MetricTons"] = self.data_dict[us_key].get("co2MetricTons",0) + self.to_num_or_zero(row.get("Metric Tonnes of CO2 Emissions"))  
+                self.data_dict[us_key]["generation"] = self.data_dict[us_key].get("generation",0) + to_num_or_zero(row.get("Generation (kWh)"))
+                self.data_dict[us_key]["thermalOutput"] = self.data_dict[us_key].get("thermalOutput",0) + to_num_or_zero(row.get("Useful Thermal Output (MMBtu)"))
+                self.data_dict[us_key]["totalFuelConsumption"] = self.data_dict[us_key].get("totalFuelConsumption",0) + to_num_or_zero(row.get("Total Fuel Consumption (MMBtu)"))
+                self.data_dict[us_key]["totalFuelConsumptionGeneration"] = self.data_dict[us_key].get("totalFuelConsumptionGeneration",0) + to_num_or_zero(row.get("Fuel Consumption for Electric Generation (MMBtu)"))
+                self.data_dict[us_key]["co2Tons"] = self.data_dict[us_key].get("co2Tons",0) + to_num_or_zero(row.get("Tons of CO2 Emissions"))  
+                self.data_dict[us_key]["co2MetricTons"] = self.data_dict[us_key].get("co2MetricTons",0) + to_num_or_zero(row.get("Metric Tonnes of CO2 Emissions"))  
 
     def load_data(self):
         '''
@@ -165,7 +147,7 @@ class Data:
         :rtype: type[dict]
         '''
         #load in price data
-        with open('Data/sales_revenue.csv', mode='r', newline='') as price_file:
+        with open(self.REVENUE_FILE, mode='r', newline='') as price_file:
             for _ in range(3):
                 next(price_file)
             reader = csv.reader(price_file)
@@ -176,3 +158,24 @@ class Data:
         self.load_us_price_data()
         self.average_customers_prices()
         self.load_emission_data()
+
+    def get_data(self, states, flags, year):
+        '''
+        Returns a list of dicts that contain the data asked by states and flags
+        :param self: Description
+        :param states: list of two letter state codes (uppercase) to get data for
+        :param flags: list of bools 
+        :param year: year to get data for (string or int)
+        :return: state data
+        :rtype: list of dicts
+        '''
+        return_list = []
+        for state in states:
+            key = state + str(year)
+            entry = self.data_dict.get(key)
+            if entry is None:
+                raise KeyError(key + " is not in dataset")
+            entry = filter_entry(entry, flags)
+            return_list.append(entry)
+        return return_list
+            
