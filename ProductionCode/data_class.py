@@ -62,7 +62,6 @@ class Data:
         }
         #key = row[2] + str(row[0])
         empty_price_count = 0
-        i = 1
         for type, idxs in sales_types.items():
             for field_name, idx in zip(field_names, idxs):
                 key = type + field_name

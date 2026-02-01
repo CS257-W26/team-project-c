@@ -76,34 +76,6 @@ class TableMaker:
                 return
         raise KeyError("Entry does not exists")
 
-    def get_table_string(self):
-        """Returns the formatted table as a string"""
-        buffer = io.StringIO()
-        colSizes = self.get_col_sizes()
-
-        for i, alias in enumerate(DISPLAY_ALIASES):
-            if self.is_row_empty(alias[0]):
-                continue
-            line = alias[1]
-            for j, _ in enumerate(self.entries):
-                if self.entries[j].get(alias[0]) is None:
-                    line += f"| {'NULL':<{colSizes[j]}}"
-                else:
-                    value = self.entries[j].get(alias[0])
-                    if alias[0] != 'year':
-                        value = self.format_entry(value)
-                    line += f"| {value:<{colSizes[j]}}"
-            buffer.write(line + "\n")
-
-            if i == 1:
-                buffer.write("--------------------------------")
-                for size in colSizes:
-                    buffer.write("|" + "-" * (size + 1))
-                buffer.write("\n")
-
-        table = buffer.getvalue()
-        buffer.close()
-        return table
     def get_table(self):
         """Displays the table"""   
         buffer = io.StringIO()
