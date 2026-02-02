@@ -1,7 +1,7 @@
 """tests for data_processing module"""
 
 import unittest
-from ProductionCode.data_processing import format_string, to_num_or_zero
+from production_code.data_processing import format_string, to_num_or_zero
 
 class TestFormating(unittest.TestCase):
     """tests data_processing module formating functions"""

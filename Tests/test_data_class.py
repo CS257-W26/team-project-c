@@ -1,7 +1,7 @@
 """Tests for Data.py"""
 
 import unittest
-from ProductionCode.data_class import Data
+from production_code.data_class import Data
 class DataClass(unittest.TestCase):
     '''Tests for data class'''
     maxDiff = None

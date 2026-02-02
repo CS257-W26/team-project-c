@@ -2,9 +2,9 @@
 The eventual location for the Flask app interface for the project.
 '''
 from flask import Flask, Blueprint, render_template_string
-from ProductionCode.data_class import Data
-from ProductionCode.table_maker import TableMaker
-from ProductionCode.config import STATES_LIST
+from production_code.data_class import Data
+from production_code.table_maker import TableMaker
+from production_code.config import STATES_LIST
 
 data = Data()
 api = Blueprint('api', __name__)

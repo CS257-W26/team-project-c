@@ -1,8 +1,8 @@
 """Tests for TableMaker class"""
 
 import unittest
-from ProductionCode.table_maker import TableMaker
-from ProductionCode.data_class import Data
+from production_code.table_maker import TableMaker
+from production_code.data_class import Data
 from Tests.test_constants import VALID_TABLE,VALID_MN_TABLE,VALID_US_PRICE_TABLE
 
 class TestTableMakerInput(unittest.TestCase):
