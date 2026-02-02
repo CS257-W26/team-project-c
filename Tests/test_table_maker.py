@@ -3,7 +3,7 @@
 import unittest
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.data_class import Data
-from Tests.test_constants import VALID_TABLE, VALID_MN_TABLE, VALID_US_PRICE_TABLE
+from Tests.test_constants import VALID_TABLE,VALID_MN_TABLE,VALID_US_PRICE_TABLE
 
 class TestTableMakerInput(unittest.TestCase):
     """Tests the TableMaker class input functions"""

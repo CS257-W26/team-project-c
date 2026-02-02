@@ -118,10 +118,14 @@ def python_bug(e):
     '''
     return ("Uhh oh - technical issue", 500)
 
+def main():
+    '''runs flask app and calls load_data() function'''
+    app.register_blueprint(api, url_prefix='/api')
+    load_data()
+    app.run()
+
 if __name__ == "__main__":
     '''
     runs flask app and calls load_data() function
     '''
-    app.register_blueprint(api, url_prefix='/api')
-    load_data()
-    app.run()
+    main()

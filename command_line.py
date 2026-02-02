@@ -38,7 +38,8 @@ def settup_argument_parser():
     parser.add_argument('-e', '--emissions', action='store_true',
                         help='add emissions to output (default is all data)')
     parser.add_argument('-c', '--compareMode', action='store_true',
-                        help='output displayed with a net +/- as compared to the first state inputed')
+                        help='output displayed with a net +/- as ' \
+                        'compared to the first state inputed')
     parser.add_argument('args', nargs='*',type=str,
                         help="A space seperated list of states to display, \
                         use all caps two letter state codes, \
