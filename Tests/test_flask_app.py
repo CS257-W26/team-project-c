@@ -3,7 +3,7 @@ import unittest
 
 import flask_app as app
 from flask_app import python_bug
-from production_code.data_class import Data
+from ProductionCode.data_class import Data
 
 
 class TestFlaskApp(unittest.TestCase):

@@ -1,7 +1,6 @@
 """Tests for Data.py"""
-
 import unittest
-from production_code.data_class import Data
+from ProductionCode.data_class import Data
 class DataClass(unittest.TestCase):
     '''Tests for data class'''
     maxDiff = None
@@ -28,7 +27,7 @@ class DataClass(unittest.TestCase):
     def test_raise_key_error(self):
         '''tests that invlaid dict keys cause error'''
         with self.assertRaises(KeyError):
-            self.test_data.data_dict["Mn"]
+            self.test_data.data_dict["yellow"]
 
 class TestGetData(unittest.TestCase):
     '''test get data functoin'''
