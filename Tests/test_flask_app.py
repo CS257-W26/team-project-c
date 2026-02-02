@@ -1,6 +1,5 @@
 '''Tests for flask app'''
 import unittest
-from unittest.mock import patch
 
 import flask_app as app
 from flask_app import python_bug
