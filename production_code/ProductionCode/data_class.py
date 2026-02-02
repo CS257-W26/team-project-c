@@ -98,7 +98,7 @@ class Data:
         for key in self.data_dict.keys():
             if self.data_dict[key]["year"] != year or self.data_dict[key]["state"] == "US":
                 continue
-            #fix This will all be replaced with like a mapping but not rn
+            #fix This will all be replaced with like a mapping but not rn 
             self.data_dict[us_year_key]["residentialRevenue"] = self.data_dict[us_year_key].get("residentialRevenue", 0) + self.data_dict[key]["residentialRevenue"]
             self.data_dict[us_year_key]["residentialSales"] = self.data_dict[us_year_key].get("residentialSales", 0) + self.data_dict[key]["residentialSales"]
             self.data_dict[us_year_key]["residentialCustomers"] = self.data_dict[us_year_key].get("residentialCustomers", 0) + self.data_dict[key]["residentialCustomers"]
