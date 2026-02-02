@@ -1,6 +1,6 @@
+'''Command Line functionality'''
 import argparse
 import sys
-import csv
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
 from ProductionCode.data_class import Data
@@ -14,29 +14,29 @@ def main():
     database = Data()
     database.load_data()
 
-    completeData = database.get_data(args.args, flags, 2024)
-    myTable = TableMaker()
+    complete_data = database.get_data(args.args, flags, 2024)
+    my_table = TableMaker()
 
-    for i in completeData:
-        myTable.add_new_entry(i)
+    for i in complete_data:
+        my_table.add_new_entry(i)
 
     if args.compareMode:
-        print(myTable.get_comparison_table())
+        print(my_table.get_comparison_table())
     else:
-        print(myTable.get_table())
-    
+        print(my_table.get_table())
 
 def settup_argument_parser():
     """Setsup ArgumentParser object"""
     parser = argparse.ArgumentParser(
         description="Acesses and displays most recent emmisions and prices data by state.\n\n\
         Note: no year selection available ... yet",
-        epilog='Example: python3 command_line.py -p KS -> will display price information for Kansas in 2024'
+        epilog='Example: python3 command_line.py -p KS -> will ' \
+        'display price information for Kansas in 2024'
     )
     parser.add_argument('-p', '--prices', action='store_true',
-                        help='add prices to output (default is all data)')  
+                        help='add prices to output (default is all data)')
     parser.add_argument('-e', '--emissions', action='store_true',
-                        help='add emissions to output (default is all data)') 
+                        help='add emissions to output (default is all data)')
     parser.add_argument('-c', '--compareMode', action='store_true',
                         help='output displayed with a net +/- as compared to the first state inputed')
     parser.add_argument('args', nargs='*',type=str,
@@ -53,7 +53,7 @@ def parse_input():
     #check if no args
     if len(sys.argv) < 2:
         parser.print_help()
-        sys.exit(0) 
+        sys.exit(0)
 
     #args
     for entry in args.args:

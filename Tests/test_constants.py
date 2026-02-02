@@ -1,6 +1,7 @@
 """A bunch of large constants used for tests"""
 
-VALID_TABLE= """State                           | MN   | WY   | US         
+VALID_TABLE= """
+State                           | MN   | WY   | US         
 Year                            | 1990 | 2005 | 2026       
 --------------------------------|------|------|------------
 Total Fuel Consumption for      |
@@ -8,7 +9,8 @@ Electric Generation      (MMBtu)| 100  | NULL | NULL
 CO2 Emmissions            (Tons)| NULL | NULL | 50,000,000 
 total Revenue              ($1K)| NULL | 1.20 | NULL"""
 
-VALID_CA_TABLE= """State                           | CA             
+VALID_CA_TABLE= """
+State                           | CA             
 Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 97,548,285,658 
@@ -39,7 +41,8 @@ total Sales                (MWh)| 245,717,144
 total Customers                 | 16,140,818.50  
 total Price          (cents/kWh)| 26.82"""
 
-VALID_GA_E_TABLE= """State                           | GA             
+VALID_GA_E_TABLE= """
+State                           | GA             
 Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 75,096,813,674 
@@ -50,7 +53,8 @@ Electric Generation      (MMBtu)| 612,469,605
 CO2 Emmissions            (Tons)| 47,088,360     
 CO2 Emmissions     (Metric Tons)| 42,717,893"""
 
-VALID_WA_NM_TABLE= """State                           | WA             | NM             
+VALID_WA_NM_TABLE= """
+State                           | WA             | NM             
 Year                            | 2024           | 2024           
 --------------------------------|----------------|----------------
 Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 
@@ -81,7 +85,8 @@ total Sales                (MWh)| 89,981,630     | 30,296,355
 total Customers                 | 3,800,673.83   | 1,093,454.92   
 total Price          (cents/kWh)| 10.12          | 9.14"""
 
-VALID_ND_SD_TABLE= """State                           | ND             | SD            
+VALID_ND_SD_TABLE= """
+State                           | ND             | SD            
 Year                            | 2024           | 2024          
 --------------------------------|----------------|---------------
 Generation                 (kWh)| 25,668,864,763 | 3,839,359,578 
@@ -113,7 +118,8 @@ total Customers                 | 485,893        | 516,146.42
 total Price          (cents/kWh)| 7.93           | 10.87"""
 
 
-VALID_MN_TABLE= """State                           | MN             
+VALID_MN_TABLE= """
+State                           | MN             
 Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 27,814,120,731 
@@ -144,7 +150,8 @@ total Sales                (MWh)| 64,562,108
 total Customers                 | 2,899,044.58   
 total Price          (cents/kWh)| 12.33"""
 
-VALID_US_PRICE_TABLE= """State                           | US               
+VALID_US_PRICE_TABLE= """
+State                           | US               
 Year                            | 2024             
 --------------------------------|------------------
 Residential Revenue        ($1K)| 244,367,406      

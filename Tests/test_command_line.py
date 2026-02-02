@@ -1,11 +1,12 @@
 '''
 File contains tests for command_line.py 
 '''
+import sys
 import unittest
+from io import StringIO
 from command_line import main
 from Tests.test_constants import VALID_CA_TABLE, VALID_GA_E_TABLE, VALID_WA_NM_TABLE
-import sys
-from io import StringIO
+
 
 if __name__ == '__main__':
     unittest.main()

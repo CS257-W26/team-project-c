@@ -41,7 +41,6 @@ def to_num_or_zero(entry):
             value = float(entry)
         except ValueError:
             return 0
-    else: return 0
     if value.is_integer():
         return int(value)
     else:
@@ -67,4 +66,3 @@ def filter_entry(entry, flags):
             except KeyError:
                 pass
     return entry
-            

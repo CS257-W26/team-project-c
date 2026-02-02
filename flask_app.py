@@ -1,7 +1,7 @@
 '''
 The eventual location for the Flask app interface for the project.
 '''
-from flask import Flask, Blueprint, render_template_string, abort
+from flask import Flask, Blueprint, render_template_string
 from ProductionCode.data_class import Data
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
@@ -37,13 +37,9 @@ def parse_states(states):
 @app.route('/')
 def homepage():
     '''
-    Homepage which displays some useful information
+    Endpoint for our homepage - returns text for welcome screen
     '''
-    """
-    Endpoint for our homepage
-    Returns text for welcome screen
-    """
-    welcome_screen = """Welcome to the homepage. 
+    welcome_screen = """Welcome to the homepage.
     Use the following routes:
     / -> this page
     /api/&ltstates&gt/&ltyear&gt/ -> view data for a state
@@ -67,7 +63,7 @@ def get_state_year_data(states, year):
     table_data = data.get_data(state_list,flags,year)
     for entry in table_data:
         table.add_new_entry(entry)
-    
+
     return render_template_string(
             """
             <html>
@@ -91,7 +87,7 @@ def get_state_year_data_compare(states, year):
     table_data = data.get_data(state_list,flags,year)
     for entry in table_data:
         table.add_new_entry(entry)
-    
+
     return render_template_string(
             """
             <html>
@@ -122,7 +118,7 @@ def python_bug(e):
     '''
     return ("Uhh oh - technical issue", 500)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     '''
     runs flask app and calls load_data() function
     '''

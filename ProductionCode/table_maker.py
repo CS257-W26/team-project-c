@@ -48,7 +48,6 @@ class TableMaker:
         for entry in self.entries:
             if entry.get("state") == state and entry.get("year") == year:
                 raise KeyError("Entry already exists")
-                return
         self.entries.append({"state" : state, "year" : year})
 
     def add_new_entry(self, entry):
@@ -60,7 +59,6 @@ class TableMaker:
         for row in self.entries:
             if row.get("state") == entry.get("state") and row.get("year") == entry.get("year"):
                 raise KeyError("Entry already exists")
-                return
         self.entries.append(entry)
 
     def add_data_for_entry(self, state, year, data):
@@ -79,17 +77,17 @@ class TableMaker:
     def get_table(self):
         """Displays the table"""   
         buffer = io.StringIO()
-        colSizes = self.get_col_sizes()
+        col_sizes = self.get_col_sizes()
 
         for i, alias in enumerate(DISPLAY_ALIASES):
             if self.is_row_empty(alias[0]):
                 continue
-            
-            buffer.write(self.get_table_row(alias, colSizes) + "\n")
+
+            buffer.write(self.get_table_row(alias, col_sizes) + "\n")
 
             if i == 1:
                 buffer.write("--------------------------------")
-                for size in colSizes:
+                for size in col_sizes:
                     buffer.write("|" + "-" * (size+1))
                 buffer.write("\n")
 
@@ -97,17 +95,17 @@ class TableMaker:
         buffer.close()
         return table_str
 
-    def get_table_row(self, alias, colSizes):
+    def get_table_row(self, alias, col_sizes):
         """returns a fromated row for the table"""
         line = alias[1]
         for j, _ in enumerate(self.entries):
             if self.entries[j].get(alias[0]) is None:
-                line += f"| {'NULL':<{colSizes[j]}}"
+                line += f"| {'NULL':<{col_sizes[j]}}"
             else:
                 value = self.entries[j].get(alias[0])
                 if alias[0] != 'year':
                     value = format_string(value)
-                line += f"| {value:<{colSizes[j]}}"
+                line += f"| {value:<{col_sizes[j]}}"
         return line
 
     def get_comparison_table(self):
@@ -122,11 +120,11 @@ class TableMaker:
         """
 
         buffer = io.StringIO()
-        colSizes = self.get_col_sizes()
+        col_sizes = self.get_col_sizes()
 
         comparisons = self.generate_comparisons()
         comparisons_col_sizes = self.get_comparison_col_sizes(comparisons)
-        
+
         for i, alias in enumerate(DISPLAY_ALIASES):
             if self.is_row_empty(alias[0]):
                 continue
@@ -135,12 +133,12 @@ class TableMaker:
             for j, _ in enumerate(self.entries):
                 #normal data
                 if self.entries[j].get(alias[0]) is None:
-                    line += f"| {'NULL':<{colSizes[j]}}"
+                    line += f"| {'NULL':<{col_sizes[j]}}"
                 else:
                     value = self.entries[j].get(alias[0])
                     if alias[0] != 'year':
                         value = format_string(value)
-                    line += f"| {value:<{colSizes[j]}}"
+                    line += f"| {value:<{col_sizes[j]}}"
                 #comparison col
                 if j != 0:
                     if alias[0] == 'state' or alias[0] == 'year':
@@ -159,7 +157,7 @@ class TableMaker:
 
             if i == 1:
                 buffer.write("--------------------------------")
-                for i, size in enumerate(colSizes):
+                for i, size in enumerate(col_sizes):
                     buffer.write("|" + "-" * (size+1))
                     if i != 0:
                         buffer.write("|" + "-" * (comparisons_col_sizes[i-1]+1))
@@ -186,21 +184,6 @@ class TableMaker:
             comparisons.append(comparison)
 
         return comparisons
-
-
-    def get_table_row(self, alias, colSizes):
-        """returns a fromated row for the table"""
-        line = alias[1]
-        for j, _ in enumerate(self.entries):
-            if self.entries[j].get(alias[0]) is None:
-                line += f"| {'NULL':<{colSizes[j]}}"
-            else:
-                value = self.entries[j].get(alias[0])
-                if alias[0] != 'year':
-                    value = format_string(value)
-                line += f"| {value:<{colSizes[j]}}"
-        return line
-
 
     def is_row_empty(self, row_name):
         """returns True if one or more entries is present in a row. Used for print_table()"""
@@ -233,7 +216,7 @@ class TableMaker:
                 value = entry.get(alias[0])
                 if value is None:
                     continue
-                elif float(value) > 0:
+                if float(value) > 0:
                     value = format_string(value)
                     largest_entry = max(largest_entry, len(value)+1)
                 else:
@@ -241,4 +224,3 @@ class TableMaker:
                     largest_entry = max(largest_entry, len(value))
             sizes.append(largest_entry + 1)
         return sizes
-    

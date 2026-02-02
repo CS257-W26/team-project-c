@@ -17,4 +17,3 @@ class TestStriping(unittest.TestCase):
         """tests the to_num_or_zero function"""
         self.assertEqual(to_num_or_zero('3,000'), 3000)
         self.assertEqual(to_num_or_zero(''), 0)
-        
