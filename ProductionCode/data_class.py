@@ -25,9 +25,10 @@ class Data:
         :return: Description
         :rtype: type[dict]
         '''
-        customer_fields = ["residentialCustomers", "commercialCustomers", 
+        customer_fields = ["residentialCustomers", "commercialCustomers",
                   "industrialCustomers", "transportationCustomers", "totalCustomers"]
-        price_fields = ["residentialPrice","commercialPrice","industrialPrice","transportationPrice","totalPrice"]
+        price_fields = ["residentialPrice","commercialPrice","industrialPrice",
+                        "transportationPrice","totalPrice"]
         for key in self.data_dict.keys():
             num_months = 12
             if self.data_dict[key]["year"] == 2025:
@@ -63,9 +64,9 @@ class Data:
         }
 
         empty_price_count = 0
-        for type, idxs in sales_types.items():
+        for sale_type, idxs in sales_types.items():
             for field_name, idx in zip(field_names, idxs):
-                state_key = type + field_name
+                state_key = sale_type + field_name
 
                 if field_name == "Price" and to_num_or_zero(row[idx]) == 0:
                     empty_price_count += 1
@@ -97,7 +98,7 @@ class Data:
         for key in self.data_dict.keys():
             if self.data_dict[key]["year"] != year or self.data_dict[key]["state"] == "US":
                 continue
-            #TODO This will all be replaced with like a mapping but not rn (fixme)
+            #fix This will all be replaced with like a mapping but not rn 
             self.data_dict[us_year_key]["residentialRevenue"] = self.data_dict[us_year_key].get("residentialRevenue", 0) + self.data_dict[key]["residentialRevenue"]
             self.data_dict[us_year_key]["residentialSales"] = self.data_dict[us_year_key].get("residentialSales", 0) + self.data_dict[key]["residentialSales"]
             self.data_dict[us_year_key]["residentialCustomers"] = self.data_dict[us_year_key].get("residentialCustomers", 0) + self.data_dict[key]["residentialCustomers"]

@@ -125,7 +125,4 @@ def main():
     app.run()
 
 if __name__ == "__main__":
-    '''
-    runs flask app and calls load_data() function
-    '''
     main()

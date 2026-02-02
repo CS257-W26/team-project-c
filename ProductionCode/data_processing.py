@@ -34,7 +34,7 @@ def to_num_or_zero(entry):
         value = float(entry)
     elif isinstance(entry, str):
         entry = entry.strip().strip('"')
-        if entry == "." or entry == "":
+        if entry in (".", ""):
             return 0
         entry = entry.replace(",", "")
         try:
@@ -43,8 +43,7 @@ def to_num_or_zero(entry):
             return 0
     if value.is_integer():
         return int(value)
-    else:
-        return round(value, 2)
+    return round(value, 2)
 
 def filter_entry(entry, flags):
     '''
