@@ -15,6 +15,7 @@ python3 command_line.py -p "MN"
 This will display the price data for MN, more states can be added as a space-separated list. "US" is a state and will display the average/aggregate data for the whole US.
 python3 command_line.py -h      -> display help information
 python3 command_line.py -e CA   -> display emission info for California
+python3 command_line.py -c CA MN  -> display emission and price info for California and Minnesota, and their difference in each field
 python3 command_line.py US   -> display emission and price info for United States
 -- tags can be before or after state list (ie ... US -p  == ... -p US)
 # Running Flask app
