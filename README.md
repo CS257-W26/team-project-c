@@ -15,6 +15,7 @@ python3 command_line.py -p "MN"
 This will display the price data for MN, more states can be added as a space-separated list. "US" is a state and will display the average/aggregate data for the whole US.
 python3 command_line.py -h      -> display help information
 python3 command_line.py -e CA   -> display emission info for California
+python3 command_line.py -c CA MN  -> display emission and price info for California and Minnesota, and their difference in each field
 python3 command_line.py US   -> display emission and price info for United States
 -- tags can be before or after state list (ie ... US -p  == ... -p US)
 # Running Flask app
@@ -33,3 +34,10 @@ The homepage will display information for how to use routes
 eg. ak mnus kswanm are all valid strings for this field
 Note that emission data is only available for the years 2013-2024
 Price data is available for the years 2010-2025
+## Examples
+### Feature 3
+/api/KS/2025 -> gets info for KS in 2025 
+### Feature 1
+/api/CATX/2024/compare -> gets info for CA and TX and adds a compare column
+### Feature 2
+/api/US/2023 -> gets info for the enire US for 2023
