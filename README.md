@@ -22,7 +22,13 @@ python3 flask_app.py
 The homepage will display information for how to use routes
 /api/&ltstates&gt/&ltyear&gt/ -> view data for a state
 /api/&ltstates&gt/&ltyear&gt/compare/ -> view data for states with comparisons calulated
-    
+## Examples
+### Feature 3
+/api/KS/2025 -> gets info for KS in 2025 
+### Feature 1
+/api/CATX/2024/compare -> gets info for CA and TX and adds a compare column
+### Feature 2
+/api/US/2023 -> gets info for the enire US for 2023
 &ltstates&gt is a string of two letter state prefixes
 eg. ak mnus kswanm are all valid strings for this field
 Note that emission data is only available for the years 2013-2024
