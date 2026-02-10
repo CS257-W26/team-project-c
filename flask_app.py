@@ -106,8 +106,9 @@ def page_not_found(e):
     
     :param e: error
     '''
-    return ("Sorry, wrong format, do this instead: http://127.0.0.1:5100/api/states/year/ \
-            - states: string of consecutive state codes eg. alnmca", 404)
+    return (f"Sorry, wrong format, do this instead: http://127.0.0.1:5100/api/states/year/ \
+            - states: string of consecutive state codes eg. alnmca \
+            - error: {e}", 404)
 
 @app.errorhandler(500)
 def python_bug(e):
@@ -116,7 +117,7 @@ def python_bug(e):
     
     :param e: error
     '''
-    return ("Uhh oh - technical issue", 500)
+    return (f"Uhh oh - technical issue: {e}", 500)
 
 def main():
     '''runs flask app and calls load_data() function'''
