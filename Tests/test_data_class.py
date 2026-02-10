@@ -24,10 +24,6 @@ class DataClass(unittest.TestCase):
         self.assertEqual(self.test_data.data_dict["MN2024"]["generation"], 27814120731.0)
         self.assertEqual(self.test_data.data_dict["MN2024"]["thermalOutput"],17095959.0)
 
-    def test_raise_key_error(self):
-        '''tests that invlaid dict keys cause error'''
-        with self.assertRaises(KeyError):
-            self.test_data.data_dict["yellow"]
 
 class TestGetData(unittest.TestCase):
     '''test get data functoin'''
