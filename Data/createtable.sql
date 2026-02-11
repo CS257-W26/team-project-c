@@ -37,7 +37,7 @@ CREATE TABLE sales_revenue ( --Create the table--
   transportationCustomers FLOAT,
   transportationPrice FLOAT,
   totalRevenue FLOAT,
-  totalales FLOAT,
+  totalSales FLOAT,
   totalCustomers FLOAT,
   totalPrice FLOAT
 );

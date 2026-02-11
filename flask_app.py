@@ -2,20 +2,13 @@
 The eventual location for the Flask app interface for the project.
 '''
 from flask import Flask, Blueprint, render_template_string
-from ProductionCode.data_class import Data
+from ProductionCode.data_source import DataSource
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
 
-data = Data()
+data = DataSource()
 api = Blueprint('api', __name__)
 app = Flask(__name__)
-
-
-def load_data():
-    '''
-    Loads data into the global data object 
-    '''
-    data.load_data()
 
 def parse_states(states):
     """
@@ -50,6 +43,65 @@ def homepage():
     Note that emission data is only available for the years 2013-2024
     Price data is available for the years 2010-2025"""
     return f'<pre>{welcome_screen}</pre>'
+
+def render_table(table: TableMaker):
+    '''
+    Helper function which returns html of table
+    '''
+    return render_template_string(
+            """
+            <html>
+                <body>
+                    <pre>{{ table }}</pre>
+                </body>
+            </html>
+            """,
+            table=table.get_table()
+    )
+
+def make_table(entrys: list) -> TableMaker:
+    '''
+    Helper function which makes a TableMaker Object
+    
+    :param entry: list of dictionaries which contain info for states
+    '''
+    table = TableMaker()
+    for entry in entrys:
+        table.add_new_entry(entry)
+    return table
+
+@api.route('/allus/<int:year>/')
+def get_all_us_data(year):
+    '''gets data for the whole US at a given year
+    param year: int of the year to get data for'''
+    result = [data.get_us_year_data(year)]
+    us_table = make_table(result)
+    return render_table(us_table)
+
+@api.route('/bystate/<string:state>/<int:year>/')
+def get_state_data(state, year):
+    '''gets data for a single state at a given year
+    param state: string of the two letter state code to get data for
+    param year: int of the year to get data for'''
+    if len(state) != 2 or state.upper() not in STATES_LIST:
+        return states + " could not be parsed. Make sure it contains only valid states"
+    state_dict = data.get_states_data([state], year)
+    state_table = make_table([state_dict])
+    return render_table(state_table)
+
+@api.route('/compare/<string:states>/<int:year>/')
+def get_comparison_data(states, year):
+    '''gets comparison data for a set of states at a given year
+    param states: string of two letter state codes to get data for
+    param year: int of the year to get data for'''
+    try:
+        state_list = parse_states(states)
+    except ValueError:
+        return states + " could not be parsed. Make sure it contains only valid states"
+    states_dict = data.get_states_data(states, year)
+    states_table = make_table(states_dict)
+    return render_table(states_table)
+
 
 @api.route('/<string:states>/<string:year>/')
 def get_state_year_data(states, year):
@@ -122,8 +174,8 @@ def python_bug(e):
 def main():
     '''runs flask app and calls load_data() function'''
     app.register_blueprint(api, url_prefix='/api')
-    load_data()
-    app.run()
+    #load_data()
+    app.run(host='0.0.0.0', port=5112)
 
 if __name__ == "__main__":
     main()
