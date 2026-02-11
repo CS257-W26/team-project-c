@@ -106,54 +106,6 @@ def get_comparison_data(states, year):
     return states_dict
 
 
-@api.route('/<string:states>/<string:year>/')
-def get_state_year_data(states, year):
-    '''Get data for a set of states at year'''
-    try:
-        state_list = parse_states(states)
-    except ValueError:
-        return states + " could not be parsed. Make sure it contains only valid states"
-    flags = [True] *2
-    table = TableMaker()
-    table_data = data.get_data(state_list,flags,year)
-    for entry in table_data:
-        table.add_new_entry(entry)
-
-    return render_template_string(
-            """
-            <html>
-                <body>
-                    <pre>{{ table }}</pre>
-                </body>
-            </html>
-            """,
-            table=table.get_table()
-        )
-
-@api.route('/<string:states>/<string:year>/compare/')
-def get_state_year_data_compare(states, year):
-    '''Get data for a set of states at year'''
-    try:
-        state_list = parse_states(states)
-    except ValueError:
-        return states + " could not be parsed. Make sure it contains only valid states"
-    flags = [True] *2
-    table = TableMaker()
-    table_data = data.get_data(state_list,flags,year)
-    for entry in table_data:
-        table.add_new_entry(entry)
-
-    return render_template_string(
-            """
-            <html>
-                <body>
-                    <pre>{{ table }}</pre>
-                </body>
-            </html>
-            """,
-            table=table.get_comparison_table()
-        )
-
 @app.errorhandler(404)
 def page_not_found(e):
     '''

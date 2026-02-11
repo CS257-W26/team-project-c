@@ -36,7 +36,7 @@ class DataSource:
         '''Gets emissions data for a state for a year'''
         # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup 
         results = self.db.query(
-            "SELECT State, Year, SUM(generation) as generation, SUM(usefullthermaloutput) as usefullThermalOutput, SUM(totalfuelconsumption) as totalFuelConsumption, SUM(fuelconsumptionelectricgeneration) as fuelConsumptionElectricGeneration, SUM(fuelconsumptionusefulthermaloutput) as fuelConsumptionUsefulThermalOutput, SUM(quantityoffuelconsumed) as quantityOfFuelConsumed, SUM(tonsco2emissions) as tonsco2Emissions, SUM(metrictonnesco2emissions) as metricTonnesco2Emissions FROM emissions WHERE state = :state AND year = :year GROUP BY State, Year", 
+            "SELECT State, Year, SUM(generation) as generation, SUM(usefullthermaloutput) as thermalOutput, SUM(totalfuelconsumption) as totalFuelConsumption, SUM(fuelconsumptionelectricgeneration) as totalFuelConsumptionGeneration, SUM(fuelconsumptionusefulthermaloutput) as fuelConsumptionUsefulThermalOutput, SUM(quantityoffuelconsumed) as quantityOfFuelConsumed, SUM(tonsco2emissions) as tonsco2Emissions, SUM(metrictonnesco2emissions) as metricTonnesco2Emissions FROM emissions WHERE state = :state AND year = :year GROUP BY State, Year", 
             state = state, year = year
         )
         row = results.first()

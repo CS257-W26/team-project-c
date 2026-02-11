@@ -3,7 +3,7 @@ import argparse
 import sys
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
-from ProductionCode.data_class import Data
+from ProductionCode.data_source import DataSource
 
 def main():
     '''Handles user input with argparse calls data retrival functions, displays to command line'''
@@ -11,14 +11,16 @@ def main():
     args = parse_input()
     flags = get_flags(args)
 
-    database = Data()
-    database.load_data()
+    database = DataSource()
 
-    complete_data = database.get_data(args.args, flags, 2024)
+    #complete_data = database.get_data(args.args, flags, 2024)
     my_table = TableMaker()
+    if ("US" in args.args):
+        states_results = database.get_us_year_data(2024)
+    else:
+        states_results = database.get_states_data(args.args, 2024)
 
-    for i in complete_data:
-        my_table.add_new_entry(i)
+    print(states_results)
 
     if args.compareMode:
         print(my_table.get_comparison_table())

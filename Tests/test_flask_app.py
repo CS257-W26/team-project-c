@@ -3,7 +3,8 @@ import unittest
 
 import flask_app as app
 from flask_app import python_bug
-from ProductionCode.data_class import Data
+from ProductionCode.data_source import DataSource
+
 
 
 class TestFlaskApp(unittest.TestCase):
@@ -14,10 +15,9 @@ class TestFlaskApp(unittest.TestCase):
             app.app.register_blueprint(app.api, url_prefix="/api")
         self.client = app.app.test_client()
 
-        self.test_data = Data()
-        self.test_data.load_data()
+        self.test_data = DataSource()
 
-        app.data = self.test_data
+        app.data = self.test_data 
 
     def test_homepage(self):
         '''Tests that homepage is good'''
