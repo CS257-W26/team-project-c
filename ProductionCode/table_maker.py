@@ -13,6 +13,9 @@ DISPLAY_ALIASES = [
     ("totalFuelConsumption"           , "Total Fuel Consumption   (MMBtu)"),
     ("totalFuelConsumptionGeneration" , "Total Fuel Consumption for      |\n\
 Electric Generation      (MMBtu)"),
+    ("fuelConsumptionThermalOutput"   , "Fuel Consumption for Useful     |\n\
+Thermal Output           (MMBtu)"),
+    ("quantityOfFuelConsumed"         , "Quanitty of Fuel Units Consumed "),
     ("co2Tons"                        , "CO2 Emmissions            (Tons)"),
     ("co2MetricTons"                  , "CO2 Emmissions     (Metric Tons)"),
     ("residentialRevenue"             , "Residential Revenue        ($1K)"),

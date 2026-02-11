@@ -44,7 +44,7 @@ def homepage():
     Price data is available for the years 2010-2025"""
     return f'<pre>{welcome_screen}</pre>'
 
-def render_table(table: TableMaker):
+def render_table(table: str):
     '''
     Helper function which returns html of table
     '''
@@ -56,7 +56,7 @@ def render_table(table: TableMaker):
                 </body>
             </html>
             """,
-            table=table.get_table()
+            table=table
     )
 
 def make_table(entrys: list) -> TableMaker:
@@ -74,10 +74,10 @@ def make_table(entrys: list) -> TableMaker:
 def get_all_us_data(year):
     '''gets data for the whole US at a given year
     param year: int of the year to get data for'''
-    result = [data.get_us_year_data(year)]
-    us_table = make_table(result)
-    #return render_table(us_table)
-    return result
+    result = data.get_us_year_data(year)
+    us_table = make_table([result])
+    return render_table(us_table.get_table())
+    
 
 @api.route('/bystate/<string:state>/<int:year>/')
 def get_state_data(state, year):
@@ -87,9 +87,9 @@ def get_state_data(state, year):
     if len(state) != 2 or state.upper() not in STATES_LIST:
         return states + " could not be parsed. Make sure it contains only valid states"
     state_dict = data.get_states_data([state], year)
-    #state_table = make_table([state_dict])
-    #return render_table(state_table)
-    return state_dict
+    state_table = make_table([state_dict])
+    return render_table(state_table.get_table())
+    #return state_dict
 
 @api.route('/compare/<string:states>/<int:year>/')
 def get_comparison_data(states, year):
@@ -101,9 +101,9 @@ def get_comparison_data(states, year):
     except ValueError:
         return states + " could not be parsed. Make sure it contains only valid states"
     states_dict = data.get_states_data(state_list, year)
-    #states_table = make_table(states_dict)
-    #return render_table(states_table)
-    return states_dict
+    states_table = make_table(states_dict)
+    return render_table(states_table.get_comparison_table())
+    #return states_dict
 
 
 @app.errorhandler(404)
