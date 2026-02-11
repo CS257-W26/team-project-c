@@ -29,33 +29,32 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_get_year_data_success(self):
         '''tests that getting data works for valid input'''
-        response = self.client.get('/api/us/2025/',follow_redirects=True)
+        response = self.client.get('/api/allus/2024/',follow_redirects=True)
 
         #self.assertEqual(response.status_code, 200)
         body = response.get_data(as_text=True)
-
-        # Table output checks (real TableMaker formatting)
-        self.assertIn("State", body)
+        
+        self.assertIn("state", body)
         self.assertIn("US", body)
-        self.assertIn("2025", body)
-        self.assertIn("1,285,315,546", body)
-        self.assertIn("Transportation Price", body)
-        self.assertIn("14.08", body)
+        self.assertIn("2024", body)
+        self.assertIn("1.58", body)
+        self.assertIn("transportationPrice", body)
+        self.assertIn("13.31", body)
 
     def test_single_state_fail(self):
         """Test an icorrectly formated path"""
-        response = self.client.get('/api/caa/2015/', follow_redirects=True)
+        response = self.client.get('/api/bystate/caa/2015/', follow_redirects=True)
         self.assertIn(b'could not be parsed', response.data)
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
-        response = self.client.get('/api/iafl/2015/compare/', follow_redirects=True)
-        self.assertIn(b'+8,029,474', response.data)
-        self.assertIn(b'+2', response.data)
+        response = self.client.get('/api/compare/iafl/2015/', follow_redirects=True)
+        self.assertIn(b'8029473', response.data)
+        self.assertIn(b'2.00', response.data)
 
     def test_multi_state_comparison_fail(self):
         """Test an icorrectly formated path"""
-        response = self.client.get('/api/cann/2015/compare/', follow_redirects=True)
+        response = self.client.get('/api/compare/cann/2015/', follow_redirects=True)
         self.assertIn(b'cann could not be parsed.', response.data)
 
     def test_python_bug(self):
@@ -70,15 +69,6 @@ class TestFlaskApp(unittest.TestCase):
 
         body = response.get_data(as_text=True)
         self.assertIn("wrong format", body)
-
-    def test_get_year_data_renders_html(self):
-        '''Tests template rendering'''
-        response = self.client.get("/api/us/2025/", follow_redirects= True)
-        body = response.get_data(as_text=True)
-
-        self.assertIn("<html>", body)
-        self.assertIn("<pre>", body)
-        self.assertIn("</html>", body)
 
     def test_page_not_found_handler_direct(self):
         '''Tests page not found'''

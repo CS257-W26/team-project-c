@@ -60,7 +60,7 @@ def get_state_data(state, year):
     param year: int of the year to get data for'''
     state = state.upper()
     if len(state) != 2 or state not in STATES_LIST:
-        return states + " could not be parsed. Make sure it contains only valid states"
+        return state + " could not be parsed. Make sure it contains only valid states"
     state_dict = data.get_states_data([state], year)
     return state_dict
 
