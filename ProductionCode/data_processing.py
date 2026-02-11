@@ -4,6 +4,8 @@ from ProductionCode.config import DICTIONARY_KEYS_ORDERED
 from ProductionCode.config import DICTIONARY_KEYS_EMMISIONS_INDEXES
 from ProductionCode.config import DICTIONARY_KEYS_PRICES_INDEXES
 
+from json import dumps
+
 DECIMAL_PLACES = 2
 
 def format_string(string):

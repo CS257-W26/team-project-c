@@ -35,48 +35,22 @@ def homepage():
     welcome_screen = """Welcome to the homepage.
     Use the following routes:
     / -> this page
-    /api/&ltstates&gt/&ltyear&gt/ -> view data for a state
-    /api/&ltstates&gt/&ltyear&gt/compare/ -> view data for states with comparisons calulated
+    /api/allus/&ltyear&gt/ -> view data for all the us
+    /api/bystate/&ltstate&gt/&ltyear&gt/ -> view data for a state
+    /api/compare/&ltstates&gt/&ltyear&gt/ -> view data for states with comparisons calulated
     
     &ltstates&gt is a string of two letter state prefixes
-    eg. ak mnus kswanm are all valid strings for this field
+    eg. ak mnus kswa are all valid strings for this field
     Note that emission data is only available for the years 2013-2024
     Price data is available for the years 2010-2025"""
     return f'<pre>{welcome_screen}</pre>'
-
-def render_table(table: str):
-    '''
-    Helper function which returns html of table
-    '''
-    return render_template_string(
-            """
-            <html>
-                <body>
-                    <pre>{{ table }}</pre>
-                </body>
-            </html>
-            """,
-            table=table
-    )
-
-def make_table(entrys: list) -> TableMaker:
-    '''
-    Helper function which makes a TableMaker Object
-    
-    :param entry: list of dictionaries which contain info for states
-    '''
-    table = TableMaker()
-    for entry in entrys:
-        table.add_new_entry(entry)
-    return table
 
 @api.route('/allus/<int:year>/')
 def get_all_us_data(year):
     '''gets data for the whole US at a given year
     param year: int of the year to get data for'''
     result = data.get_us_year_data(year)
-    us_table = make_table([result])
-    return render_table(us_table.get_table())
+    return result
     
 
 @api.route('/bystate/<string:state>/<int:year>/')
@@ -84,12 +58,11 @@ def get_state_data(state, year):
     '''gets data for a single state at a given year
     param state: string of the two letter state code to get data for
     param year: int of the year to get data for'''
-    if len(state) != 2 or state.upper() not in STATES_LIST:
+    state = state.upper()
+    if len(state) != 2 or state not in STATES_LIST:
         return states + " could not be parsed. Make sure it contains only valid states"
     state_dict = data.get_states_data([state], year)
-    state_table = make_table([state_dict])
-    return render_table(state_table.get_table())
-    #return state_dict
+    return state_dict
 
 @api.route('/compare/<string:states>/<int:year>/')
 def get_comparison_data(states, year):
@@ -100,10 +73,8 @@ def get_comparison_data(states, year):
         state_list = parse_states(states)
     except ValueError:
         return states + " could not be parsed. Make sure it contains only valid states"
-    states_dict = data.get_states_data(state_list, year)
-    states_table = make_table(states_dict)
-    return render_table(states_table.get_comparison_table())
-    #return states_dict
+    states_dict = data.get_comparison(state_list, year)
+    return states_dict
 
 
 @app.errorhandler(404)
@@ -130,7 +101,7 @@ def main():
     '''runs flask app and calls load_data() function'''
     app.register_blueprint(api, url_prefix='/api')
     #load_data()
-    app.run(host='0.0.0.0', port=5112)
+    app.run(host='0.0.0.0', port=5108)
 
 if __name__ == "__main__":
     main()
