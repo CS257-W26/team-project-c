@@ -15,7 +15,7 @@ def main():
 
     #complete_data = database.get_data(args.args, flags, 2024)
     my_table = TableMaker()
-    if ("US" in args.args):
+    if "US" in args.args:
         states_results = database.get_us_year_data(2024)
     else:
         states_results = database.get_states_data(args.args, 2024)
