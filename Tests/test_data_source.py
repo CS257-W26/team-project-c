@@ -7,7 +7,7 @@ class DataSourceTests(unittest.TestCase):
     def setUp(self):
         '''create DataSource object to be used'''
         self.test_source = DataSource()
-    
+
     def test_sales_state_year(self):
         '''Tests queries for sales for given year and state'''
         test_al_25 = self.test_source.get_sales_state_year("AL", 2025)

@@ -17,7 +17,7 @@ class TestFlaskApp(unittest.TestCase):
 
         self.test_data = DataSource()
 
-        app.data = self.test_data 
+        app.data = self.test_data
 
     def test_homepage(self):
         '''Tests that homepage is good'''
@@ -33,7 +33,6 @@ class TestFlaskApp(unittest.TestCase):
 
         #self.assertEqual(response.status_code, 200)
         body = response.get_data(as_text=True)
-        
         self.assertIn("state", body)
         self.assertIn("US", body)
         self.assertIn("2024", body)
