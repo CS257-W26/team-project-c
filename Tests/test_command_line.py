@@ -5,7 +5,7 @@ import sys
 import unittest
 from io import StringIO
 from command_line import main
-from Tests.test_constants import VALID_CA_TABLE, VALID_GA_E_TABLE, VALID_WA_NM_TABLE
+from Tests.test_constants import VALID_CA_TABLE, VALID_WA_NM_TABLE
 
 
 if __name__ == '__main__':
@@ -21,13 +21,6 @@ class TestCommandLine(unittest.TestCase):
         main()
         output = sys.stdout.getvalue().strip()
         self.assertEqual(output, VALID_CA_TABLE)
-    def test_one_state_flags(self):
-        """test one state with flags"""
-        sys.argv = ['command_line.py', '-e', 'GA']
-        sys.stdout = StringIO()
-        main()
-        output = sys.stdout.getvalue().strip()
-        self.assertEqual(output, VALID_GA_E_TABLE)
     def test_multiple_states(self):
         """test two states and US because why not knock two birds with one stone""" 
         sys.argv = ['command_line.py', 'WA', 'NM']

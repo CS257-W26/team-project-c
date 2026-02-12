@@ -9,18 +9,17 @@ def main():
     '''Handles user input with argparse calls data retrival functions, displays to command line'''
 
     args = parse_input()
-    flags = get_flags(args)
 
     database = DataSource()
 
-    #complete_data = database.get_data(args.args, flags, 2024)
     my_table = TableMaker()
     if ("US" in args.args):
-        states_results = database.get_us_year_data(2024)
+        states_results = database.get_us_year_data(args.year)
     else:
-        states_results = database.get_states_data(args.args, 2024)
-
-    print(states_results)
+        states_results = database.get_states_data(args.args, args.year)
+        
+    for i in states_results:
+        my_table.add_new_entry(i)
 
     if args.compareMode:
         print(my_table.get_comparison_table())
@@ -35,10 +34,8 @@ def settup_argument_parser():
         epilog='Example: python3 command_line.py -p KS -> will ' \
         'display price information for Kansas in 2024'
     )
-    parser.add_argument('-p', '--prices', action='store_true',
-                        help='add prices to output (default is all data)')
-    parser.add_argument('-e', '--emissions', action='store_true',
-                        help='add emissions to output (default is all data)')
+    parser.add_argument('-y', '--year', type=int, default=2024,
+                        help='select data for given year. Default is 2024')
     parser.add_argument('-c', '--compareMode', action='store_true',
                         help='output displayed with a net +/- as ' \
                         'compared to the first state inputed')
@@ -65,17 +62,6 @@ def parse_input():
 Please use uppercase two letter state codes or 'US'")
             sys.exit(1)
     return args
-
-def get_flags(args):
-    """Creates a list of bools, used by the production code, to retrive filtered data"""
-    #process flags : see settup_argument_parser or help screen to see the behavior filter flags
-    flags = [False] * 2
-    if args.prices or args.emissions:
-        flags[0] = args.prices
-        flags[1] = args.emissions
-    else:
-        flags = [True] * 2
-    return flags
 
 if __name__ == "__main__":
     main()

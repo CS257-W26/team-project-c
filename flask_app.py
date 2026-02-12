@@ -61,8 +61,8 @@ def get_state_data(state, year):
     state = state.upper()
     if len(state) != 2 or state not in STATES_LIST:
         return state + " could not be parsed. Make sure it contains only valid states"
-    state_dict = data.get_states_data([state], year)
-    return state_dict
+    state_dict_list = data.get_states_data([state], year)
+    return state_dict_list[0]
 
 @api.route('/compare/<string:states>/<int:year>/')
 def get_comparison_data(states, year):

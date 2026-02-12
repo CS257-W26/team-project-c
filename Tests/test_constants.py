@@ -8,78 +8,73 @@ VALID_TABLE= "State                           | MN   | WY   | US         \n"\
 "CO2 Emmissions            (Tons)| NULL | NULL | 50,000,000 \n"\
 "total Revenue              ($1K)| NULL | 1.20 | NULL"
 
-VALID_CA_TABLE= "State                           | CA             \n"\
-"Year                            | 2024           \n"\
-"--------------------------------|----------------\n"\
-"Generation                 (kWh)| 97,548,285,658 \n"\
-"Useful Thermal Output    (MMBtu)| 58,032,798     \n"\
-"Total Fuel Consumption   (MMBtu)| 767,934,359    \n"\
-"Total Fuel Consumption for      |\n"\
-"Electric Generation      (MMBtu)| 681,143,617    \n"\
-"CO2 Emmissions            (Tons)| 43,645,341     \n"\
-"CO2 Emmissions     (Metric Tons)| 39,594,436     \n"\
-"Residential Revenue        ($1K)| 27,443,697     \n"\
-"Residential Sales          (MWh)| 85,850,540     \n"\
-"Residential Customers           | 14,217,179.08  \n"\
-"Residential Price    (cents/kWh)| 32.07          \n"\
-"Commercial Revenue         ($1K)| 29,399,925     \n"\
-"Commercial Sales           (MWh)| 115,125,594    \n"\
-"Commercial Customers            | 1,777,301.08   \n"\
-"Commercial Price     (cents/kWh)| 25.32          \n"\
-"Industrial Revenue         ($1K)| 9,477,809      \n"\
-"Industrial Sales           (MWh)| 44,025,910     \n"\
-"Industrial Customers            | 146,325.75     \n"\
-"Industrial Price     (cents/kWh)| 21.19          \n"\
-"Transportation Revenue     ($1K)| 120,097        \n"\
-"Transportation Sales       (MWh)| 715,099        \n"\
-"Transportation Customers        | 12.58          \n"\
-"Transportation Price (cents/kWh)| 16.79          \n"\
-"total Revenue              ($1K)| 66,441,529     \n"\
-"total Sales                (MWh)| 245,717,144    \n"\
-"total Customers                 | 16,140,818.50  \n"\
-"total Price          (cents/kWh)| 26.82"\
+VALID_CA_TABLE= """State                           | CA             
+Year                            | 2024           
+--------------------------------|----------------
+Generation                 (kWh)| 97,548,285,658 
+Useful Thermal Output    (MMBtu)| 58,032,798     
+Total Fuel Consumption   (MMBtu)| 767,934,359    
+Total Fuel Consumption for      |
+Electric Generation      (MMBtu)| 681,143,617    
+Fuel Consumption for Useful     |
+Thermal Output           (MMBtu)| 86,790,735     
+Quanitty of Fuel Units Consumed | 692,539,700    
+CO2 Emmissions            (Tons)| 43,645,341     
+CO2 Emmissions     (Metric Tons)| 39,594,436     
+Residential Revenue        ($1K)| 27,443,697.50  
+Residential Sales          (MWh)| 85,850,537.90  
+Residential Customers           | 14,217,179.08  
+Residential Price    (cents/kWh)| 32.07          
+Commercial Revenue         ($1K)| 29,399,924.60  
+Commercial Sales           (MWh)| 115,125,594.70 
+Commercial Customers            | 1,777,301.08   
+Commercial Price     (cents/kWh)| 25.32          
+Industrial Revenue         ($1K)| 9,477,808.28   
+Industrial Sales           (MWh)| 44,025,912.10  
+Industrial Customers            | 146,325.75     
+Industrial Price     (cents/kWh)| 21.19          
+Transportation Revenue     ($1K)| 120,098.20     
+Transportation Sales       (MWh)| 715,100.01     
+Transportation Customers        | 12.58          
+Transportation Price (cents/kWh)| 16.79          
+total Revenue              ($1K)| 66,441,528.70  
+total Sales                (MWh)| 245,717,144    
+total Customers                 | 16,140,818.50  
+total Price          (cents/kWh)| 26.82"""
 
-VALID_GA_E_TABLE= "State                           | GA             \n"\
-"Year                            | 2024           \n"\
-"--------------------------------|----------------\n"\
-"Generation                 (kWh)| 75,096,813,674 \n"\
-"Useful Thermal Output    (MMBtu)| 26,949,036     \n"\
-"Total Fuel Consumption   (MMBtu)| 649,945,364    \n"\
-"Total Fuel Consumption for      |\n"\
-"Electric Generation      (MMBtu)| 612,469,605    \n"\
-"CO2 Emmissions            (Tons)| 47,088,360     \n"\
-"CO2 Emmissions     (Metric Tons)| 42,717,893"
-
-VALID_WA_NM_TABLE= "State                           | WA             | NM             \n"\
-"Year                            | 2024           | 2024           \n"\
-"--------------------------------|----------------|----------------\n"\
-"Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 \n"\
-"Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        \n"\
-"Total Fuel Consumption   (MMBtu)| 190,433,710    | 189,048,426    \n"\
-"Total Fuel Consumption for      |\n"\
-"Electric Generation      (MMBtu)| 174,834,966    | 188,281,551    \n"\
-"CO2 Emmissions            (Tons)| 12,798,157     | 14,773,195     \n"\
-"CO2 Emmissions     (Metric Tons)| 11,610,306     | 13,402,031     \n"\
-"Residential Revenue        ($1K)| 4,595,905      | 1,043,284      \n"\
-"Residential Sales          (MWh)| 38,626,766     | 7,347,618      \n"\
-"Residential Customers           | 3,368,974.67   | 936,097.08     \n"\
-"Residential Price    (cents/kWh)| 11.98          | 14.14          \n"\
-"Commercial Revenue         ($1K)| 3,307,357      | 1,011,139      \n"\
-"Commercial Sales           (MWh)| 33,101,748     | 9,592,788      \n"\
-"Commercial Customers            | 405,310.42     | 148,101.75     \n"\
-"Commercial Price     (cents/kWh)| 10.02          | 10.49          \n"\
-"Industrial Revenue         ($1K)| 1,200,157      | 725,316        \n"\
-"Industrial Sales           (MWh)| 18,159,320     | 13,355,947     \n"\
-"Industrial Customers            | 26,383.75      | 9,256.08       \n"\
-"Industrial Price     (cents/kWh)| 6.61           | 5.43           \n"\
-"Transportation Revenue     ($1K)| 10,922         | 0              \n"\
-"Transportation Sales       (MWh)| 93,797         | 0              \n"\
-"Transportation Customers        | 5              | 0              \n"\
-"Transportation Price (cents/kWh)| 11.65          | 0              \n"\
-"total Revenue              ($1K)| 9,114,338      | 2,779,737      \n"\
-"total Sales                (MWh)| 89,981,630     | 30,296,355     \n"\
-"total Customers                 | 3,800,673.83   | 1,093,454.92   \n"\
-"total Price          (cents/kWh)| 10.12          | 9.14"
+VALID_WA_NM_TABLE= """State                           | WA             | NM             
+Year                            | 2024           | 2024           
+--------------------------------|----------------|----------------
+Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 
+Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        
+Total Fuel Consumption   (MMBtu)| 190,433,710    | 189,048,426    
+Total Fuel Consumption for      |
+Electric Generation      (MMBtu)| 174,834,966    | 188,281,551    
+Fuel Consumption for Useful     |
+Thermal Output           (MMBtu)| 15,598,744     | 766,876        
+Quanitty of Fuel Units Consumed | 142,088,690    | 106,540,216    
+CO2 Emmissions            (Tons)| 12,798,157     | 14,773,195     
+CO2 Emmissions     (Metric Tons)| 11,610,306     | 13,402,031     
+Residential Revenue        ($1K)| 4,595,906.32   | 1,043,282.68   
+Residential Sales          (MWh)| 38,626,766.00  | 7,347,619.99   
+Residential Customers           | 3,368,974.67   | 936,097.08     
+Residential Price    (cents/kWh)| 11.98          | 14.14          
+Commercial Revenue         ($1K)| 3,307,355.43   | 1,011,136.97   
+Commercial Sales           (MWh)| 33,101,746.10  | 9,592,788.98   
+Commercial Customers            | 405,310.42     | 148,101.75     
+Commercial Price     (cents/kWh)| 10.02          | 10.49          
+Industrial Revenue         ($1K)| 1,200,154.55   | 725,316.23     
+Industrial Sales           (MWh)| 18,159,320     | 13,355,945.01  
+Industrial Customers            | 26,383.75      | 9,256.08       
+Industrial Price     (cents/kWh)| 6.61           | 5.43           
+Transportation Revenue     ($1K)| 10,922.40      | 0              
+Transportation Sales       (MWh)| 93,797.01      | 0              
+Transportation Customers        | 5              | 0              
+Transportation Price (cents/kWh)| 11.65          | 0              
+total Revenue              ($1K)| 9,114,338.70   | 2,779,735.90   
+total Sales                (MWh)| 89,981,629.10  | 30,296,354.10  
+total Customers                 | 3,800,673.83   | 1,093,454.92   
+total Price          (cents/kWh)| 10.12          | 9.14"""
 
 VALID_ND_SD_TABLE= "State                           | ND             | SD            \n"\
 "Year                            | 2024           | 2024          \n"\

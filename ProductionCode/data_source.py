@@ -119,8 +119,6 @@ class DataSource:
             emissions = self.get_emissions_state_year(state,year)
             state_result = emissions | sales
             results.append(state_result)
-        if len(results) == 1:
-            return results[0] 
         return results
 
     def get_comparison(self, states, year):
