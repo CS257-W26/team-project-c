@@ -13,6 +13,7 @@ def main():
     database = DataSource()
 
     my_table = TableMaker()
+
     if ("US" in args.args):
         states_results = database.get_us_year_data(args.year)
     else:

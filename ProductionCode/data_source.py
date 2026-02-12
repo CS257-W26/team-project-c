@@ -1,4 +1,6 @@
-import sys
+'''
+File contains DataSource Class for data base queries
+'''
 import records
 
 import ProductionCode.psql_config as config
@@ -36,7 +38,7 @@ class DataSource:
             Sum(totalSales) as "totalSales", \
             Round(Avg(totalCustomers)::numeric, 2) as "totalCustomers", \
             Round(Avg(totalPrice)::numeric, 2) as "totalPrice" \
-            FROM sales_revenue WHERE state = :state AND year = :year GROUP BY State, Year', 
+            FROM sales_revenue WHERE state = :state AND year = :year GROUP BY State, Year',
             state = state, year = year
         )
         row = results.first()
@@ -65,7 +67,7 @@ class DataSource:
             Sum(totalSales) as "totalSales", \
             Round(Avg(totalCustomers)::numeric, 2) as "totalCustomers", \
             Round(Avg(totalPrice)::numeric, 2) as "totalPrice" \
-            FROM sales_revenue WHERE year = :year GROUP BY year', 
+            FROM sales_revenue WHERE year = :year GROUP BY year',
             year = year
         )
         row = results.first()
@@ -75,7 +77,7 @@ class DataSource:
 
     def get_emissions_state_year(self,state, year):
         '''Gets emissions data for a state for a year'''
-        # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup 
+        # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup
         results = self.db.query(
             'SELECT State, Year, SUM(generation) as "generation", \
             SUM(usefullthermaloutput) as "thermalOutput", \
@@ -85,7 +87,7 @@ class DataSource:
             SUM(quantityoffuelconsumed) as "quantityOfFuelConsumed", \
             SUM(tonsco2emissions) as "co2Tons", \
             SUM(metrictonnesco2emissions) as "co2MetricTons" \
-            FROM emissions WHERE state = :state AND year = :year GROUP BY State, Year', 
+            FROM emissions WHERE state = :state AND year = :year GROUP BY State, Year',
             state = state, year = year
         )
         row = results.first()
@@ -93,7 +95,7 @@ class DataSource:
 
     def get_emissions_us_year(self, year):
         '''Gets emissions data for the US for a year'''
-        # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup 
+        # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup
         results = self.db.query(
             'SELECT Year, SUM(generation) as "generation", \
             SUM(usefullthermaloutput) as "thermalOutput", \
@@ -103,7 +105,7 @@ class DataSource:
             SUM(quantityoffuelconsumed) as "quantityOfFuelConsumed", \
             SUM(tonsco2emissions) as "co2Tons", \
             SUM(metrictonnesco2emissions) as "co2MetricTons" \
-            FROM emissions WHERE year = :year GROUP BY year', 
+            FROM emissions WHERE year = :year GROUP BY year',
             year = year
         )
         row = results.first()
@@ -134,12 +136,14 @@ class DataSource:
         return data
 
     def get_us_year_data(self, year):
+        '''Get US emissions and price data'''
         sales = self.get_sales_us_year(year)
         emissions = self.get_emissions_us_year(year)
         us_result = emissions | sales
         return us_result
-    
+
 def main():
+    '''TESTING? Initialize DataSource object'''
     ds = DataSource
 
 if __name__ == '__main__':

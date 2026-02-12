@@ -1,9 +1,9 @@
 '''
 The eventual location for the Flask app interface for the project.
 '''
-from flask import Flask, Blueprint, render_template_string
+from flask import Flask, Blueprint#, render_template_string
 from ProductionCode.data_source import DataSource
-from ProductionCode.table_maker import TableMaker
+#from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
 
 data = DataSource()
@@ -51,7 +51,6 @@ def get_all_us_data(year):
     param year: int of the year to get data for'''
     result = data.get_us_year_data(year)
     return result
-    
 
 @api.route('/bystate/<string:state>/<int:year>/')
 def get_state_data(state, year):

@@ -1,10 +1,8 @@
 """This module contains functions and litterals for data formatting and stripping"""
-
+#from json import dum #Is this needed?
 from ProductionCode.config import DICTIONARY_KEYS_ORDERED
 from ProductionCode.config import DICTIONARY_KEYS_EMMISIONS_INDEXES
 from ProductionCode.config import DICTIONARY_KEYS_PRICES_INDEXES
-
-from json import dumps
 
 DECIMAL_PLACES = 2
 
