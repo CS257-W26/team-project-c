@@ -141,10 +141,3 @@ class DataSource:
         emissions = self.get_emissions_us_year(year)
         us_result = emissions | sales
         return us_result
-
-def main():
-    '''TESTING? Initialize DataSource object'''
-    ds = DataSource
-
-if __name__ == '__main__':
-    main()
