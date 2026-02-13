@@ -8,7 +8,8 @@ VALID_TABLE= "State                           | MN   | WY   | US         \n"\
 "CO2 Emmissions            (Tons)| NULL | NULL | 50,000,000 \n"\
 "total Revenue              ($1K)| NULL | 1.20 | NULL"
 
-VALID_CA_TABLE= """State                           | CA             
+"""
+VALID_CA_TABLE= ""State                           | CA             
 Year                            | 2024           
 --------------------------------|----------------
 Generation                 (kWh)| 97,548,285,658 
@@ -40,7 +41,8 @@ Transportation Price (cents/kWh)| 16.79
 total Revenue              ($1K)| 66,441,528.70  
 total Sales                (MWh)| 245,717,144    
 total Customers                 | 16,140,818.50  
-total Price          (cents/kWh)| 26.82"""
+total Price          (cents/kWh)| 26.82""
+"""
 
 VALID_WA_NM_TABLE= """State                           | WA             | NM             
 Year                            | 2024           | 2024           
