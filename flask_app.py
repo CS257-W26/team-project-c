@@ -35,9 +35,9 @@ def homepage():
     welcome_screen = """Welcome to the homepage.
     Use the following routes:
     / -> this page
-    /api/allus/&ltyear&gt/ -> view data for all the us
-    /api/bystate/&ltstate&gt/&ltyear&gt/ -> view data for a state
-    /api/compare/&ltstates&gt/&ltyear&gt/ -> view data for states with comparisons calulated
+    /api/allus/2023/ -> view data for all the us
+    /api/bystate/MN/2024/ -> view data for a state
+    /api/compare/MNKS/2023/ -> view data for states with comparisons calulated
     
     &ltstates&gt is a string of two letter state prefixes
     eg. ak mnus kswa are all valid strings for this field
@@ -100,7 +100,7 @@ def main():
     '''runs flask app and calls load_data() function'''
     app.register_blueprint(api, url_prefix='/api')
     #load_data()
-    app.run(host='0.0.0.0', port=5108)
+    app.run(host='0.0.0.0', port=5112)
 
 if __name__ == "__main__":
     main()
