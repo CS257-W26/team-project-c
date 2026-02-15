@@ -56,10 +56,11 @@ class TestCommandLine(unittest.TestCase):
         sys.stdout = StringIO()
         mock_db_instance = MagicMock()
         mock_db_class.return_value = mock_db_instance
-        mock_db_instance.get_states_data.return_value = \
+        mock_db_instance.get_comparison.return_value = \
         [{'state': 'WA', 'year': 2023, 'generation': 5000, 'totalSales': 32475},
-        {'state': 'NM', 'year': 2023, 'generation': 30000, 'totalSales': 9999999}]
+        {'state': 'NM', 'year': 2023, 'generation': 30000, 'totalSales': 9999999},
+        {'state': 'comparison', 'generation': 25000, 'totalSales': 9967524}]
         main()
         output = sys.stdout.getvalue().strip()
-        self.assertIn('+9,967,524', output)
+        self.assertIn('9,967,524', output)
         self.assertIn('25,000', output)
