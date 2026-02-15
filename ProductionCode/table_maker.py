@@ -50,9 +50,9 @@ class TableMaker:
         self.entries = []
         for entry in data:
             if entry.get('state') == 'comparison':
-                add_comparison_entry(entry)
+                self.add_comparison_entry(entry)
             else:
-                add_new_entry(entry)
+                self.add_new_entry(entry)
 
     def add_new_empty_entry(self, state, year):
         """Adds a new empty entry for the state and year. If one exists throws an error"""
