@@ -46,6 +46,14 @@ class TableMaker:
     def __init__(self):
         self.entries = []
 
+    def __init__(self, data):
+        self.entries = []
+        for entry in data:
+            if entry.get('state') == 'comparison':
+                add_comparison_entry(entry)
+            else:
+                add_new_entry(entry)
+
     def add_new_empty_entry(self, state, year):
         """Adds a new empty entry for the state and year. If one exists throws an error"""
         for entry in self.entries:
@@ -76,6 +84,16 @@ class TableMaker:
                 entry[data[0]] = data[1]
                 return
         raise KeyError("Entry does not exists")
+
+    def add_comparison_entry(self, entry):
+        """add a new comparison. Throws an error if jey state != 'comparison'
+        entry is a dictionary, must contain 'state': 'comparison'.
+        Dictionary entries not listed in display Alliases will not be printed"""
+        if not isinstance(entry, dict):
+            raise TypeError("Entry must be of <class 'dict'>")
+        if entry.get('state') != 'comparison':
+            raise KeyError("'state' must have value 'comparison'")
+        self.entries.append(entry)
 
     def get_table(self):
         """Displays the table"""   
@@ -111,83 +129,6 @@ class TableMaker:
                 line += f"| {value:<{col_sizes[j]}}"
         return line
 
-    def get_comparison_table(self):
-        """adds comparison cols to a table if multiple entries present
-        each col is compared with the leftmost col and the difference is displayed eg.
-        State                           | WA             | NM             |
-        Year                            | 2025           | 2025           |
-        --------------------------------|----------------|----------------|----------------
-        Generation                 (kWh)| 21,119,893,670 | 20,106,485,132 | -1,013,408,538
-        Useful Thermal Output    (MMBtu)| 10,095,169     | 526,233        | -9,568,936
-        ...
-        """
-
-        buffer = io.StringIO()
-        col_sizes = self.get_col_sizes()
-
-        comparisons = self.generate_comparisons()
-        comparisons_col_sizes = self.get_comparison_col_sizes(comparisons)
-
-        for i, alias in enumerate(DISPLAY_ALIASES):
-            if self.is_row_empty(alias[0]):
-                continue
-
-            line = alias[1]
-            for j, _ in enumerate(self.entries):
-                #normal data
-                if self.entries[j].get(alias[0]) is None:
-                    line += f"| {'NULL':<{col_sizes[j]}}"
-                else:
-                    value = self.entries[j].get(alias[0])
-                    if alias[0] != 'year':
-                        value = format_string(value)
-                    line += f"| {value:<{col_sizes[j]}}"
-                #comparison col
-                if j != 0:
-                    if alias[0] == 'state' or alias[0] == 'year':
-                        line += "|" + ' ' * (comparisons_col_sizes[j-1]+1)
-                    elif comparisons[j-1].get(alias[0]) is None:
-                        line += f"| {'NULL':<{comparisons_col_sizes[j-1]}}"
-                    else:
-                        value = comparisons[j-1].get(alias[0])
-                        if value > 0:
-                            value = "+" + format_string(value)
-                        else:
-                            value = format_string(value)
-                        line += f"| {value:<{comparisons_col_sizes[j-1]}}"
-
-            buffer.write(line + "\n")
-
-            if i == 1:
-                buffer.write("--------------------------------")
-                for i, size in enumerate(col_sizes):
-                    buffer.write("|" + "-" * (size+1))
-                    if i != 0:
-                        buffer.write("|" + "-" * (comparisons_col_sizes[i-1]+1))
-
-                buffer.write("\n")
-
-        table_str = buffer.getvalue()
-        buffer.close()
-        return table_str
-
-    def generate_comparisons(self):
-        """generate a list of dictionaries of comparisons"""
-        comparisons = []
-        first_entry = self.entries[0]
-        for entry in self.entries[1:]:
-            comparison = {}
-            for alias in DISPLAY_ALIASES[2:]:
-                key = alias[0]
-                base_val = first_entry.get(key)
-                current_val = entry.get(key)
-                if base_val is None or current_val is None:
-                    continue
-                comparison[key] = current_val - base_val
-            comparisons.append(comparison)
-
-        return comparisons
-
     def is_row_empty(self, row_name):
         """returns True if one or more entries is present in a row. Used for print_table()"""
         for entry in self.entries:
@@ -205,24 +146,6 @@ class TableMaker:
                 if value is None:
                     continue
                 if alias[0] != 'year':
-                    value = format_string(value)
-                    largest_entry = max(largest_entry, len(value))
-            sizes.append(largest_entry + 1)
-        return sizes
-
-    def get_comparison_col_sizes(self, comparisons):
-        """gets the width for each col based on the widest piece of data (character wise)"""
-        sizes = []
-        for entry in comparisons:
-            largest_entry = 4
-            for alias in DISPLAY_ALIASES[2:]:
-                value = entry.get(alias[0])
-                if value is None:
-                    continue
-                if float(value) > 0:
-                    value = format_string(value)
-                    largest_entry = max(largest_entry, len(value)+1)
-                else:
                     value = format_string(value)
                     largest_entry = max(largest_entry, len(value))
             sizes.append(largest_entry + 1)

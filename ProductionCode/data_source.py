@@ -127,7 +127,7 @@ class DataSource:
         '''gets the data for the two states and then adds a third entry that computes the net 
         + or - between them'''
         data = self.get_states_data(states, year)
-        comparison = {}
+        comparison = {'state': 'comparison'}
         for key in DICTIONARY_KEYS_ORDERED[2:]:
             if data[0].get(key) is None or data[1].get(key) is None:
                 continue

@@ -12,20 +12,15 @@ def main():
 
     database = DataSource()
 
-    my_table = TableMaker()
-
-    if "US" in args.args:
+    if args.compareMode:
+        states_results = database.get_comparison(args.args, args.year)
+    elif "US" in args.args:
         states_results = database.get_us_year_data(args.year)
     else:
         states_results = database.get_states_data(args.args, args.year)
 
-    for i in states_results:
-        my_table.add_new_entry(i)
-
-    if args.compareMode:
-        print(my_table.get_comparison_table())
-    else:
-        print(my_table.get_table())
+    my_table = TableMaker(states_results)
+    print(my_table.get_table())
 
 def settup_argument_parser():
     """Setsup ArgumentParser object"""
