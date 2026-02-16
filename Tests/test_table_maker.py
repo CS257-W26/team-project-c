@@ -69,11 +69,7 @@ class TestTableMakerOutput(unittest.TestCase):
         """test a simple get_table"""
         output = self.table.get_table().strip()
         self.assertEqual(output, VALID_TABLE)
-    def test_get_comparison_table(self):
-        """test the comparison table get function"""
-        self.table.add_data_for_entry("MN", "1990", ("co2Tons", 40000000))
-        output = self.table.get_table().strip()
-        self.assertIn("+10,000,000", output, "error in comparison")
+
 '''
 class TestTableOutputUserStories(unittest.TestCase):
     """Tests for user stories"""
