@@ -78,7 +78,8 @@ class DataSourceTests(unittest.TestCase):
         mock_emissions.return_value = {"generation":2345}
         results = self.test_source.get_states_data(["KS", "MN"], 2024)
         self.assertEqual(results, [
-            {"residentialRevenue":12345, "generation":2345}, {"residentialRevenue":12345, "generation":2345}
+            {"residentialRevenue":12345, "generation":2345}, 
+            {"residentialRevenue":12345, "generation":2345}
         ])
         mock_sales.assert_has_calls([
             call("KS", 2024),
