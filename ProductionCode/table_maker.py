@@ -43,7 +43,9 @@ Thermal Output           (MMBtu)"),
 class TableMaker:
 
     """each entry is a dictionary"""
-    def __init__(self, data=[]):
+    def __init__(self, data=None):
+        if data is None:
+            data = []
         self.entries = []
         for entry in data:
             if entry.get('state') == 'comparison':
