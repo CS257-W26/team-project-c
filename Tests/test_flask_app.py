@@ -1,7 +1,11 @@
 '''Tests for flask app'''
 import unittest
+import importlib
 from unittest.mock import patch
-import flask_app as app
+
+with patch("ProductionCode.data_source.records.Database"):
+    import flask_app as app
+    importlib.reload(app)
 
 class TestFlaskApp(unittest.TestCase):
     '''Tests for flask app'''
