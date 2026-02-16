@@ -1,6 +1,6 @@
 '''Tests for data source'''
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, call
 from records import Record
 from ProductionCode.data_source import DataSource
 
@@ -58,3 +58,51 @@ class DataSourceTests(unittest.TestCase):
 
         self.assertEqual(result["generation"], 2526745161497)
         self.assertEqual(result["state"], "US")
+
+    @patch.object(DataSource, "get_sales_us_year")
+    @patch.object(DataSource, "get_emissions_us_year")
+    def test_get_us_year_data(self, mock_emissions, mock_sales):
+        '''Test loading all US data'''
+        mock_sales.return_value = {"residentialRevenue": 123456}
+        mock_emissions.return_value = {"generation": 2340924}
+        result = self.test_source.get_us_year_data(2024)
+        self.assertEqual(result, {"generation":2340924, "residentialRevenue":123456})
+        mock_sales.assert_called_once_with(2024)
+        mock_emissions.assert_called_once_with(2024)
+
+    @patch.object(DataSource, "get_sales_state_year")
+    @patch.object(DataSource, "get_emissions_state_year")
+    def test_get_states_data(self, mock_emissions, mock_sales):
+        '''Test loading states data'''
+        mock_sales.return_value = {"residentialRevenue":12345}
+        mock_emissions.return_value = {"generation":2345}
+        results = self.test_source.get_states_data(["KS", "MN"], 2024)
+        self.assertEqual(results, [
+            {"residentialRevenue":12345, "generation":2345}, {"residentialRevenue":12345, "generation":2345}
+        ])
+        mock_sales.assert_has_calls([
+            call("KS", 2024),
+            call("MN", 2024),
+        ])
+        assert mock_sales.call_count == 2
+        mock_emissions.assert_has_calls([
+            call("KS", 2024),
+            call("MN", 2024),
+        ])
+        assert mock_emissions.call_count == 2
+
+    @patch.object(DataSource, "get_states_data")
+    def test_get_comparison(self, mock_states_data):
+        '''Tests Making Comparison'''
+        mock_states_data.return_value = [
+            {"state": "KS", "generation": 100, "residentialRevenue": 50},
+            {"state": "MN", "generation": 150, "residentialRevenue": 70},
+        ]
+        result = self.test_source.get_comparison(["KS", "MN"], 2024)
+        mock_states_data.assert_called_once_with(["KS", "MN"], 2024)
+        expected = [
+            {"state": "KS", "generation": 100, "residentialRevenue": 50},
+            {"state": "MN", "generation": 150, "residentialRevenue": 70},
+            {"state": "comparison", "generation": 50, "residentialRevenue": 20},
+        ]
+        self.assertEqual(result, expected)
