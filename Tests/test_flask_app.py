@@ -69,7 +69,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(data["totalSales"], 8029473)
 
         self.mock_data.get_states_data.assert_called_once_with(["MN"], 2015)
-        
+
     def test_single_state_fail(self):
         """Test an icorrectly formated path"""
         response = self.client.get('/api/bystate/caa/2015/', follow_redirects=True)
@@ -91,7 +91,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(data[1]["state"], "FL")
         self.assertEqual(data[2]["state"], "comparison")
 
-        self.mock_data.get_comparison.assert_called_once_with(["IA", "FL"], 2015)        
+        self.mock_data.get_comparison.assert_called_once_with(["IA", "FL"], 2015)
 
     def test_multi_state_comparison_fail(self):
         """Test an icorrectly formated path"""
@@ -101,7 +101,7 @@ class TestFlaskApp(unittest.TestCase):
         body = response.get_data(as_text=True)
         self.assertIn("could not be parsed", body)
 
-        self.mock_data.get_comparison.assert_not_called()        
+        self.mock_data.get_comparison.assert_not_called()
 
     def test_404_error_handler(self):
         '''tests that invalid route give 404 error'''
