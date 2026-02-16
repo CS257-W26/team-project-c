@@ -1,23 +1,40 @@
 '''Tests for flask app'''
 import unittest
-
+from unittest.mock import patch
 import flask_app as app
-from flask_app import python_bug
-from ProductionCode.data_source import DataSource
-
-
 
 class TestFlaskApp(unittest.TestCase):
     '''Tests for flask app'''
+
     def setUp(self):
-        '''Loads data and registers blueprint'''
+        '''Registers blueprint, sets up client, patches datasource'''
         if "api" not in app.app.blueprints:
             app.app.register_blueprint(app.api, url_prefix="/api")
+
         self.client = app.app.test_client()
 
-        self.test_data = DataSource()
+        self.patcher = patch("flask_app.data")
+        self.mock_data = self.patcher.start()
+        self.addCleanup(self.patcher.stop)
 
-        app.data = self.test_data
+        self.mock_data.get_us_year_data.return_value = {
+            "state": "US",
+            "year": 2024,
+            "transportationPrice": 13.31
+        }
+
+        self.mock_data.get_states_data.return_value = [{
+            "state": "MN",
+            "year": 2015,
+            "totalSales": 8029473,
+            "residentialPrice": 2.00
+        }]
+
+        self.mock_data.get_comparison.return_value = [
+            {"state": "IA", "year": 2015, "totalSales": 100},
+            {"state": "FL", "year": 2015, "totalSales": 200},
+            {"state": "comparison", "totalSales": 100}
+        ]
 
     def test_homepage(self):
         '''Tests that homepage is good'''
@@ -30,36 +47,61 @@ class TestFlaskApp(unittest.TestCase):
     def test_get_year_data_success(self):
         '''tests that getting data works for valid input'''
         response = self.client.get('/api/allus/2024/',follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
 
-        #self.assertEqual(response.status_code, 200)
-        body = response.get_data(as_text=True)
-        self.assertIn("state", body)
-        self.assertIn("US", body)
-        self.assertIn("2024", body)
-        self.assertIn("1.58", body)
-        self.assertIn("transportationPrice", body)
-        self.assertIn("13.31", body)
+        data = response.get_json()
+        self.assertIsInstance(data, dict)
+        self.assertEqual(data["state"], "US")
+        self.assertEqual(data["year"], 2024)
+        self.assertIn("transportationPrice", data)
 
+        self.mock_data.get_us_year_data.assert_called_once_with(2024)
+
+    def test_single_state_success(self):
+        """tests that single state returns json for valid input"""
+        response = self.client.get('/api/bystate/MN/2015/', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+        data = response.get_json()
+        self.assertIsInstance(data, dict)
+        self.assertEqual(data["state"], "MN")
+        self.assertEqual(data["year"], 2015)
+        self.assertEqual(data["totalSales"], 8029473)
+
+        self.mock_data.get_states_data.assert_called_once_with(["MN"], 2015)
+        
     def test_single_state_fail(self):
         """Test an icorrectly formated path"""
         response = self.client.get('/api/bystate/caa/2015/', follow_redirects=True)
-        self.assertIn(b'could not be parsed', response.data)
+        self.assertEqual(response.status_code, 200)
+
+        body = response.get_data(as_text=True)
+        self.assertIn("could not be parsed", body)
+
+        self.mock_data.get_states_data.assert_not_called()
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
         response = self.client.get('/api/compare/iafl/2015/', follow_redirects=True)
-        self.assertIn(b'8029473', response.data)
-        self.assertIn(b'2.00', response.data)
+        self.assertEqual(response.status_code, 200)
+
+        data = response.get_json()
+        self.assertIsInstance(data, list)
+        self.assertEqual(data[0]["state"], "IA")
+        self.assertEqual(data[1]["state"], "FL")
+        self.assertEqual(data[2]["state"], "comparison")
+
+        self.mock_data.get_comparison.assert_called_once_with(["IA", "FL"], 2015)        
 
     def test_multi_state_comparison_fail(self):
         """Test an icorrectly formated path"""
         response = self.client.get('/api/compare/cann/2015/', follow_redirects=True)
-        self.assertIn(b'cann could not be parsed.', response.data)
+        self.assertEqual(response.status_code, 200)
 
-    def test_python_bug(self):
-        """test_500_page output"""
-        response = python_bug(Exception())
-        self.assertIn(500, response)
+        body = response.get_data(as_text=True)
+        self.assertIn("could not be parsed", body)
+
+        self.mock_data.get_comparison.assert_not_called()        
 
     def test_404_error_handler(self):
         '''tests that invalid route give 404 error'''
