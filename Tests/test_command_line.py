@@ -13,8 +13,8 @@ if __name__ == '__main__':
 
 class TestCommandLine(unittest.TestCase):
     """Full stack tests for the command_line"""
-    
-    @patch('command_line.DataSource')        
+
+    @patch('command_line.DataSource')
     def test_one_state(self, mock_db_class):
         """test one state input"""
         sys.argv = ['command_line.py', 'CA']

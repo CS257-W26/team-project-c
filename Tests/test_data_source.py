@@ -1,14 +1,11 @@
 '''Tests for data source'''
 import unittest
-from records import Record
 from unittest.mock import MagicMock, patch
+from records import Record
 from ProductionCode.data_source import DataSource
 
 class DataSourceTests(unittest.TestCase):
     '''Class containing tests of Data Soure class'''
-    
-
-    
     def setUp(self):
         '''create mock data source object to be used'''
         self.patcher = patch("ProductionCode.data_source.records.Database")
@@ -22,7 +19,7 @@ class DataSourceTests(unittest.TestCase):
     def test_sales_state_year(self):
         '''Tests queries for sales for given year and state'''
         self.mock_db_instance.query.return_value.first.return_value = Record(
-            ["commercialRevenue","totalPrice"], 
+            ["commercialRevenue","totalPrice"],
             [3059902.25,12.54]
         )
 
@@ -38,7 +35,7 @@ class DataSourceTests(unittest.TestCase):
             ["generation", "thermalOutput"],
             [27814120731.0, 17095959.0]
         )
-        
+
         result = self.test_source.get_emissions_state_year("MN", 2024)
 
         self.assertEqual(result["generation"], 27814120731.0)
@@ -54,7 +51,7 @@ class DataSourceTests(unittest.TestCase):
 
     def test_us_23_emissions(self):
         '''Test loading of US emissions'''
-        self.mock_db_instance.query.return_value.first.return_value = Record( 
+        self.mock_db_instance.query.return_value.first.return_value = Record(
             ["generation"], [2526745161497]
         )
         result = self.test_source.get_emissions_us_year(2023)
