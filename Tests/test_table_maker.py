@@ -74,38 +74,38 @@ class TestTableMakerOutput(unittest.TestCase):
         self.table.add_data_for_entry("MN", "1990", ("co2Tons", 40000000))
         output = self.table.get_table().strip()
         self.assertIn("+10,000,000", output, "error in comparison")
-'''
-class TestTableOutputUserStories(unittest.TestCase):
-    """Tests for user stories"""
-    maxDiff=None
-    def setUp(self):
-        """setup"""
-        self.database = Data()
-        self.database.load_data()
-    def test_us_display(self):
-        """test displaying us data"""
-        us_price_data = self.database.get_data(["US"], [True, False], 2024)
-        us_table = TableMaker()
-        us_table.add_new_entry(us_price_data[0])
-        output = us_table.get_table().strip()
-        self.assertEqual(output, VALID_US_PRICE_TABLE)
-    def test_two_state_display(self):
-        """test two state display"""
-        two_state_data = self.database.get_data(["ND", "SD"], [True, True], 2024)
-        two_state_table = TableMaker()
-        two_state_table.add_new_entry(two_state_data[0])
-        two_state_table.add_new_entry(two_state_data[1])
-        output = two_state_table.get_comparison_table().strip()
-        self.assertIn("-21,829,505,185", output, "generation difference not present")
-        self.assertIn("+3.35", output, "commercial price difference not present")
-    def test_single_state_display(self):
-        """test single state display"""
-        one_state_data = self.database.get_data(["MN"], [True, True], 2024)
-        one_state_table = TableMaker()
-        one_state_table.add_new_entry(one_state_data[0])
-        output = one_state_table.get_table().strip()
-        self.assertEqual(output, VALID_MN_TABLE)
-'''
+
+# class TestTableOutputUserStories(unittest.TestCase):
+#     """Tests for user stories"""
+#     maxDiff=None
+#     def setUp(self):
+#         """setup"""
+#         self.database = Data()
+#         self.database.load_data()
+#     def test_us_display(self):
+#         """test displaying us data"""
+#         us_price_data = self.database.get_data(["US"], [True, False], 2024)
+#         us_table = TableMaker()
+#         us_table.add_new_entry(us_price_data[0])
+#         output = us_table.get_table().strip()
+#         self.assertEqual(output, VALID_US_PRICE_TABLE)
+#     def test_two_state_display(self):
+#         """test two state display"""
+#         two_state_data = self.database.get_data(["ND", "SD"], [True, True], 2024)
+#         two_state_table = TableMaker()
+#         two_state_table.add_new_entry(two_state_data[0])
+#         two_state_table.add_new_entry(two_state_data[1])
+#         output = two_state_table.get_comparison_table().strip()
+#         self.assertIn("-21,829,505,185", output, "generation difference not present")
+#         self.assertIn("+3.35", output, "commercial price difference not present")
+#     def test_single_state_display(self):
+#         """test single state display"""
+#         one_state_data = self.database.get_data(["MN"], [True, True], 2024)
+#         one_state_table = TableMaker()
+#         one_state_table.add_new_entry(one_state_data[0])
+#         output = one_state_table.get_table().strip()
+#         self.assertEqual(output, VALID_MN_TABLE)
+
 
 if __name__ == '__main__':
     unittest.main()
