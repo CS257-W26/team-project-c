@@ -3,6 +3,7 @@ body {
     min-width: 760px;
     background-image: url('/static/images/background_tile.png');
     background-repeat: repeat;
+    background-size: 13%;
     background-color: rgba(112, 173, 213, 0.771); /*tint*/
     background-blend-mode: screen; /* Blends the color and image */
 }
