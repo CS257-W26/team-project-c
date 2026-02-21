@@ -1,7 +1,10 @@
 body {
     margin: 0px;
     min-width: 760px;
-    background-color: rgb(195, 252, 255);
+    background-image: url('/static/images/background_tile.png');
+    background-repeat: repeat;
+    background-color: rgba(112, 173, 213, 0.771); /*tint*/
+    background-blend-mode: screen; /* Blends the color and image */
 }
 #wrapper {
     margin-left: 3%;
