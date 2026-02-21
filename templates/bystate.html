@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Data For {{state}}</title>    
+<link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
+</head>
+<body>
+{% include 'header.html' %}
+<div id="wrapper">
+<h1>Data For {{state}}</h1>
+<a href="{{ url_for('compareutility', state1=state) }}"><button>Compare {{state}} with another state</button></a>
+</div>
+</body>
+</html>

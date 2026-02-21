@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>    
+<link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='compare_style.css')}}">
+</head>
+<body>
+{% include 'header.html' %}
+<div id="wrapper">
+<h1>Comparison for {{ state1data["state"] }} and {{ state2data["state"] }} - {{ state1data["year"] }}</h1>
+
+<div class="centerFlexbox">
+<table>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">{{ state1data["state"] }}</th>
+        <th scope="col">{{ state2data["state"] }}</th>
+        <th scope="col">Comparison</th>
+    </tr>
+    {% for i in range(labels|length) %}
+    {% set key = keys[i] %}
+    <tr>
+        <th class="rowHeaders" scope="row">{{ labels[i] }}</th>
+        <td>{{ state1data[key] }}</td>
+        <td>{{ state2data[key] }}</td>
+        <td>{{ comparison[key] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+</div>
+
+</body>
+</html>

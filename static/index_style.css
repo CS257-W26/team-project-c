@@ -1,0 +1,14 @@
+h1 {
+    text-align: center;
+}
+
+h2.forGraders {
+    color:red;
+    text-align: center;
+}
+p.forGraders {
+    border: 3px solid red;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 3px;
+}

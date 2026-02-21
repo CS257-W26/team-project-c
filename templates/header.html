@@ -1,0 +1,42 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+</script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+rel="stylesheet" type="text/css" /> 
+
+<header>
+<a href="{{ url_for('homepage') }}" class="homeLogo">Watt Watch USA</a>
+
+<nav>
+<div class="navButtons">
+    <button>About</button>
+    <button>All US</button>
+    <button>Map</button>
+    <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
+</div>
+
+<form action="/search" method="post">
+<input class="stateSearch" type="text" id="state" name="state" placeholder="Enter state:" aria-label="Enter state to search">
+<script>
+$( function() {
+    var availableTags = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    $( "#state" ).autocomplete({
+    source: availableTags
+    });
+} );
+</script>
+<select id="year" name="year" aria-label="Select year">
+    {% for i in available_years %}
+        <option value="{{i}}">{{i}}</option>
+    {% endfor %}
+</select>
+<input type="submit" value="Search">
+</form>
+
+</nav>
+</header>

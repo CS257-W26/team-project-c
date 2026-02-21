@@ -1,0 +1,9 @@
+body h1 {
+    text-align: center;
+}
+
+.compareutilityform {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}

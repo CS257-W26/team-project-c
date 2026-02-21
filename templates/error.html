@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>    
+<link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='error_style.css')}}">
+</head>
+<body>
+{% include 'header.html' %}
+<div id="wrapper">
+<h1>Error ({{ errorNumber }})</h1>
+<p>{{ errorText|safe }}</p>
+</div>
+</body>
+</html>

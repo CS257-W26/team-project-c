@@ -3,42 +3,7 @@ Each entry has two required fields"""
 
 import io
 from ProductionCode.data_processing import format_string
-
-#variables
-DISPLAY_ALIASES = [
-    ("state"                          , "State                           "),
-    ("year"                           , "Year                            "),
-    ("generation"                     , "Generation                 (kWh)"),
-    ("thermalOutput"                  , "Useful Thermal Output    (MMBtu)"),
-    ("totalFuelConsumption"           , "Total Fuel Consumption   (MMBtu)"),
-    ("totalFuelConsumptionGeneration" , "Total Fuel Consumption for      |\n\
-Electric Generation      (MMBtu)"),
-    ("fuelConsumptionThermalOutput"   , "Fuel Consumption for Useful     |\n\
-Thermal Output           (MMBtu)"),
-    ("quantityOfFuelConsumed"         , "Quanitty of Fuel Units Consumed "),
-    ("co2Tons"                        , "CO2 Emmissions            (Tons)"),
-    ("co2MetricTons"                  , "CO2 Emmissions     (Metric Tons)"),
-    ("residentialRevenue"             , "Residential Revenue        ($1K)"),
-    ("residentialSales"               , "Residential Sales          (MWh)"),
-    ("residentialCustomers"           , "Residential Customers           "),
-    ("residentialPrice"               , "Residential Price    (cents/kWh)"),
-    ("commercialRevenue"              , "Commercial Revenue         ($1K)"),
-    ("commercialSales"                , "Commercial Sales           (MWh)"),
-    ("commercialCustomers"            , "Commercial Customers            "),
-    ("commercialPrice"                , "Commercial Price     (cents/kWh)"),
-    ("industrialRevenue"              , "Industrial Revenue         ($1K)"),
-    ("industrialSales"                , "Industrial Sales           (MWh)"),
-    ("industrialCustomers"            , "Industrial Customers            "),
-    ("industrialPrice"                , "Industrial Price     (cents/kWh)"),
-    ("transportationRevenue"          , "Transportation Revenue     ($1K)"),
-    ("transportationSales"            , "Transportation Sales       (MWh)"),
-    ("transportationCustomers"        , "Transportation Customers        "),
-    ("transportationPrice"            , "Transportation Price (cents/kWh)"),
-    ("totalRevenue"                   , "total Revenue              ($1K)"),
-    ("totalSales"                     , "total Sales                (MWh)"),
-    ("totalCustomers"                 , "total Customers                 "),
-    ("totalPrice"                     , "total Price          (cents/kWh)")
-]
+from ProductionCode.config import DISPLAY_ALIASES
 
 class TableMaker:
 

@@ -1,0 +1,79 @@
+body {
+    margin: 0px;
+    min-width: 760px;
+    background-color: rgb(195, 252, 255);
+}
+#wrapper {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 10px;
+    padding: 3px;
+    background-color: white;
+    box-shadow: 5px 5px 15px 5px #888888;
+}
+p {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 16pt;
+}
+
+/*header*/
+header {
+    display: flex;
+    align-items: center;
+    background-color: gray;
+    border-bottom: 5px solid gray;
+}
+a.homeLogo {
+    text-decoration: none;
+    color: black;
+    margin: 0px;
+    padding: 10px;
+    background-color: tan;
+    font-size: 2em;
+    font-weight: bold;
+}
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;    
+}
+header nav div.navButtons {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px 4%;
+}
+header nav form {
+    flex: 1;
+}
+.stateSearch {
+    min-width: 100px;
+    width: 20%;
+}
+
+/*table style*/
+table {
+    border: 3px solid gray;
+    border-collapse: collapse;
+}
+th {
+    background-color: tan;
+    border: 1px solid gray
+}
+th.rowHeaders {
+    text-align: left;
+    max-width: 20em;
+}
+td {
+    border: 3px solid gray;
+    text-align: center;
+    padding: 3px;
+}
+
+/*utility*/
+.centerFlexbox {
+    display: flex;
+    justify-content: center;
+}
