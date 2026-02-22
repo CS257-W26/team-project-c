@@ -14,7 +14,7 @@
 <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
 <input type="text" class="state" name="state2" placeholder="Enter state 2:" aria-label="Enter second state to compare">
 <script>
-$( function() {
+$( autocomplete() {
     var availableTags = [
         {% for i in autocomplete %}
             "{{i}}",

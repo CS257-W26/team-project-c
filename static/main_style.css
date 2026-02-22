@@ -57,6 +57,15 @@ header nav form {
     width: 20%;
 }
 
+#searchErrorBanner {
+    background-color: rgb(195, 54, 54);
+    padding: 3px;   
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20pt;
+    display: none;
+}
+
 /*table style*/
 table {
     border: 3px solid gray;

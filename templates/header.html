@@ -16,20 +16,8 @@ rel="stylesheet" type="text/css" />
     <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
 </div>
 
-<form action="/search" method="post">
-<input class="stateSearch" type="text" id="state" name="state" placeholder="Enter state:" aria-label="Enter state to search">
-<script>
-$( function() {
-    var availableTags = [
-        {% for i in autocomplete %}
-            "{{i}}",
-        {% endfor %}
-    ];
-    $( "#state" ).autocomplete({
-    source: availableTags
-    });
-} );
-</script>
+<form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
+<input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
 <select id="year" name="year" aria-label="Select year">
     {% for i in available_years %}
         <option value="{{i}}">{{i}}</option>
@@ -37,6 +25,35 @@ $( function() {
 </select>
 <input type="submit" value="Search">
 </form>
-
 </nav>
+
+<script>
+$( function() {
+    var availableTags = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    $( "#stateSearch" ).autocomplete({
+    source: availableTags
+    });
+});
+</script>
 </header>
+
+<div id="searchErrorBanner"></div>
+<script>
+function checkSearchInput() {
+    const autocomplete_list = JSON.parse('{{ autocomplete | tojson }}');
+    let stateInput = document.forms["search"]["state"];
+    if (autocomplete_list.includes(stateInput.value)) {
+        return true;
+    }
+    banner = document.getElementById("searchErrorBanner");
+    banner.innerHTML = `"${stateInput.value}" is not a valid search. Please \
+    use the autocomplete functionality to reach the page you are looking for`;
+    banner.style.display = "block";
+    stateInput.focus(); 
+    return false; 
+}
+</script>
