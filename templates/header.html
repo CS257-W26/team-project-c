@@ -27,33 +27,7 @@ rel="stylesheet" type="text/css" />
 </form>
 </nav>
 
-<script>
-$( function() {
-    var availableTags = [
-        {% for i in autocomplete %}
-            "{{i}}",
-        {% endfor %}
-    ];
-    $( "#stateSearch" ).autocomplete({
-    source: availableTags
-    });
-});
-</script>
 </header>
 
 <div id="searchErrorBanner"></div>
-<script>
-function checkSearchInput() {
-    const autocomplete_list = JSON.parse('{{ autocomplete | tojson }}');
-    let stateInput = document.forms["search"]["state"];
-    if (autocomplete_list.includes(stateInput.value)) {
-        return true;
-    }
-    banner = document.getElementById("searchErrorBanner");
-    banner.innerHTML = `"${stateInput.value}" is not a valid search. Please \
-    use the autocomplete functionality to reach the page you are looking for`;
-    banner.style.display = "block";
-    stateInput.focus(); 
-    return false; 
-}
-</script>
+{% include 'search_js.html' %}

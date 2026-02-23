@@ -10,21 +10,9 @@
 <div id="wrapper">
 <h1>COMPARE STATES:</h1>
 <div class="compareutilityform">
-<form action="compareutility" method="post">
+<form onsubmit="return checkCompareUtilityInput();" name="compareutility" action="compareutility" method="post">
 <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
 <input type="text" class="state" name="state2" placeholder="Enter state 2:" aria-label="Enter second state to compare">
-<script>
-$( autocomplete() {
-    var availableTags = [
-        {% for i in autocomplete %}
-            "{{i}}",
-        {% endfor %}
-    ];
-    $( ".state" ).autocomplete({
-    source: availableTags
-    });
-} );
-</script>
 <select id="year" name="year">
     {% for i in available_years %}
         <option value="{{i}}">{{i}}</option>
@@ -32,6 +20,7 @@ $( autocomplete() {
 </select>
 <input type="submit" value="Search">
 </form>
+{% include 'compareutility_js.html' %}
 </div>
 </div>
 </body>

@@ -1,0 +1,34 @@
+<!--I tried to get javascript incorperated via <script src=".."> 
+but it didnt work and I am too lazy to do it correctly XD-->
+<script>
+$( function() {
+    var availableTags = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    $( "#stateSearch" ).autocomplete({
+    source: availableTags
+    });
+});
+</script>
+
+<script>
+function checkSearchInput() {
+    const autocomplete_list = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    let stateInput = document.forms["search"]["state"];
+    if (autocomplete_list.includes(stateInput.value)) {
+        return true;
+    }
+    banner = document.getElementById("searchErrorBanner");
+    banner.innerHTML = `"${stateInput.value}" is not a valid search. Please \
+    use the autocomplete functionality to reach the page you are looking for.`;
+    banner.style.display = "block";
+    stateInput.focus(); 
+    return false; 
+}
+</script>

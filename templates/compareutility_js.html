@@ -1,0 +1,42 @@
+<!--I tried to get javascript incorperated via <script src=".."> 
+but it didnt work and I am too lazy to do it correctly XD-->
+<script>
+$( function() {
+    var availableTags = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    $( ".state" ).autocomplete({
+    source: availableTags
+    });
+} );
+</script>
+
+<script>
+function checkCompareUtilityInput() {
+    const autocomplete_list = [
+        {% for i in autocomplete %}
+            "{{i}}",
+        {% endfor %}
+    ];
+    let state1Input = document.forms["compareutility"]["state1"];
+    let state2Input = document.forms["compareutility"]["state2"];
+    banner = document.getElementById("searchErrorBanner");
+    if (!autocomplete_list.includes(state1Input.value)) {
+        banner.innerHTML = `"${state1Input.value}" is not a valid search. Please \
+        use the autocomplete functionality to reach the page you are looking for.`;
+        banner.style.display = "block";
+        state1Input.focus(); 
+        return false; 
+    }
+    if (!autocomplete_list.includes(state2Input.value)) {
+        banner.innerHTML = `"${state2Input.value}" is not a valid search. Please \
+        use the autocomplete functionality to reach the page you are looking for.`;
+        banner.style.display = "block";
+        state2Input.focus(); 
+        return false;
+    }
+    return true;
+}
+</script>

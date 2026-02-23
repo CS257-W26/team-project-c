@@ -17,10 +17,7 @@ def homepage():
 def search():
     """route for primary search functionality"""
     state = request.form['state']
-    try:
-        state_index = AUTOCOMPLETE_OPTIONS.index(state)
-    except ValueError:
-        return 'fail' #TODO_later tell the user that entered something incorrectly
+    state_index = AUTOCOMPLETE_OPTIONS.index(state)
     state_code = AUTOCOMPLETE_ALLIASES[state_index]
     return redirect(url_for('bystate', state=state_code, year=request.form['year']))
 
@@ -41,11 +38,8 @@ def compareutility():
     #POST
     state1 = request.form['state1']
     state2 = request.form['state2']
-    try:
-        state1_index = AUTOCOMPLETE_OPTIONS.index(state1)
-        state2_index = AUTOCOMPLETE_OPTIONS.index(state2)
-    except ValueError:
-        return 'fail' #TODO_later tell the user that entered something incorrectly
+    state1_index = AUTOCOMPLETE_OPTIONS.index(state1)
+    state2_index = AUTOCOMPLETE_OPTIONS.index(state2)
     agg_state_code = AUTOCOMPLETE_ALLIASES[state1_index] + AUTOCOMPLETE_ALLIASES[state2_index]
     return redirect(url_for('compare_states', states=agg_state_code, year=request.form['year']))
 
