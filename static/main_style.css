@@ -13,7 +13,7 @@ body {
     margin-top: 10px;
     padding: 3px;
     background-color: white;
-    box-shadow: 5px 5px 15px 5px #888888;
+    box-shadow: 5px 5px 15px 5px #585858;
 }
 p {
     margin-left: 10%;
@@ -26,12 +26,11 @@ header {
     display: flex;
     align-items: center;
     background-color: gray;
-    border-bottom: 5px solid gray;
 }
 a.homeLogo {
     text-decoration: none;
     color: black;
-    margin: 0px;
+    margin: 5px;
     padding: 10px;
     background-color: tan;
     font-size: 2em;

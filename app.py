@@ -31,10 +31,11 @@ def bystate(state, year):
 def compareutility():
     """route for handeling getting and routing comparisons"""
     if request.method == 'GET':
-        #TODO_later add some sort of autopopulate to compare utility state1
-        #field if we get /compareutility?state1=<XX> via bystate page
+        state1 = request.args.get('state1')
+        if (state1 is not None):
+            state1 = AUTOCOMPLETE_OPTIONS[AUTOCOMPLETE_ALLIASES.index(state1)]
         return render_template('compareutility.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
-            available_years=AVAILABLE_YEARS)
+            available_years=AVAILABLE_YEARS, state1_autofill=state1)
     #POST
     state1 = request.form['state1']
     state2 = request.form['state2']

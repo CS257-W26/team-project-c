@@ -11,7 +11,12 @@
 <h1>COMPARE STATES:</h1>
 <div class="compareutilityform">
 <form onsubmit="return checkCompareUtilityInput();" name="compareutility" action="compareutility" method="post">
-<input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
+{% if state1_autofill != None %}
+    <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare"
+    value="{{ state1_autofill }}">
+{% else %}
+    <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
+{% endif %}
 <input type="text" class="state" name="state2" placeholder="Enter state 2:" aria-label="Enter second state to compare">
 <select id="year" name="year">
     {% for i in available_years %}
