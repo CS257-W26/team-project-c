@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WattWatch USA – All US Data</title>
+    <link rel="stylesheet" href="../static/us_style.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    {% include 'header.html' %}
+    <main id="main-content">
+
+        <h1>United States Energy Data</h1>
+
+        <div class="content-wrapper">
+
+            <!-- LEFT COLUMN: Controls + Data -->
+            <section class="left-column" aria-labelledby="filter-heading">
+                
+                <h2 id="filter-heading">Filter by Year</h2>
+
+                <form method="GET">
+                    <div>
+                        <label for="year-select">Choose a year</label>
+                        <select 
+                            id="year-select"
+                            name="year"
+                            required
+                            aria-describedby="year-description"
+                        >
+                            <option value="" disabled {% if not selected_year %}selected{% endif %}>
+                                Select a year
+                            </option>
+
+                            {% for year in years %}
+                                <option value="{{ year }}"
+                                    {% if year == selected_year %}selected{% endif %}>
+                                    {{ year }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <p id="year-description">
+                            Select a year to display national energy generation data.
+                        </p>
+                    </div>
+
+                    <button type="submit">Update Data</button>
+                </form>
+
+                {% if table %}
+                <section aria-labelledby="table-heading">
+                    <h3 id="table-heading">Energy Data Table</h3>
+                    
+                    <div role="region" aria-live="polite">
+                        <pre>{{ table }}</pre>
+                    </div>
+                </section>
+                {% endif %}
+
+            </section>
+
+            <!-- RIGHT COLUMN: Graphs -->
+            <section class="right-column" aria-labelledby="graph-heading">
+                <h2 id="graph-heading">Energy Data Visualization</h2>
+
+                <div 
+                    class="graph-box"
+                    role="img"
+                    aria-label="Bar chart showing energy generation by state for the selected year"
+                >
+                    Graph 1 (Future chart will appear here)
+                </div>
+
+                <p class="visually-hidden">
+                    A graphical representation of energy generation by state. 
+                    Exact values are available in the data table.
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
