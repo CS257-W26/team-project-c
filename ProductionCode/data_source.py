@@ -49,14 +49,14 @@ class DataSource:
         )
         row = results.first()
         return row.as_dict()
- 
+
     def get_sales_us_year(self,year):
         '''
         Gets sales info for the US for a year
         param year int: year of data to retrieve for US
 
         return dict: returns dictionary containing the queried data
-        ''' 
+        '''
         results = self.db.query(
             'SELECT Year, Sum(residentialRevenue) as "residentialRevenue", \
             Sum(residentialSales) as "residentialSales", \
