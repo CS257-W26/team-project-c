@@ -16,7 +16,13 @@ class DataSource:
         self.db = records.Database(connect)
 
     def get_sales_state_year(self,state,year):
-        '''Gets sales info for a state for a year month'''
+        '''
+        Gets sales info for a state for a year month
+        param state string: state code the data should be retrieved for
+        param year int: year of data to retrieve
+
+        return dict: returns dictionary containing the queried data
+        '''
         results = self.db.query(
             'SELECT State, Year, Sum(residentialRevenue) as "residentialRevenue", \
             Sum(residentialSales) as "residentialSales", \
@@ -43,9 +49,14 @@ class DataSource:
         )
         row = results.first()
         return row.as_dict()
-
+ 
     def get_sales_us_year(self,year):
-        '''Gets sales info for the US for a year''' 
+        '''
+        Gets sales info for the US for a year
+        param year int: year of data to retrieve for US
+
+        return dict: returns dictionary containing the queried data
+        ''' 
         results = self.db.query(
             'SELECT Year, Sum(residentialRevenue) as "residentialRevenue", \
             Sum(residentialSales) as "residentialSales", \
@@ -76,7 +87,13 @@ class DataSource:
         return results
 
     def get_emissions_state_year(self,state, year):
-        '''Gets emissions data for a state for a year'''
+        '''
+        Gets emissions data for a state for a year
+        param state string: state code the data should be retrieved for
+        param year int: year of data to retrieve
+
+        return dict: returns dictionary containing the queried data
+        '''
         # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup
         results = self.db.query(
             'SELECT State, Year, SUM(generation) as "generation", \
@@ -94,7 +111,12 @@ class DataSource:
         return row.as_dict()
 
     def get_emissions_us_year(self, year):
-        '''Gets emissions data for the US for a year'''
+        '''
+        Gets emissions data for the US for a year
+        param year int: year of data to retrieve for US
+
+        return dict: returns dictionary containing the queried data
+        '''
         # Future group by fuelGroup, add fuelGroup to SELECT and add GROUP BY fuelGroup
         results = self.db.query(
             'SELECT Year, SUM(generation) as "generation", \
@@ -114,7 +136,14 @@ class DataSource:
         return results
 
     def get_states_data(self, states, year):
-        '''Gets data for states which is passed in as array of state codes'''
+        '''
+        Gets data for states which is passed in as array of state codes
+        param states list: list of string state codes to get data for
+        param year int: year to get data for
+
+        return results list: list of dictionaries, dictionaries contain 
+        data for each state in states
+        '''
         results = []
         for state in states:
             sales = self.get_sales_state_year(state, year)
@@ -124,8 +153,14 @@ class DataSource:
         return results
 
     def get_comparison(self, states, year):
-        '''gets the data for the two states and then adds a third entry that computes the net 
-        + or - between them'''
+        '''
+        gets the data for the two states and then adds a third entry that computes the net 
+        + or - between them
+        param states list: list of string state codes to get data for
+        param year int: year to get data for
+
+        return data list: list containing the "comparison" data
+        '''
         data = self.get_states_data(states, year)
         comparison = {'state': 'comparison'}
         for key in DICTIONARY_KEYS_ORDERED[2:]:
@@ -136,7 +171,11 @@ class DataSource:
         return data
 
     def get_us_year_data(self, year):
-        '''Get US emissions and price data'''
+        '''
+        Get US emissions and price data
+        param year int: year to get data for
+        return us_result dict: dictionary containing emissions and price data for us for year
+        '''
         sales = self.get_sales_us_year(year)
         emissions = self.get_emissions_us_year(year)
         us_result = emissions | sales
