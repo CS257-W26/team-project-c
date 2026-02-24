@@ -27,3 +27,18 @@ def get_comparison(states, year):
     "totalFuelConsumptionGeneration": '533,749,666'
     }
 ]
+def get_us_year_data(year):
+    sale_data = {
+        "residentialRevenue": 1000, "residentialSales": 200, "residentialCustomers": 50, "residentialPrice": 10.0,
+        "commercialRevenue": 1000, "commercialSales": 200, "commercialCustomers": 50, "commercialPrice": 10.0,
+        "industrialRevenue": 1000, "industrialSales": 200, "industrialCustomers": 50, "industrialPrice": 10.0,
+        "totalRevenue": 1000, "totalSales": 200, "totalCustomers": 50, "totlaPrice": 10.0,
+    }
+    emission_data = {
+        "generation": 1000, "thermalOuput": 5000, "totalFuelConsumption": 100, "totalFuelConsumptionGeneration": 200,
+        "fuelConsumptionThermalOutput": 500, "quantityOfFuelConsumed":150, "co2Tons":500, "co2MetricTons":240
+    }
+    us_result = emission_data | sale_data
+    us_result["state"] = "US" 
+    us_result["year"] = year
+    return us_result
