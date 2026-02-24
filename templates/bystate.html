@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Data For {{state}}</title>    
-<link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
+  <title>Data For {{ state }} ({{ year }})</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
 </head>
 <body>
-{% include 'header.html' %}
-<div id="wrapper">
-<h1>Data For {{state}}</h1>
-<a href="{{ url_for('compareutility', state1=state) }}"><button>Compare {{state}} with another state</button></a>
-</div>
+  {% include 'header.html' %}
+
+  <div id="wrapper">
+    <h1>Data For {{ state }} ({{ year }})</h1>
+
+    <a href="{{ url_for('compareutility', state1=state) }}">
+      <button>Compare {{ state }} with another state</button>
+    </a>
+
+    <h2>Summary Table</h2>
+    <pre class="data-table">{{ table | e }}</pre>
+
+    <h2>Price Plot</h2>
+    <p class="muted">Dummy plot: average electricity price by sector (cents/kWh).</p>
+    <img class="plot-img" src="data:image/png;base64,{{ plot_png }}" alt="Bar chart of electricity price by sector">
+  </div>
 </body>
 </html>
