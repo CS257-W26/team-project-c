@@ -1,12 +1,47 @@
 """flask app for website navigation and rendering"""
 
+import io
+import base64
+
 from flask import Flask, request, render_template, url_for, redirect
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+
 from ProductionCode import core
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import AVAILABLE_YEARS, DISPLAY_ALIASES
 from ProductionCode.table_maker import TableMaker
 
 app = Flask(__name__)
+
+def get_table(data):
+    """Makes a table object and returns the string."""
+    my_table = TableMaker()
+    my_table.add_new_entry(data)
+    return my_table.get_table()
+
+def make_price_plot_base64(state_data):
+    categories = ["Residential", "Commercial", "Industrial", "Transportation", "Total"]
+    values = [
+        state_data.get("residentialPrice", 0),
+        state_data.get("commercialPrice", 0),
+        state_data.get("industrialPrice", 0),
+        state_data.get("transportationPrice", 0),
+        state_data.get("totalPrice", 0),
+    ]
+
+    fig = Figure(figsize=(7.5, 4.5))
+    axis = fig.add_subplot(1, 1, 1)
+    axis.bar(categories, values)
+    axis.set_title("Average Electricity Price by Sector")
+    axis.set_ylabel("cents / kWh")
+    axis.tick_params(axis='x', labelrotation=25)
+
+    fig.tight_layout()
+
+    png_output = io.BytesIO()
+    FigureCanvas(fig).print_png(png_output)
+    return base64.b64encode(png_output.getvalue()).decode("utf-8")
 
 @app.route('/')
 def homepage():
@@ -24,9 +59,21 @@ def search():
 
 @app.route('/bystate/<state>/<year>/')
 def bystate(state, year):
-    """route for individual state data page"""
-    return render_template('bystate.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
-        available_years=AVAILABLE_YEARS, state=state, year=year)
+    """Route for individual state data page."""
+    state_data = core.get_state_year_data(state, year)
+    table_str = get_table(state_data)
+    plot_png = make_price_plot_base64(state_data)
+
+    return render_template(
+        'bystate.html',
+        autocomplete=AUTOCOMPLETE_OPTIONS,
+        autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
+        available_years=AVAILABLE_YEARS,
+        state=state_data.get("state", state),
+        year=year,
+        table=table_str,
+        plot_png=plot_png
+    )
 
 @app.route('/compareutility', methods=['GET', 'POST'])
 def compareutility():

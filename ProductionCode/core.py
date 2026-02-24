@@ -42,3 +42,85 @@ def get_us_year_data(year):
     us_result["state"] = "US" 
     us_result["year"] = year
     return us_result
+
+def get_state_year_data(state, year):
+    """Return dummy data for a small set of states only."""
+    dummy_by_state = {
+        "MN": {
+            "generation": 1_250_000,
+            "thermalOutput": 6_200,
+            "totalFuelConsumption": 110_000,
+            "totalFuelConsumptionGeneration": 95_000,
+            "fuelConsumptionThermalOutput": 21_000,
+            "quantityOfFuelConsumed": 12_000,
+            "co2Tons": 52_000,
+            "co2MetricTons": 47_000,
+
+            "residentialRevenue": 820_000,
+            "residentialSales": 155_000,
+            "residentialCustomers": 41_000,
+            "residentialPrice": 9.7,
+
+            "commercialRevenue": 910_000,
+            "commercialSales": 182_000,
+            "commercialCustomers": 36_000,
+            "commercialPrice": 10.4,
+
+            "industrialRevenue": 690_000,
+            "industrialSales": 208_000,
+            "industrialCustomers": 16_000,
+            "industrialPrice": 9.1,
+
+            "transportationRevenue": 130_000,
+            "transportationSales": 44_000,
+            "transportationCustomers": 5_500,
+            "transportationPrice": 12.2,
+
+            "totalRevenue": 2_550_000,
+            "totalSales": 589_000,
+            "totalCustomers": 98_500,
+            "totalPrice": 10.1,
+        },
+        "CA": {
+            "generation": 3_900_000,
+            "thermalOutput": 18_500,
+            "totalFuelConsumption": 340_000,
+            "totalFuelConsumptionGeneration": 300_000,
+            "fuelConsumptionThermalOutput": 75_000,
+            "quantityOfFuelConsumed": 41_000,
+            "co2Tons": 120_000,
+            "co2MetricTons": 109_000,
+
+            "residentialRevenue": 2_600_000,
+            "residentialSales": 420_000,
+            "residentialCustomers": 120_000,
+            "residentialPrice": 12.4,
+
+            "commercialRevenue": 3_150_000,
+            "commercialSales": 510_000,
+            "commercialCustomers": 90_000,
+            "commercialPrice": 13.1,
+
+            "industrialRevenue": 1_850_000,
+            "industrialSales": 470_000,
+            "industrialCustomers": 35_000,
+            "industrialPrice": 10.8,
+
+            "transportationRevenue": 300_000,
+            "transportationSales": 80_000,
+            "transportationCustomers": 9_000,
+            "transportationPrice": 14.0,
+
+            "totalRevenue": 7_900_000,
+            "totalSales": 1_480_000,
+            "totalCustomers": 254_000,
+            "totalPrice": 12.9,
+        }
+    }
+
+    state = (state or "").upper()
+
+    result = dict(dummy_by_state[state])
+    result["state"] = state
+    result["year"] = year
+    return result
