@@ -43,12 +43,12 @@ def get_us_year_data(year):
     data = db.get_us_year_data(year)
     for key in data:
         if key != 'year':
-        data[key] = format_string(data[key])
+            data[key] = format_string(data[key])
     return data
 
 def get_state_year_data(state, year):
     data = db.get_states_data([state], year)[0]
     for key in data:
         if key != 'year':
-        data[key] = format_string(data[key])
+            data[key] = format_string(data[key])
     return data
