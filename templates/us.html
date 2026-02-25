@@ -17,8 +17,8 @@
 
         <div class="content-wrapper">
 
-            <!-- LEFT COLUMN: Controls + Data -->
-            <section class="left-column" aria-labelledby="filter-heading">
+            <!-- Controls + Data -->
+            <section class="centered-section" aria-labelledby="filter-heading">
                 
                 <h2 id="filter-heading">Filter by Year</h2>
 
@@ -50,40 +50,42 @@
 
                     <button type="submit">Update Data</button>
                 </form>
-
-                {% if table %}
-                <section aria-labelledby="table-heading">
-                    <h3 id="table-heading">Energy Data Table</h3>
-                    
-                    <div role="region" aria-live="polite">
-                        <pre>{{ table }}</pre>
-                    </div>
-                </section>
-                {% endif %}
-
-            </section>
-
-            <!-- RIGHT COLUMN: Graphs -->
-            <section class="right-column" aria-labelledby="graph-heading">
-                <h2 id="graph-heading">Energy Data Visualization</h2>
-
-                <div 
-                    class="graph-box"
-                    role="img"
-                    aria-label="Bar chart showing energy generation by state for the selected year"
-                >
-                    Graph 1 (Future chart will appear here)
+                  {% if us_data %}
+                <h2 id="table-heading">Energy Data Table</h2>
+                <div class="table-wrapper" role="region" aria-live="polite">
+                    <table>
+                        <tbody>
+                            {% for key, value in us_data.items() %}
+                            <tr>
+                                <th scope="row">{{ key|capitalize }}</th>
+                                <td>{{ value }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+                {% else %}
+                    <p>No data loaded. Please select a year.</p>
+                {% endif %}
+                </div>
+            <!-- Graphs -->
+        <section class="graph-section" aria-labelledby="graph-heading">
+            <h2 id="graph-heading">Energy Data Visualization</h2>
 
-                <p class="visually-hidden">
-                    A graphical representation of energy generation by state. 
-                    Exact values are available in the data table.
-                </p>
+            <div 
+                class="graph-box"
+                role="img"
+                aria-label="Bar chart showing energy generation by state for the selected year"
+            >
+                Graph 1 (Future chart will appear here)
+            </div>
 
-            </section>
+            <p class="visually-hidden">
+                A graphical representation of energy generation by state. 
+                Exact values are available in the data table.
+            </p>
 
-        </div>
-
+        </section>
     </main>
 
 </body>
