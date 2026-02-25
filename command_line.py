@@ -13,7 +13,6 @@ def main():
     database = DataSource()
 
     if args.compareMode:
-        breakpoint()
         states_results = database.get_comparison(args.args, args.year)
     elif "US" in args.args:
         states_results = [database.get_us_year_data(args.year)]
