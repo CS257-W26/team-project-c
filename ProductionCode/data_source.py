@@ -178,5 +178,5 @@ class DataSource:
         '''
         sales = self.get_sales_us_year(year)
         emissions = self.get_emissions_us_year(year)
-        us_result = emissions | sales
+        us_result = {'state': "US"} | emissions | sales
         return us_result

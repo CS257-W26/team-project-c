@@ -15,7 +15,7 @@ def main():
     if args.compareMode:
         states_results = database.get_comparison(args.args, args.year)
     elif "US" in args.args:
-        states_results = database.get_us_year_data(args.year)
+        states_results = [database.get_us_year_data(args.year)]
     else:
         states_results = database.get_states_data(args.args, args.year)
 
