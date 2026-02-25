@@ -22,9 +22,9 @@
     {% set key = keys[i] %}
     <tr>
         <th class="rowHeaders" scope="row">{{ labels[i] }}</th>
-        <td>{{ state1data[key] }}</td>
-        <td>{{ state2data[key] }}</td>
-        <td>{{ comparison[key] }}</td>
+        <td>{{ state1data[key]|round(2) }}</td>
+        <td>{{ state2data[key]|round(2) }}</td>
+        <td>{{ comparison[key]|round(2) }}</td>
     </tr>
     {% endfor %}
 </table>
