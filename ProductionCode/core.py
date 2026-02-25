@@ -37,4 +37,4 @@ def get_us_year_data(year):
     return db.get_us_year_data(year)
 
 def get_state_year_data(state, year):
-    return get_states_data([state], year)
+    return db.get_states_data([state], year)
