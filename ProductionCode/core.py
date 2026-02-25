@@ -36,7 +36,7 @@ def get_comparison(states, year):
     for state in states:
         for key in state:
             state[key] = format_string(state[key])
-    return 
+    return states
 
 def get_us_year_data(year):
     data = db.get_us_year_data(year)
