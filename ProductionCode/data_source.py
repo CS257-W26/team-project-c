@@ -81,10 +81,9 @@ class DataSource:
             FROM sales_revenue WHERE year = :year GROUP BY year',
             year = year
         )
-        row = results.first()
-        results = row.as_dict()
-        results["state"] = "US"
-        return results
+        us_results = results.first().as_dict()
+        us_results["state"] = "US"
+        return us_results
 
     def get_emissions_state_year(self,state, year):
         '''
@@ -130,10 +129,9 @@ class DataSource:
             FROM emissions WHERE year = :year GROUP BY year',
             year = year
         )
-        row = results.first()
-        results = row.as_dict()
-        results["state"] = "US"
-        return results
+        us_results = results.first().as_dict()
+        us_results["state"] = "US"
+        return us_results
 
     def get_states_data(self, states, year):
         '''
