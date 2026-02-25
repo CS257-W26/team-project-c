@@ -1,5 +1,7 @@
 '''Middle module that takes care of DataSource calls and re-packaaging data for front end'''
 
+from ProductionCode.data_source import DataSource
+
 db = DataSource()
 
 def get_comparison(states, year):
