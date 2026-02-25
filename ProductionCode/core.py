@@ -32,16 +32,20 @@ def parse_states(states):
 def get_comparison(states, year):
     """returns comparison data at year - currently hard coded"""
     states = parse_states(states)
-    for key in states:
-        states[key] = format_string(states[key])
-    return db.get_comparison(states, year)
+    states = db.get_comparison(states, year)
+    for state in states:
+        for key in state:
+            state[key] = format_string(state[key])
+    return 
 
 def get_us_year_data(year):
-    for key in states:
-        states[key] = format_string(states[key])
-    return db.get_us_year_data(year)
+    data = db.get_us_year_data(year)
+    for key in data:
+        data[key] = format_string(data[key])
+    return data
 
 def get_state_year_data(state, year):
-    for key in states:
-        states[key] = format_string(states[key])
-    return db.get_states_data([state], year)[0]
+    data = db.get_states_data([state], year)[0]
+    for key in data:
+        data[key] = format_string(data[key])
+    return data
