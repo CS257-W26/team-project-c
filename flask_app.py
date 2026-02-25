@@ -99,7 +99,6 @@ def python_bug(e):
 def main():
     '''runs flask app and calls load_data() function'''
     app.register_blueprint(api, url_prefix='/api')
-    #load_data()
     app.run(host='0.0.0.0', port=5112)
 
 if __name__ == "__main__":
