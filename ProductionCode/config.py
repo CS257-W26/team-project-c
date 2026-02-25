@@ -1,37 +1,5 @@
-"""This module contains litterals that can be used as config"""
-
-DICTIONARY_KEYS_ORDERED = [
-    "state",
-    "year",
-    "generation",
-    "thermalOutput",
-    "totalFuelConsumption",
-    "totalFuelConsumptionGeneration",
-    "co2Tons",
-    "co2MetricTons",
-    "residentialRevenue",
-    "residentialSales",
-    "residentialCustomers",
-    "residentialPrice",
-    "commercialRevenue",
-    "commercialSales",
-    "commercialCustomers",
-    "commercialPrice",
-    "industrialRevenue",
-    "industrialSales",
-    "industrialCustomers",
-    "industrialPrice",
-    "transportationRevenue",
-    "transportationSales",
-    "transportationCustomers",
-    "transportationPrice",
-    "totalRevenue",
-    "totalSales",
-    "totalCustomers",
-    "totalPrice"
-]
-DICTIONARY_KEYS_EMMISIONS_INDEXES = range(2,8)
-DICTIONARY_KEYS_PRICES_INDEXES = range(8,len(DICTIONARY_KEYS_ORDERED))
+"""This module contains litterals that can be used as config
+when adding new fields"""
 
 """*US is considered a State*""" 
 AUTOCOMPLETE_OPTIONS = [
@@ -142,3 +110,7 @@ Thermal Output           (MMBtu)"),
     ("totalCustomers"                 , "total Customers                 "),
     ("totalPrice"                     , "total Price          (cents/kWh)")
 ]
+
+DICTIONARY_KEYS_ORDERED = [x[0] for x in DISPLAY_ALIASES]
+DICTIONARY_KEYS_EMMISIONS_INDEXES = range(2,8)
+DICTIONARY_KEYS_PRICES_INDEXES = range(8,len(DICTIONARY_KEYS_ORDERED))
