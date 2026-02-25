@@ -5,7 +5,7 @@ the <states> part of url routes'''
 
 from ProductionCode.data_source import DataSource
 from ProductionCode.config import STATES_LIST
-form ProductionCode.data_processing import format_string
+from ProductionCode.data_processing import format_string
 
 
 db = DataSource()
