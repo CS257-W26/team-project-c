@@ -49,6 +49,12 @@ def homepage():
     return render_template('index.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
         available_years=AVAILABLE_YEARS)
 
+@app.route('/map')
+def map()
+    '''route for interactive map'''
+    return render_template('map.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
+        available_years=AVAILABLE_YEARS)
+
 @app.route('/search', methods=['POST'])
 def search():
     """route for primary search functionality"""
