@@ -1,12 +1,36 @@
-'''Middle module that takes care of DataSource calls and re-packaaging data for front end'''
+'''
+Middle module that takes care of DataSource calls
+re-packaaging data for front end, and interperating
+the <states> part of url routes'''
 
 from ProductionCode.data_source import DataSource
+from ProductionCode.config import STATES_LIST
+
 
 db = DataSource()
 
+def parse_states(states):
+    """
+    All the api and website urls use the format of two state codes
+    concatinated. eg CAAK for California and Alaska. However, the 
+    backend uses arrays of these codes. This function converts them
+    Param: states (str) string containing two letter state codes
+    Returns: parsed [(str)] array of two letter state codes in all caps
+    throws: ValueError when the string has an incorrect state code
+    """
+    parsed = []
+    if len(states)%2 == 1:
+        raise ValueError(states + " could not be parsed")
+    for i in range(0, len(states), 2):
+        state_code = (states[i] + states[i+1]).upper()
+        if state_code not in STATES_LIST:
+            raise ValueError(state_code + " is not a state code")
+        parsed.append(state_code)
+    return parsed
+
 def get_comparison(states, year):
     """returns comparison data at year - currently hard coded"""
-    #TODO "states" into states[]
+    states = parse_states(states)
     return db.get_comparison(states, year)
 
 def get_us_year_data(year):

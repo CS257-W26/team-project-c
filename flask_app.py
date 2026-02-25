@@ -3,16 +3,19 @@ The eventual location for the Flask app interface for the project.
 '''
 from flask import Flask, Blueprint#, render_template_string
 from ProductionCode.data_source import DataSource
-#from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
 
+#TODO use core not DataSource
 data = DataSource()
 api = Blueprint('api', __name__)
 app = Flask(__name__)
 
+#TODO remove function -> core 
 def parse_states(states):
     """
-    Parses and checks for errors in <states> route string.
+    All the api and website urls use the format of two state codes
+    concatinated. eg CAAK for California and Alaska. However, the 
+    backend uses arrays of these codes. This function converts them
     Param: states (str) string containing two letter state codes
     Returns: parsed [(str)] array of two letter state codes in all caps
     throws: ValueError when the string has an incorrect state code
@@ -84,7 +87,7 @@ def page_not_found(e):
     :param e: error
     '''
     return (f"Sorry, wrong format, do this instead: http://127.0.0.1:5100/api/states/year/ \
-            - states: string of consecutive state codes eg. alnmca \
+            - states: string of consecutive state codes eg. alnm \
             - error: {e}", 404)
 
 @app.errorhandler(500)
