@@ -1,10 +1,11 @@
 '''
 Middle module that takes care of DataSource calls
-re-packaaging data for front end, and interperating
+re-packaaging/formating data for front end, and interperating
 the <states> part of url routes'''
 
 from ProductionCode.data_source import DataSource
 from ProductionCode.config import STATES_LIST
+form ProductionCode.data_processing import format_string
 
 
 db = DataSource()
@@ -31,10 +32,16 @@ def parse_states(states):
 def get_comparison(states, year):
     """returns comparison data at year - currently hard coded"""
     states = parse_states(states)
+    for key in states:
+        states[key] = format_string(states[key])
     return db.get_comparison(states, year)
 
 def get_us_year_data(year):
+    for key in states:
+        states[key] = format_string(states[key])
     return db.get_us_year_data(year)
 
 def get_state_year_data(state, year):
+    for key in states:
+        states[key] = format_string(states[key])
     return db.get_states_data([state], year)[0]
