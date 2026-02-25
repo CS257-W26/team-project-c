@@ -81,7 +81,6 @@ class DataSource:
             FROM sales_revenue WHERE year = :year GROUP BY year',
             year = year
         )
-        #row = results.first()
         us_results = results.first().as_dict()
         us_results["state"] = "US"
         return us_results

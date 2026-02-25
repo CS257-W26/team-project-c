@@ -103,12 +103,6 @@ def compare_states(states, year):
         state1data=data[0], state2data=data[1], comparison=data[2], \
         autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
 
-def get_table(data):
-    '''Makes a table object and returns the string'''
-    my_table = TableMaker()
-    my_table.add_new_entry(data)
-    return my_table.get_table()
-
 @app.route('/us', methods=['GET', 'POST'])
 def display_us_data():
     '''
@@ -129,14 +123,16 @@ def page_not_found(e):
     """handle 404 errors"""
     return render_template('error.html', errorNumber=404, errorText="""
     Uh oh! The page you are looking for does not exist. Try going back to the homepage. 
-    <br>""" + str(e)), 404
+    <br>""" + str(e),
+    autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS), 404
 
 @app.errorhandler(500)
 def server_error(e):
     """handle 500 errors"""
     return render_template('error.html', errorNumber=500, errorText="""
     Uh oh! There was an internal server error. Sorry for the inconveniance.
-    Try visiting our homepage.<br>""" + str(e)), 500
+    Try visiting our homepage.<br>""" + str(e),
+    autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5112)
