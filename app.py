@@ -103,12 +103,6 @@ def compare_states(states, year):
         state1data=data[0], state2data=data[1], comparison=data[2], \
         autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
 
-def get_table(data):
-    '''Makes a table object and returns the string'''
-    my_table = TableMaker()
-    my_table.add_new_entry(data)
-    return my_table.get_table()
-
 @app.route('/us', methods=['GET', 'POST'])
 def display_us_data():
     '''
