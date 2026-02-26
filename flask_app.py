@@ -188,4 +188,4 @@ def server_error(e):
     autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5112)
+    app.run(host='0.0.0.0', port=5212)
