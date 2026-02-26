@@ -14,8 +14,26 @@
       <button>Compare {{ state }} with another state</button>
     </a>
 
-    <h2>Summary Table</h2>
-    <pre class="data-table">{{ table | e }}</pre>
+    <h2>Summary Data</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>{{ state }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, label in DISPLAY_ALIASES %}
+          {% if state_data[key] is not none %}
+          <tr>
+            <td>{{ label }}</td>
+            <td>{{ state_data[key] }}</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
 
     <h2>Price Plot</h2>
     <p class="muted">Average electricity price by sector (cents/kWh).</p>
@@ -26,7 +44,7 @@
     >
 
     <h2>Emissions Plot</h2>
-    <p class="muted">CO₂ emissions intensity (tons per MWh), compared to US average.</p>
+    <p class="muted">CO₂ emissions intensity (tons per MWh), compared to U.S. average.</p>
     <img
       class="plot-img"
       src="data:image/png;base64,{{ emissions_plot_png }}"

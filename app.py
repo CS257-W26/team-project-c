@@ -116,48 +116,26 @@ def search():
     state_code = AUTOCOMPLETE_ALLIASES[state_index]
     return redirect(url_for('bystate', state=state_code, year=request.form['year']))
 
-@app.route('/bystate/<state>/<year>/')
+@app.route("/bystate/<state>/<year>/")
 def bystate(state, year):
     """Route for individual state data page."""
-    try:
-        year_int = int(year)
-    except ValueError:
-        return render_template(
-            "error.html",
-            errorNumber=400,
-            errorText="Year must be a number.",
-            autocomplete=AUTOCOMPLETE_OPTIONS,
-            available_years=AVAILABLE_YEARS,
-        ), 400
+    year_int = int(year)
 
-    try:
-        state_data = core.get_state_year_data(state, year_int)
-        us_data = core.get_us_year_data(year_int)
-        table_str = get_table(state_data)
+    state_data = core.get_state_year_data(state, year_int)
+    us_data = core.get_us_year_data(year_int)
 
-        price_plot_png = make_price_plot_base64(state_data)
-        emissions_plot_png = make_emissions_plot_base64(state_data, us_data)
-
-        return render_template(
-            "bystate.html",
-            autocomplete=AUTOCOMPLETE_OPTIONS,
-            autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
-            available_years=AVAILABLE_YEARS,
-            state=state_data.get("state", state),
-            year=year_int,
-            table=table_str,
-            price_plot_png=price_plot_png,
-            emissions_plot_png=emissions_plot_png,
-        )
-
-    except Exception as e:
-        return render_template(
-            "error.html",
-            errorNumber=500,
-            errorText="Internal error while loading state data. " + str(e),
-            autocomplete=AUTOCOMPLETE_OPTIONS,
-            available_years=AVAILABLE_YEARS,
-        ), 500
+    return render_template(
+        "bystate.html",
+        autocomplete=AUTOCOMPLETE_OPTIONS,
+        autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
+        available_years=AVAILABLE_YEARS,
+        state=state_data.get("state", state),
+        year=year_int,
+        state_data=state_data,
+        DISPLAY_ALIASES=DISPLAY_ALIASES,
+        price_plot_png=make_price_plot_base64(state_data),
+        emissions_plot_png=make_emissions_plot_base64(state_data, us_data),
+    )
 
 @app.route('/compareutility', methods=['GET', 'POST'])
 def compareutility():
