@@ -1,0 +1,10 @@
+
+_ multi year refactoring 
+   _ add functions in Datasource
+   _ refactor core
+   _ refactor front end
+_ revise user stories
+_ clean and refactor code
+_ map?
+_ imporove tests
+_ docstring revisions
