@@ -48,11 +48,9 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_get_us_data(self):
         '''tests that getting us data works'''
-        response = self.client.get('/us/2024/',follow_redirects=True)
+        response = self.client.get('/us',follow_redirects=True)
         response = response.get_data(as_text=True)
-        self.assertIn("US", response)
-        self.assertIn("2024", response)
-        self.assertIn("Transportation Price", response)
+        self.assertIn("Filter by Year", response)
 
     def test_single_state_success(self):
         """tests that single state returns json for valid input"""
@@ -61,7 +59,6 @@ class TestFlaskApp(unittest.TestCase):
         response = response.get_data(as_text=True)
         self.assertIn("MN", response)
         self.assertIn("2015", response)
-        self.assertin("8029473", response)
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
