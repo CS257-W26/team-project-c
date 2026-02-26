@@ -163,12 +163,11 @@ def display_us_data():
     '''
     Endpoint for displaying US data
     '''
-    years = [2013,2014,2015,2016,2017,2018,2019,2020, 2021, 2022, 2023, 2024] 
     selected_year =  request.args.get("year", type=int)
     data = None
     if selected_year:
         data = core.get_us_year_data(selected_year)
-    return render_template('us.html',us_data = data,years = years,selected_year=selected_year, 
+    return render_template('us.html',us_data = data,years = AVAILABLE_YEARS,selected_year=selected_year, 
                            autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
 
 @app.errorhandler(404)
