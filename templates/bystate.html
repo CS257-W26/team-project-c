@@ -19,15 +19,19 @@
 
     <h2>Price Plot</h2>
     <p class="muted">Average electricity price by sector (cents/kWh).</p>
-    <img class="plot-img"
-         src="data:image/png;base64,{{ price_plot_png }}"
-         alt="Bar chart of electricity price by sector">
+    <img
+      class="plot-img"
+      src="data:image/png;base64,{{ price_plot_png }}"
+      alt="Bar chart of average electricity price by sector"
+    >
 
     <h2>Emissions Plot</h2>
-    <p class="muted">CO₂ emissions in tons and metric tons.</p>
-    <img class="plot-img"
-         src="data:image/png;base64,{{ emissions_plot_png }}"
-         alt="Bar chart of CO2 emissions in tons and metric tons">
+    <p class="muted">CO₂ emissions intensity (tons per MWh), compared to US average.</p>
+    <img
+      class="plot-img"
+      src="data:image/png;base64,{{ emissions_plot_png }}"
+      alt="Bar chart of CO2 emissions intensity compared to US average"
+    >
   </div>
 </body>
 </html>

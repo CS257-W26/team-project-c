@@ -20,50 +20,81 @@ def get_table(data):
     my_table.add_new_entry(data)
     return my_table.get_table()
 
+def to_number(value):
+    """Convert a value to float for plotting."""
+    if value is None:
+        return 0.0
+    if isinstance(value, (int, float)):
+        return float(value)
+    try:
+        cleaned = str(value).replace(",", "")
+        return float(cleaned)
+    except (ValueError, TypeError):
+        return 0.0
+
+def fig_to_base64(fig):
+    """Convert a matplotlib Figure into a base64 PNG string."""
+    png_output = io.BytesIO()
+    FigureCanvas(fig).print_png(png_output)
+    return base64.b64encode(png_output.getvalue()).decode("utf-8")
+
 def make_price_plot_base64(state_data):
-    """Bar chart of average electricity price by sector (cents/kWh)."""
+    """Bar chart: Average electricity price by sector (cents/kWh)."""
     categories = ["Residential", "Commercial", "Industrial", "Transportation", "Total"]
     values = [
-        state_data.get("residentialPrice", 0),
-        state_data.get("commercialPrice", 0),
-        state_data.get("industrialPrice", 0),
-        state_data.get("transportationPrice", 0),
-        state_data.get("totalPrice", 0),
+        to_number(state_data.get("residentialPrice")),
+        to_number(state_data.get("commercialPrice")),
+        to_number(state_data.get("industrialPrice")),
+        to_number(state_data.get("transportationPrice")),
+        to_number(state_data.get("totalPrice")),
     ]
 
     fig = Figure(figsize=(7.5, 4.5))
     axis = fig.add_subplot(1, 1, 1)
+
     axis.bar(categories, values)
     axis.set_title("Average Electricity Price by Sector")
     axis.set_ylabel("cents / kWh")
-    axis.tick_params(axis='x', labelrotation=25)
+
+    axis.set_ylim(bottom=0)
+    axis.tick_params(axis="x", labelrotation=20)
+    axis.grid(axis="y", linestyle="--", alpha=0.3)
 
     fig.tight_layout()
+    return fig_to_base64(fig)
 
-    png_output = io.BytesIO()
-    FigureCanvas(fig).print_png(png_output)
-    return base64.b64encode(png_output.getvalue()).decode("utf-8")
+def emissions_intensity_tons_per_mwh(data):
+    """Compute CO2 intensity = tons CO2 per MWh generated."""
+    co2_tons = to_number(data.get("co2Tons"))
+    gen_kwh = to_number(data.get("generation"))
+    gen_mwh = gen_kwh / 1000.0
 
-def make_emissions_plot_base64(state_data):
-    """Simple bar chart for CO2 emissions (tons vs metric tons)."""
-    categories = ["CO₂ (tons)", "CO₂ (metric tons)"]
-    values = [
-        state_data.get("co2Tons", 0),
-        state_data.get("co2MetricTons", 0),
-    ]
+    if gen_mwh <= 0:
+        return 0.0
+    return co2_tons / gen_mwh
+
+def make_emissions_plot_base64(state_data, us_data):
+    """Bar chart: CO2 intensity (tons/MWh) for State vs US average."""
+    state_val = emissions_intensity_tons_per_mwh(state_data)
+    us_val = emissions_intensity_tons_per_mwh(us_data)
+
+    categories = ["State", "US avg"]
+    values = [state_val, us_val]
 
     fig = Figure(figsize=(7.5, 4.5))
     axis = fig.add_subplot(1, 1, 1)
+
     axis.bar(categories, values)
-    axis.set_title("CO₂ Emissions")
-    axis.set_ylabel("tons")
-    axis.tick_params(axis='x', labelrotation=0)
+    axis.set_title("CO₂ Emissions Intensity")
+    axis.set_ylabel("tons CO₂ per MWh")
+    axis.set_ylim(bottom=0)
+    axis.grid(axis="y", linestyle="--", alpha=0.3)
+
+    for i, v in enumerate(values):
+        axis.text(i, v, f"{v:.3f}", ha="center", va="bottom")
 
     fig.tight_layout()
-
-    png_output = io.BytesIO()
-    FigureCanvas(fig).print_png(png_output)
-    return base64.b64encode(png_output.getvalue()).decode("utf-8")
+    return fig_to_base64(fig)
 
 @app.route('/')
 def homepage():
@@ -88,25 +119,45 @@ def search():
 @app.route('/bystate/<state>/<year>/')
 def bystate(state, year):
     """Route for individual state data page."""
-    year_int = int(year)
+    try:
+        year_int = int(year)
+    except ValueError:
+        return render_template(
+            "error.html",
+            errorNumber=400,
+            errorText="Year must be a number.",
+            autocomplete=AUTOCOMPLETE_OPTIONS,
+            available_years=AVAILABLE_YEARS,
+        ), 400
 
-    state_data = core.get_state_year_data(state, year_int)
+    try:
+        state_data = core.get_state_year_data(state, year_int)
+        us_data = core.get_us_year_data(year_int)
+        table_str = get_table(state_data)
 
-    table_str = get_table(state_data)
-    price_plot_png = make_price_plot_base64(state_data)
-    emissions_plot_png = make_emissions_plot_base64(state_data)
+        price_plot_png = make_price_plot_base64(state_data)
+        emissions_plot_png = make_emissions_plot_base64(state_data, us_data)
 
-    return render_template(
-        'bystate.html',
-        autocomplete=AUTOCOMPLETE_OPTIONS,
-        autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
-        available_years=AVAILABLE_YEARS,
-        state=state_data.get("state", state),
-        year=year_int,
-        table=table_str,
-        price_plot_png=price_plot_png,
-        emissions_plot_png=emissions_plot_png
-    )
+        return render_template(
+            "bystate.html",
+            autocomplete=AUTOCOMPLETE_OPTIONS,
+            autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
+            available_years=AVAILABLE_YEARS,
+            state=state_data.get("state", state),
+            year=year_int,
+            table=table_str,
+            price_plot_png=price_plot_png,
+            emissions_plot_png=emissions_plot_png,
+        )
+
+    except Exception as e:
+        return render_template(
+            "error.html",
+            errorNumber=500,
+            errorText="Internal error while loading state data. " + str(e),
+            autocomplete=AUTOCOMPLETE_OPTIONS,
+            available_years=AVAILABLE_YEARS,
+        ), 500
 
 @app.route('/compareutility', methods=['GET', 'POST'])
 def compareutility():
