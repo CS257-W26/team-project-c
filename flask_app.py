@@ -10,15 +10,8 @@ from matplotlib.figure import Figure
 from ProductionCode import core
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import AVAILABLE_YEARS, DISPLAY_ALIASES
-from ProductionCode.table_maker import TableMaker
 
 app = Flask(__name__)
-
-def get_table(data):
-    """Makes a table object and returns the string."""
-    my_table = TableMaker()
-    my_table.add_new_entry(data)
-    return my_table.get_table()
 
 def to_number(value):
     """Convert a value to float for plotting."""
@@ -173,10 +166,8 @@ def display_us_data():
     years = [2013,2014,2015,2016,2017,2018,2019,2020, 2021, 2022, 2023, 2024] 
     selected_year =  request.args.get("year", type=int)
     data = None
-    table_str = None
     if selected_year:
         data = core.get_us_year_data(selected_year)
-        table_str = get_table(data)
     return render_template('us.html',us_data = data,years = years,selected_year=selected_year, 
                            autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
 
