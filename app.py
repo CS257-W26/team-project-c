@@ -21,6 +21,7 @@ def get_table(data):
     return my_table.get_table()
 
 def make_price_plot_base64(state_data):
+    """Bar chart of average electricity price by sector (cents/kWh)."""
     categories = ["Residential", "Commercial", "Industrial", "Transportation", "Total"]
     values = [
         state_data.get("residentialPrice", 0),
@@ -36,6 +37,27 @@ def make_price_plot_base64(state_data):
     axis.set_title("Average Electricity Price by Sector")
     axis.set_ylabel("cents / kWh")
     axis.tick_params(axis='x', labelrotation=25)
+
+    fig.tight_layout()
+
+    png_output = io.BytesIO()
+    FigureCanvas(fig).print_png(png_output)
+    return base64.b64encode(png_output.getvalue()).decode("utf-8")
+
+def make_emissions_plot_base64(state_data):
+    """Simple bar chart for CO2 emissions (tons vs metric tons)."""
+    categories = ["CO₂ (tons)", "CO₂ (metric tons)"]
+    values = [
+        state_data.get("co2Tons", 0),
+        state_data.get("co2MetricTons", 0),
+    ]
+
+    fig = Figure(figsize=(7.5, 4.5))
+    axis = fig.add_subplot(1, 1, 1)
+    axis.bar(categories, values)
+    axis.set_title("CO₂ Emissions")
+    axis.set_ylabel("tons")
+    axis.tick_params(axis='x', labelrotation=0)
 
     fig.tight_layout()
 
@@ -66,9 +88,13 @@ def search():
 @app.route('/bystate/<state>/<year>/')
 def bystate(state, year):
     """Route for individual state data page."""
-    state_data = core.get_state_year_data(state, year)
+    year_int = int(year)
+
+    state_data = core.get_state_year_data(state, year_int)
+
     table_str = get_table(state_data)
-    plot_png = make_price_plot_base64(state_data)
+    price_plot_png = make_price_plot_base64(state_data)
+    emissions_plot_png = make_emissions_plot_base64(state_data)
 
     return render_template(
         'bystate.html',
@@ -76,9 +102,10 @@ def bystate(state, year):
         autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
         available_years=AVAILABLE_YEARS,
         state=state_data.get("state", state),
-        year=year,
+        year=year_int,
         table=table_str,
-        plot_png=plot_png
+        price_plot_png=price_plot_png,
+        emissions_plot_png=emissions_plot_png
     )
 
 @app.route('/compareutility', methods=['GET', 'POST'])
