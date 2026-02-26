@@ -96,7 +96,7 @@ def homepage():
         available_years=AVAILABLE_YEARS)
 
 @app.route('/map')
-def map():
+def usmap():
     '''route for interactive map'''
     return render_template('map.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
         available_years=AVAILABLE_YEARS)
@@ -135,7 +135,7 @@ def compareutility():
     """route for handeling getting and routing comparisons"""
     if request.method == 'GET':
         state1 = request.args.get('state1')
-        if (state1 is not None):
+        if state1 is not None:
             state1 = AUTOCOMPLETE_OPTIONS[AUTOCOMPLETE_ALLIASES.index(state1)]
         return render_template('compareutility.html', autocomplete=AUTOCOMPLETE_OPTIONS, \
             available_years=AVAILABLE_YEARS, state1_autofill=state1)
@@ -167,8 +167,9 @@ def display_us_data():
     data = None
     if selected_year:
         data = core.get_us_year_data(selected_year)
-    return render_template('us.html',us_data = data,years = AVAILABLE_YEARS,selected_year=selected_year, 
-                           autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
+    return render_template('us.html',us_data = data,years = AVAILABLE_YEARS,
+    selected_year=selected_year, autocomplete=AUTOCOMPLETE_OPTIONS,
+    available_years=AVAILABLE_YEARS)
 
 @app.errorhandler(404)
 def page_not_found(e):

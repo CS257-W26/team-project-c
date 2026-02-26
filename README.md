@@ -6,11 +6,14 @@ Rafael
 Gabe
 Hongmiao
 # Dependencies
-Python CSV module - 
 Python io module - used for convienience in the TableMaker class
-Python argparse module - used for parsing command line input and help management
-Python Unittest
-# Example
+argparse - used for parsing command line input and help management
+Unittest - Testing
+Flask - Flask api and web interface
+matplotlib - webapp graphs
+
+# command_line
+Example:
 python3 command_line.py -p "MN"
 This will display the price data for MN, more states can be added as a space-separated list. "US" is a state and will display the average/aggregate data for the whole US.
 python3 command_line.py -h      -> display help information
@@ -18,12 +21,12 @@ python3 command_line.py -y 2013 CA   -> display info for California in 2013
 python3 command_line.py -c CA MN  -> display 2024 info for California and Minnesota, and their difference in each field
 python3 command_line.py US   -> display emission and price info for United States
 -- tags can be before or after state list (ie ... US -c  == ... -c US)
-# Running Flask app
+# flask_api
 python3 flask_app.py
 / -> The homepage will display information for how to use routes
 /api/allus/<year>/ -> view data for all the us
 /api/bystate/<state>/<year>/ -> view data for a state
-/api/compare/<states>/<year>/ -> view data for states with comparisons calulated
+/api/compare/<states>/<year>/ -> view data for states with comparisons calulated.
     
 <states> is a string of two letter state prefixes
 eg. ak mnus kswa are all valid strings for this field
@@ -36,3 +39,6 @@ Price data is available for the years 2010-2025"""
 /api/compare/CATX/2024/ -> gets info for CA and TX and adds shows net differences
 ### Feature 2
 /api/allus/2023 -> gets info for the enire US for 2023
+
+# flask_app
+Run flask app and view through your web browser.
