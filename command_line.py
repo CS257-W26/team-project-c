@@ -23,7 +23,9 @@ def main():
     print(my_table.get_table())
 
 def settup_argument_parser():
-    """Setsup ArgumentParser object"""
+    """Setsup ArgumentParser object
+    :return parser: built argument parser for use in main
+    """
     parser = argparse.ArgumentParser(
         description="Acesses and displays most recent emmisions and prices data by state.\n\n\
         Note: no year selection available ... yet",
@@ -42,7 +44,9 @@ def settup_argument_parser():
     return parser
 
 def parse_input():
-    """handles special cases and returns args"""
+    """handles special cases and returns args
+    :return args: object that contains user input
+    """
     parser = settup_argument_parser()
     args = parser.parse_args()
 
