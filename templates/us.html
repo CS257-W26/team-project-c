@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WattWatch USA – All US Data</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='us_style.css')}}">
+    <link rel="stylesheet" href="../static/us_style.css">
     <link rel="stylesheet" href="{{url_for('static',filename='main_style.css')}}">
 </head>
 
@@ -70,22 +70,54 @@
                 </div>
             <!-- Graphs -->
         <section class="graph-section" aria-labelledby="graph-heading">
-            <h2 id="graph-heading">Energy Data Visualization</h2>
-
-            <div 
-                class="graph-box"
-                role="img"
-                aria-label="Bar chart showing energy generation by state for the selected year"
-            >
-                Graph 1 (Future chart will appear here)
+            <h2 id="graph-heading">Price Data Visualization</h2>
+            <p>More charts too come...</p>
+        
+            <!-- Canvas for the chart -->
+            <div class="graph-box">
+                <canvas id="priceChart"></canvas>
             </div>
-
+        
             <p class="visually-hidden">
                 A graphical representation of energy generation by state. 
                 Exact values are available in the data table.
             </p>
-
         </section>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const us_data = {{ us_data | tojson }};
+        
+            const priceKeys = Object.keys(us_data)
+                .filter(key => key.toLowerCase().includes('price'));
+        
+            const priceValues = priceKeys.map(key => us_data[key]);
+        
+            const ctx = document.getElementById('priceChart').getContext('2d');
+        
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: priceKeys,       
+                    datasets: [{
+                        label: 'Price',
+                        data: priceValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            title: { display: true, text: 'Price Value' }
+                        },
+                        x: { title: { display: true, text: 'Industrial Category' } }
+                    }
+                }
+            });
+        </script>
     </main>
 
 </body>
