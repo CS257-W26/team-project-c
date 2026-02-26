@@ -10,7 +10,7 @@ from ProductionCode.data_processing import format_string
 
 db = DataSource()
 
-def parse_states(states):
+def parse_states(states: str):
     """
     All the api and website urls use the format of two state codes
     concatinated. eg CAAK for California and Alaska. However, the 
@@ -20,7 +20,8 @@ def parse_states(states):
     throws: ValueError when the string has an incorrect state code
     """
     parsed = []
-    if len(states)%2 == 1:
+    VALID_LENGTH = range(1,4)
+    if len(states)%2 == 1 and len(states) in VALID_LENGTH:
         raise ValueError(states + " could not be parsed")
     for i in range(0, len(states), 2):
         state_code = (states[i] + states[i+1]).upper()

@@ -1,34 +1,12 @@
 '''
 The eventual location for the Flask app interface for the project.
 '''
-from flask import Flask, Blueprint#, render_template_string
-from ProductionCode.data_source import DataSource
+from flask import Flask, Blueprint
 from ProductionCode.config import STATES_LIST
+import ProductionCode.core as core
 
-#TODO use core not DataSource
-data = DataSource()
 api = Blueprint('api', __name__)
 app = Flask(__name__)
-
-#TODO remove function -> core 
-def parse_states(states):
-    """
-    All the api and website urls use the format of two state codes
-    concatinated. eg CAAK for California and Alaska. However, the 
-    backend uses arrays of these codes. This function converts them
-    Param: states (str) string containing two letter state codes
-    Returns: parsed [(str)] array of two letter state codes in all caps
-    throws: ValueError when the string has an incorrect state code
-    """
-    parsed = []
-    if len(states)%2 == 1:
-        raise ValueError(states + " could not be parsed")
-    for i in range(0, len(states), 2):
-        state_code = (states[i] + states[i+1]).upper()
-        if state_code not in STATES_LIST:
-            raise ValueError(state_code + " is not a state code")
-        parsed.append(state_code)
-    return parsed
 
 @app.route('/')
 def homepage():
@@ -52,7 +30,7 @@ def homepage():
 def get_all_us_data(year):
     '''gets data for the whole US at a given year
     param year: int of the year to get data for'''
-    result = data.get_us_year_data(year)
+    result = core.get_us_year_data(year)
     return result
 
 @api.route('/bystate/<string:state>/<int:year>/')
@@ -63,7 +41,7 @@ def get_state_data(state, year):
     state = state.upper()
     if len(state) != 2 or state not in STATES_LIST:
         return state + " could not be parsed. Make sure it contains only valid states"
-    state_dict_list = data.get_states_data([state], year)
+    state_dict_list = core.get_states_data(state, year)
     return state_dict_list[0]
 
 @api.route('/compare/<string:states>/<int:year>/')
@@ -72,11 +50,10 @@ def get_comparison_data(states, year):
     param states: string of two letter state codes to get data for
     param year: int of the year to get data for'''
     try:
-        state_list = parse_states(states)
+        states_dicts = core.get_comparison(states, year)
     except ValueError:
         return states + " could not be parsed. Make sure it contains only valid states"
-    states_dict = data.get_comparison(state_list, year)
-    return states_dict
+    return states_dicts
 
 
 @app.errorhandler(404)
@@ -100,7 +77,7 @@ def python_bug(e):
     return (f"Uhh oh - technical issue: {e}", 500)
 
 def main():
-    '''runs flask app and calls load_data() function'''
+    '''runs flask app'''
     app.register_blueprint(api, url_prefix='/api')
     app.run(host='0.0.0.0', port=5112)
 
