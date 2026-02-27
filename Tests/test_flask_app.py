@@ -21,15 +21,15 @@ class TestFlaskApp(unittest.TestCase):
 
         self.mock_data.get_us_year_data.return_value = {
             "state": "US",
-            "year": 2024,
-            "transportationPrice": 13.31
+            "year": 2014,
+            "transportationPrice": 17.38
         }
 
         self.mock_data.get_states_data.return_value = {
             "state": "MN",
-            "year": 2015,
-            "totalSales": 8029473,
-            "residentialPrice": 2.00
+            "year": 2020,
+            "totalSales": 14,
+            "residentialPrice": 20.00
         }
 
         self.mock_data.get_comparison.return_value = [
@@ -58,7 +58,7 @@ class TestFlaskApp(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
         self.assertIn("MN", response)
-        self.assertIn("2015", response)
+        self.assertIn("2020", response)
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""

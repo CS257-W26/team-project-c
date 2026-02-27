@@ -7,7 +7,7 @@ with patch("ProductionCode.data_source.records.Database"):
     import flask_api as app
     importlib.reload(app)
 
-class TestFlaskApp(unittest.TestCase):
+class TestFlaskApi(unittest.TestCase):
     '''Tests for flask api'''
 
     def setUp(self):
@@ -42,7 +42,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_homepage(self):
         '''Tests that homepage is good'''
-        response = self.client.get('/', follow_redirects=True)
+        response = self.client.get('/api/', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
         body = response.get_data(as_text=True)
