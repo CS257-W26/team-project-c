@@ -10,6 +10,8 @@ from matplotlib.figure import Figure
 from ProductionCode import core
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import AVAILABLE_YEARS, DISPLAY_ALIASES
+from flask_api import api
+
 
 app = Flask(__name__)
 
@@ -188,4 +190,5 @@ def server_error(e):
     autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5112)
+    app.register_blueprint(api, url_prefix='/api')
+    app.run(host='0.0.0.0', port=5212)

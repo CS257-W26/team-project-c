@@ -33,12 +33,28 @@ eg. ak mnus kswa are all valid strings for this field
 Note that emission data is only available for the years 2013-2024
 Price data is available for the years 2010-2025"""
 ## Examples
-### Feature 3
-/api/bystate/KS/2025 -> gets info for KS in 2025 
 ### Feature 1
 /api/compare/CATX/2024/ -> gets info for CA and TX and adds shows net differences
 ### Feature 2
 /api/allus/2023 -> gets info for the enire US for 2023
+### Feature 3
+/api/bystate/KS/2025 -> gets info for KS in 2025 
 
 # flask_app
 Run flask app and view through your web browser.
+## Features
+### Feature 1
+Go to compare page using bottom in top nav bar 
+### Feature 2 
+Using search bar in navbar search for state and select year
+### Feature 
+Go to all us page using all us button in nav bar
+
+## Scanning
+Our website enables scanning, there are bullet points and there are clear headings on every page.
+
+## Satisficing
+We have a search bar which users can go straight to look for whatever data they want, as well as from individual state page they can go to making comparisons which is satisfisable. 
+
+## Muddling through
+If a user enters a bad entry into search bar it will tell the user to use the autofill in order to get the state to load. 
