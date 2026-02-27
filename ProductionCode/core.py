@@ -20,7 +20,7 @@ def parse_states(states: str):
     throws: ValueError when the string has an incorrect state code
     """
     parsed = []
-    VALID_LENGTH = range(1,4)
+    const VALID_LENGTH = range(1,4)
     if len(states)%2 == 1 and len(states) in VALID_LENGTH:
         raise ValueError(states + " could not be parsed")
     for i in range(0, len(states), 2):
@@ -41,6 +41,9 @@ def get_comparison(states, year):
     return states
 
 def get_us_year_data(year):
+    '''
+    Gets us year data
+    '''
     data = db.get_us_year_data(year)
     for key in data:
         if key != 'year':
@@ -48,6 +51,9 @@ def get_us_year_data(year):
     return data
 
 def get_state_year_data(state, year):
+    '''
+    Get state data for year
+    '''
     data = db.get_states_data([state], year)[0]
     for key in data:
         if key != 'year':

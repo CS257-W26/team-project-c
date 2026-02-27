@@ -1,7 +1,7 @@
 """This module contains litterals that can be used as config
 when adding new fields"""
 
-"""*US is considered a State*""" 
+#*US is considered a State*
 AUTOCOMPLETE_OPTIONS = [
     'All-United States US',
     'Alabama AL',
