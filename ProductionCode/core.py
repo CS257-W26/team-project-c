@@ -20,8 +20,7 @@ def parse_states(states: str):
     throws: ValueError when the string has an incorrect state code
     """
     parsed = []
-    const VALID_LENGTH = range(1,4)
-    if len(states)%2 == 1 and len(states) in VALID_LENGTH:
+    if len(states)%2 == 1 and len(states) in range(1,4):
         raise ValueError(states + " could not be parsed")
     for i in range(0, len(states), 2):
         state_code = (states[i] + states[i+1]).upper()
