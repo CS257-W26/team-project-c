@@ -160,7 +160,7 @@ def compare_states(states, year):
         state1data=data[0], state2data=data[1], comparison=data[2], \
         autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
 
-@app.route('/us', methods=['GET', 'POST'])
+@app.route('/us')
 def display_us_data():
     '''
     Endpoint for displaying US data

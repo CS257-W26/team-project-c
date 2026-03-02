@@ -24,11 +24,11 @@ python3 command_line.py US   -> display emission and price info for United State
 # flask_api
 python3 flask_app.py
 / -> The homepage will display information for how to use routes
-/api/allus/<year>/ -> view data for all the us
-/api/bystate/<state>/<year>/ -> view data for a state
-/api/compare/<states>/<year>/ -> view data for states with comparisons calulated.
+/api/allus/year/ -> view data for all the us
+/api/bystate/state/year/ -> view data for a state
+/api/compare/states/year/ -> view data for states with comparisons calulated.
     
-<states> is a string of two letter state prefixes
+states is a string of two letter state prefixes
 eg. ak mnus kswa are all valid strings for this field
 Note that emission data is only available for the years 2013-2024
 Price data is available for the years 2010-2025"""
