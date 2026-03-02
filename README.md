@@ -51,7 +51,7 @@ Using search bar in navbar search for state and select year
 Go to all us page using all us button in nav bar
 
 ## Scanning
-Our website enables scanning, there are bullet points.
+Our website enables scanning, there are bullet points and there are clear headings on every page.
 
 ## Satisficing
 We have a search bar which users can go straight to look for whatever data they want, as well as from individual state page they can go to making comparisons which is satisfisable. 

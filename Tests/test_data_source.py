@@ -66,7 +66,7 @@ class DataSourceTests(unittest.TestCase):
         mock_sales.return_value = {"residentialRevenue": 123456}
         mock_emissions.return_value = {"generation": 2340924}
         result = self.test_source.get_us_year_data(2024)
-        self.assertEqual(result, {"generation":2340924, "residentialRevenue":123456, 
+        self.assertEqual(result, {"generation":2340924, "residentialRevenue":123456,
         'state': 'US'})
         mock_sales.assert_called_once_with(2024)
         mock_emissions.assert_called_once_with(2024)

@@ -5,6 +5,7 @@ import records
 
 import ProductionCode.psql_config as config
 from ProductionCode.config import DICTIONARY_KEYS_ORDERED
+from ProductionCode.config import AVAILABLE_YEARS
 
 class DataSource:
     ''' 
@@ -144,10 +145,13 @@ class DataSource:
         '''
         results = []
         for state in states:
-            sales = self.get_sales_state_year(state, year)
-            emissions = self.get_emissions_state_year(state,year)
-            state_result = emissions | sales
-            results.append(state_result)
+            if state == 'US':
+                results.append(self.get_us_year_data(year))
+            else:
+                sales = self.get_sales_state_year(state, year)
+                emissions = self.get_emissions_state_year(state,year)
+                state_result = emissions | sales
+                results.append(state_result)
         return results
 
     def get_comparison(self, states, year):
@@ -178,3 +182,22 @@ class DataSource:
         emissions = self.get_emissions_us_year(year)
         us_result = {'state': "US"} | emissions | sales
         return us_result
+
+    def get_state_all_years(self, state):
+        '''
+        Gets state data for all years available
+        param state str: two letter state code of state data to get
+        return data: list of dicts: each dictionary contains data for each year
+        '''
+        data = []
+        for year in AVAILABLE_YEARS:
+            data.append(self.get_states_data([state], year))
+        return data
+
+    def get_us_all_years(self):
+        '''
+        Gets us data for all years available - seperate function for clarity at higher levels
+        return: list of dicts: each dictionary contains data for each year
+        '''
+        return self.get_state_all_years('US')
+        

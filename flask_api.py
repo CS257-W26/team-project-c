@@ -8,7 +8,7 @@ import ProductionCode.core as core
 api = Blueprint('api', __name__)
 app = Flask(__name__)
 
-@app.route('/')
+@api.route('/')
 def homepage():
     '''
     Endpoint for our homepage - returns text for welcome screen
@@ -86,7 +86,6 @@ def python_bug(e):
 
 def main():
     '''runs flask app'''
-    app.register_blueprint(api, url_prefix='/api')
     app.run(host='0.0.0.0', port=5112)
 
 if __name__ == "__main__":
