@@ -1,95 +1,15 @@
 """flask app for website navigation and rendering"""
 
-import io
-import base64
-
 from flask import Flask, request, render_template, url_for, redirect
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
 
 from ProductionCode import core
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import AVAILABLE_YEARS, DISPLAY_ALIASES
+from ProductionCode.plotting import PlotBuilder
 from flask_api import api
 
-
 app = Flask(__name__)
-
-def to_number(value):
-    """Convert a value to float for plotting."""
-    if value is None:
-        return 0.0
-    if isinstance(value, (int, float)):
-        return float(value)
-    try:
-        cleaned = str(value).replace(",", "")
-        return float(cleaned)
-    except (ValueError, TypeError):
-        return 0.0
-
-def fig_to_base64(fig):
-    """Convert a matplotlib Figure into a base64 PNG string."""
-    png_output = io.BytesIO()
-    FigureCanvas(fig).print_png(png_output)
-    return base64.b64encode(png_output.getvalue()).decode("utf-8")
-
-def make_price_plot_base64(state_data):
-    """Bar chart: Average electricity price by sector (cents/kWh)."""
-    categories = ["Residential", "Commercial", "Industrial", "Transportation", "Total"]
-    values = [
-        to_number(state_data.get("residentialPrice")),
-        to_number(state_data.get("commercialPrice")),
-        to_number(state_data.get("industrialPrice")),
-        to_number(state_data.get("transportationPrice")),
-        to_number(state_data.get("totalPrice")),
-    ]
-
-    fig = Figure(figsize=(7.5, 4.5))
-    axis = fig.add_subplot(1, 1, 1)
-
-    axis.bar(categories, values)
-    axis.set_title("Average Electricity Price by Sector")
-    axis.set_ylabel("cents / kWh")
-
-    axis.set_ylim(bottom=0)
-    axis.tick_params(axis="x", labelrotation=20)
-    axis.grid(axis="y", linestyle="--", alpha=0.3)
-
-    fig.tight_layout()
-    return fig_to_base64(fig)
-
-def emissions_intensity_tons_per_mwh(data):
-    """Compute CO2 intensity = tons CO2 per MWh generated."""
-    co2_tons = to_number(data.get("co2Tons"))
-    gen_kwh = to_number(data.get("generation"))
-    gen_mwh = gen_kwh / 1000.0
-
-    if gen_mwh <= 0:
-        return 0.0
-    return co2_tons / gen_mwh
-
-def make_emissions_plot_base64(state_data, us_data):
-    """Bar chart: CO2 intensity (tons/MWh) for State vs US average."""
-    state_val = emissions_intensity_tons_per_mwh(state_data)
-    us_val = emissions_intensity_tons_per_mwh(us_data)
-
-    categories = ["State", "US avg"]
-    values = [state_val, us_val]
-
-    fig = Figure(figsize=(7.5, 4.5))
-    axis = fig.add_subplot(1, 1, 1)
-
-    axis.bar(categories, values)
-    axis.set_title("CO₂ Emissions Intensity")
-    axis.set_ylabel("tons CO₂ per MWh")
-    axis.set_ylim(bottom=0)
-    axis.grid(axis="y", linestyle="--", alpha=0.3)
-
-    for i, v in enumerate(values):
-        axis.text(i, v, f"{v:.3f}", ha="center", va="bottom")
-
-    fig.tight_layout()
-    return fig_to_base64(fig)
+plotter = PlotBuilder()
 
 @app.route('/')
 def homepage():
@@ -128,8 +48,8 @@ def bystate(state, year):
         year=year_int,
         state_data=state_data,
         DISPLAY_ALIASES=DISPLAY_ALIASES,
-        price_plot_png=make_price_plot_base64(state_data),
-        emissions_plot_png=make_emissions_plot_base64(state_data, us_data),
+        price_plot_png=plotter.price_plot_base64(state_data),
+        emissions_plot_png=plotter.emissions_plot_base64(state_data, us_data),
     )
 
 @app.route('/compareutility', methods=['GET', 'POST'])
