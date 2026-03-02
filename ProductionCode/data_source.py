@@ -200,4 +200,3 @@ class DataSource:
         return: list of dicts: each dictionary contains data for each year
         '''
         return self.get_state_all_years('US')
-        
