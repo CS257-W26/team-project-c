@@ -13,8 +13,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def setUp(self):
         app.app.config["TESTING"] = True
-        app.app.config["PROPAGATE_EXCEPTIONS"] = False   
-        '''Sets up client, patches core'''
+        app.app.config["PROPAGATE_EXCEPTIONS"] = False
 
         self.client = app.app.test_client()
 
@@ -24,8 +23,8 @@ class TestFlaskApp(unittest.TestCase):
 
         self.mock_data.get_us_year_data.return_value = {
             "state": "US",
-            "year": 2014,
-            "transportationPrice": 17.38
+            "year": 2020,
+            "transportationPrice": 19.83
         }
 
         self.mock_data.get_states_data.return_value = {
