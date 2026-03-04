@@ -6,11 +6,12 @@ import records
 import ProductionCode.psql_config as config
 from ProductionCode.config import DICTIONARY_KEYS_ORDERED
 from ProductionCode.config import AVAILABLE_YEARS
-
+US_CODE = "US"
 class DataSource:
     ''' 
     class which contains functions for retrieving data from the data set 
     '''
+
     instance = None
     def __new__(cls):
         '''Make DataSource a singleton'''
@@ -23,7 +24,7 @@ class DataSource:
         connect = f"postgresql://{config.USER}:{config.PASSWORD}@localhost:5432/{config.DATABASE}"
         self.db = records.Database(connect)
 
-    def get_sales_state_year(self,state,year):
+    def get_sales_state_year(self,state,year) -> dict:
         '''
         Gets sales info for a state for a year month
         param state string: state code the data should be retrieved for
@@ -56,9 +57,9 @@ class DataSource:
             state = state, year = year
         )
         row = results.first()
-        return row.as_dict()
+        return row.as_dict() if row else {}
 
-    def get_sales_us_year(self,year):
+    def get_sales_us_year(self,year) -> dict:
         '''
         Gets sales info for the US for a year
         param year int: year of data to retrieve for US
@@ -90,10 +91,10 @@ class DataSource:
             year = year
         )
         us_results = results.first().as_dict()
-        us_results["state"] = "US"
-        return us_results
+        us_results["state"] = US_CODE
+        return us_results if us_results else {}
 
-    def get_emissions_state_year(self,state, year):
+    def get_emissions_state_year(self,state, year) -> dict:
         '''
         Gets emissions data for a state for a year
         param state string: state code the data should be retrieved for
@@ -115,9 +116,9 @@ class DataSource:
             state = state, year = year
         )
         row = results.first()
-        return row.as_dict()
+        return row.as_dict() if row else {}
 
-    def get_emissions_us_year(self, year):
+    def get_emissions_us_year(self, year) -> dict:
         '''
         Gets emissions data for the US for a year
         param year int: year of data to retrieve for US
@@ -138,10 +139,10 @@ class DataSource:
             year = year
         )
         us_results = results.first().as_dict()
-        us_results["state"] = "US"
-        return us_results
+        us_results["state"] = US_CODE
+        return us_results if us_results else {}
 
-    def get_states_data(self, states, year):
+    def get_states_data(self, states, year) -> list:
         '''
         Gets data for states which is passed in as array of state codes
         param states list: list of string state codes to get data for
@@ -161,7 +162,7 @@ class DataSource:
                 results.append(state_result)
         return results
 
-    def get_comparison(self, states, year):
+    def get_comparison(self, states, year) -> list:
         '''
         gets the data for the two states and then adds a third entry that computes the net 
         + or - between them
@@ -179,7 +180,7 @@ class DataSource:
         data.append(comparison)
         return data
 
-    def get_us_year_data(self, year):
+    def get_us_year_data(self, year) -> dict:
         '''
         Get US emissions and price data
         param year int: year to get data for
@@ -187,10 +188,10 @@ class DataSource:
         '''
         sales = self.get_sales_us_year(year)
         emissions = self.get_emissions_us_year(year)
-        us_result = {'state': "US"} | emissions | sales
+        us_result = {'state': US_CODE} | emissions | sales
         return us_result
 
-    def get_state_all_years(self, state):
+    def get_state_all_years(self, state) -> list:
         '''
         Gets state data for all years available
         param state str: two letter state code of state data to get
@@ -201,7 +202,7 @@ class DataSource:
             data.append(self.get_states_data([state], year))
         return data
 
-    def get_us_all_years(self):
+    def get_us_all_years(self) -> list:
         '''
         Gets us data for all years available - seperate function for clarity at higher levels
         return: list of dicts: each dictionary contains data for each year
