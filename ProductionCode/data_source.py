@@ -11,6 +11,12 @@ class DataSource:
     ''' 
     class which contains functions for retrieving data from the data set 
     '''
+    instance = None
+    def __new__(cls):
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)          
+        return cls.instance
+
     def __init__(self):
         '''Constructor that initiates connection to database'''
         connect = f"postgresql://{config.USER}:{config.PASSWORD}@localhost:5432/{config.DATABASE}"
