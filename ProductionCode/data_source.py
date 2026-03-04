@@ -13,8 +13,9 @@ class DataSource:
     '''
     instance = None
     def __new__(cls):
+        '''Make DataSource a singleton'''
         if cls.instance is None:
-            cls.instance = super().__new__(cls)          
+            cls.instance = super().__new__(cls)
         return cls.instance
 
     def __init__(self):

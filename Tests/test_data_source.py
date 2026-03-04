@@ -7,6 +7,7 @@ from ProductionCode.data_source import DataSource
 class DataSourceTests(unittest.TestCase):
     '''Class containing tests of Data Soure class'''
     def test_singleton(self):
+        '''Test that DataSource is a singleton'''
         d1 = DataSource()
         d2 = DataSource()
         self.assertEqual(d1, d2)
@@ -20,7 +21,7 @@ class DataSourceTests(unittest.TestCase):
         self.mock_database_class.return_value = self.mock_db_instance
 
         self.test_source = DataSource()
-    
+
     def test_sales_state_year(self):
         '''Tests queries for sales for given year and state'''
         self.mock_db_instance.query.return_value.first.return_value = Record(
