@@ -72,7 +72,7 @@ def compareutility():
 @app.route('/compare/<states>/<year>/')
 def compare_states(states, year):
     """route for comparison page"""
-    data = core.get_comparison(states, year)
+    data = core.get_comparison_year(states, year)
     #TODO_later restructure the following when moving to graphs
     keys = [x[0] for x in DISPLAY_ALIASES]
     labels = [x[1] for x in DISPLAY_ALIASES]

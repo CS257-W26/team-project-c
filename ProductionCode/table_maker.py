@@ -6,7 +6,7 @@ from ProductionCode.data_processing import format_string
 from ProductionCode.config import DISPLAY_ALIASES
 
 class TableMaker:
-"""Class to construct text formatted tables for command line interface"""
+    """Class to construct text formatted tables for command line interface"""
 
     def __init__(self, data=None):
         """

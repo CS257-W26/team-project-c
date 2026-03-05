@@ -50,7 +50,7 @@ class TestCore(unittest.TestCase):
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
-        response = core.get_comparison('IAFL', 2015)
+        response = core.get_comparison_year('IAFL', 2015)
 
         self.mock_db.get_comparison.assert_called_once_with(['IA', 'FL'], 2015)
         self.assertEqual("IA", response[0]['state'])
