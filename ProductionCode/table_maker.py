@@ -79,7 +79,7 @@ class TableMaker:
     def get_table(self):
         """
         Get the formated table
-        return table_str: table formated as a string"""   
+        return table_str: table formated as a string"""
         buffer = io.StringIO()
         col_sizes = self.get_col_sizes()
 
