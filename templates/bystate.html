@@ -16,23 +16,20 @@
 
     <h2>Summary Data</h2>
 
-    <table class="data-table">
-      <thead>
+    <table>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">{{ state }}</th>
+      </tr>
+
+      {% for key, label in DISPLAY_ALIASES %}
+        {% if state_data[key] is not none %}
         <tr>
-          <th>Metric</th>
-          <th>{{ state }}</th>
+          <th class="rowHeaders" scope="row">{{ label }}</th>
+          <td>{{ state_data[key] }}</td>
         </tr>
-      </thead>
-      <tbody>
-        {% for key, label in DISPLAY_ALIASES %}
-          {% if state_data[key] is not none %}
-          <tr>
-            <td>{{ label }}</td>
-            <td>{{ state_data[key] }}</td>
-          </tr>
-          {% endif %}
-        {% endfor %}
-      </tbody>
+        {% endif %}
+      {% endfor %}
     </table>
 
     <h2>Price Plot</h2>
