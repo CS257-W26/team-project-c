@@ -29,8 +29,13 @@ def parse_states(states: str):
         parsed.append(state_code)
     return parsed
 
-def get_comparison(states, year):
-    """returns comparison data at year - currently hard coded"""
+def get_comparison_year(states, year):
+    '''
+    gets comparison data at year
+    param states str: string of two letter state codes to get data for
+    param year int: year to get data for
+    return states list of dicts of data for a year
+    '''
     states = parse_states(states)
     states = db.get_comparison(states, year)
     for state in states:
@@ -42,6 +47,8 @@ def get_comparison(states, year):
 def get_us_year_data(year):
     '''
     Gets us year data
+    param year int: year to get data for
+    return data: dict of data for a year
     '''
     data = db.get_us_year_data(year)
     for key in data:
@@ -52,9 +59,19 @@ def get_us_year_data(year):
 def get_state_year_data(state, year):
     '''
     Get state data for year
+    param state str: two letter state code of state to get data for
+    param year int: year to get data for
+    return data: dict of data for a year
     '''
     data = db.get_states_data([state], year)[0]
     for key in data:
         if key != 'year':
             data[key] = format_string(data[key])
     return data
+
+def get_state_graphable_data(state):
+    '''
+    gets the state data and restructures it to be more compatable with graphing
+    param state str: two letter state code of state to get data for
+    return #TODO
+    '''

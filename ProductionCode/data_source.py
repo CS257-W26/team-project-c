@@ -187,7 +187,7 @@ class DataSource:
         '''
         Gets state data for all years available
         param state str: two letter state code of state data to get
-        return data: list of dicts: each dictionary contains data for each year
+        return data: list of list of dicts: each dictionary contains data for each year
         '''
         data = []
         for year in AVAILABLE_YEARS:
