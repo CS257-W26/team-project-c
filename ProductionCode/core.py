@@ -8,7 +8,9 @@ from ProductionCode.config import STATES_LIST
 from ProductionCode.data_processing import format_string
 
 
-db = DataSource()
+def _get_db():
+    '''Creates DataSource'''
+    return DataSource()
 
 def parse_states(states: str):
     """
@@ -37,6 +39,7 @@ def get_comparison_year(states, year):
     return states list of dicts of data for a year
     '''
     states = parse_states(states)
+    db = _get_db()
     states = db.get_comparison(states, year)
     for state in states:
         for key in state:
@@ -50,6 +53,7 @@ def get_us_year_data(year):
     param year int: year to get data for
     return data: dict of data for a year
     '''
+    db = _get_db()
     data = db.get_us_year_data(year)
     for key in data:
         if key != 'year':
@@ -63,6 +67,7 @@ def get_state_year_data(state, year):
     param year int: year to get data for
     return data: dict of data for a year
     '''
+    db = _get_db()
     data = db.get_states_data([state], year)[0]
     for key in data:
         if key != 'year':

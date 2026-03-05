@@ -11,6 +11,7 @@
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     {% include 'header.html' %}
+    <div id="wrapper">
     <main id="main-content">
 
         <h1>United States Energy Data</h1>
@@ -74,9 +75,7 @@
             <p>More charts too come...</p>
         
             <!-- Canvas for the chart -->
-            <div class="graph-box">
-                <canvas id="priceChart"></canvas>
-            </div>
+            <canvas id="priceChart"></canvas>
         
             <p class="visually-hidden">
                 A graphical representation of energy generation by state. 
@@ -119,6 +118,6 @@
             });
         </script>
     </main>
-
+</div>
 </body>
 </html>

@@ -2,6 +2,7 @@
 import unittest
 import importlib
 from unittest.mock import patch
+from ProductionCode.config import AUTOCOMPLETE_OPTIONS,AUTOCOMPLETE_ALLIASES
 
 with patch("ProductionCode.data_source.records.Database"):
     import flask_app as app
@@ -11,7 +12,8 @@ class TestFlaskApp(unittest.TestCase):
     '''Tests for flask app'''
 
     def setUp(self):
-        '''Sets up client, patches core'''
+        app.app.config["TESTING"] = True
+        app.app.config["PROPAGATE_EXCEPTIONS"] = False
 
         self.client = app.app.test_client()
 
@@ -21,8 +23,8 @@ class TestFlaskApp(unittest.TestCase):
 
         self.mock_data.get_us_year_data.return_value = {
             "state": "US",
-            "year": 2014,
-            "transportationPrice": 17.38
+            "year": 2020,
+            "transportationPrice": 19.83
         }
 
         self.mock_data.get_states_data.return_value = {
@@ -77,6 +79,49 @@ class TestFlaskApp(unittest.TestCase):
         body = response.get_data(as_text=True)
         self.assertIn("404 Not Found:", body)
 
+    def test_map_page(self):
+        '''test map route'''
+        response = self.client.get('/map', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        response = response.get_data(as_text=True)
+        self.assertIn("To be implemented Later", response)
+
+    def test_compareutility_get(self):
+        '''test get compareutility'''
+        response = self.client.get('/compareutility')
+        self.assertEqual(response.status_code, 200)
+
+    def test_compareutility_get_with_state(self):
+        '''Test compare get with state'''
+        response = self.client.get('/compareutility?state1=MN')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Minnesota', response.data)  # adjust to real value
+
+    def test_post_compareutility_redirect(self):
+        """POST should redirect to compare_states with correct parameters."""
+        state1 = AUTOCOMPLETE_OPTIONS[0]
+        state2 = AUTOCOMPLETE_OPTIONS[1]
+        year = "2022"
+
+        response = self.client.post(
+            "/compareutility",
+            data={
+                "state1": state1,
+                "state2": state2,
+                "year": year
+            }
+        )
+
+        self.assertEqual(response.status_code, 302)
+
+        expected_code = (
+            AUTOCOMPLETE_ALLIASES[0] +
+            AUTOCOMPLETE_ALLIASES[1]
+        )
+
+        self.assertIn("/compare", response.location)
+        self.assertIn(f"{expected_code}", response.location)
+        self.assertIn(f"{year}", response.location)
 
 if __name__ == "__main__":
     unittest.main()

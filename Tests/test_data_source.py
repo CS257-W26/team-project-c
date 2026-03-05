@@ -6,6 +6,12 @@ from ProductionCode.data_source import DataSource
 
 class DataSourceTests(unittest.TestCase):
     '''Class containing tests of Data Soure class'''
+    def test_singleton(self):
+        '''Test that DataSource is a singleton'''
+        d1 = DataSource()
+        d2 = DataSource()
+        self.assertEqual(d1, d2)
+
     def setUp(self):
         '''create mock data source object to be used'''
         self.patcher = patch("ProductionCode.data_source.records.Database")
