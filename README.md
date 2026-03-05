@@ -58,3 +58,12 @@ We have a search bar which users can go straight to look for whatever data they 
 
 ## Muddling through
 If a user enters a bad entry into search bar it will tell the user to use the autofill in order to get the state to load. 
+
+# TD 5 Improvements
+## Code Refactoring
+### DataSource
+DataSource was not a singleton which may have resulted in multiple instances of DataSource objects which would have been a waste of memory.
+Fix: Made DataSource a singleton in ProductionCode/data_source.py by overiding the "__new__" function and adding an instance variable to the class on lines 15-21. Also added a test in Tests/test_data_source.py on lines 9-13 which checks that DataSource is now a singleton.
+
+### plotting.py
+All of the plotting with matplotlib was in functions in the flask_app file which was not ideal. In order to fix this added a new file, ProductionCode/plotting.py, which made a plot class in order to better handle making graphs for the different web pages. Moved all of the code related to plotting from flask_app which was lines 16-90 to ProductionCode/plotting.py and made a plotbuilder object in flask_app to be used. 
