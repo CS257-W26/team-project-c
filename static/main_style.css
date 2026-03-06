@@ -42,11 +42,11 @@ header nav {
     justify-content: center;    
 }
 header nav div.navButtons {
-    flex: 1;
+    flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px 4%;
+    gap: 0px 4%; 
 }
 header nav form {
     flex: 1;
