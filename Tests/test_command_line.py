@@ -3,7 +3,7 @@ File contains tests for command_line.py
 '''
 import sys
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from io import StringIO
 from command_line import main
 
@@ -14,14 +14,12 @@ if __name__ == '__main__':
 class TestCommandLine(unittest.TestCase):
     """Full stack tests for the command_line"""
 
-    @patch('command_line.DataSource')
-    def test_one_state(self, mock_db_class):
+    @patch('command_line.core')
+    def test_one_state(self, mock_core):
         """test one state input"""
         sys.argv = ['command_line.py', 'CA']
         sys.stdout = StringIO()
-        mock_db_instance = MagicMock()
-        mock_db_class.return_value = mock_db_instance
-        mock_db_instance.get_states_data.return_value = \
+        mock_core.get_states_year.return_value = \
         [{'state': 'CA', 'year': 2024, 'generation': '5000'}]
         main()
         output = sys.stdout.getvalue().strip()
@@ -30,14 +28,12 @@ class TestCommandLine(unittest.TestCase):
         self.assertIn('Generation', output)
         self.assertIn('------', output)
 
-    @patch('command_line.DataSource')
-    def test_multiple_states(self, mock_db_class):
+    @patch('command_line.core')
+    def test_multiple_states(self, mock_core):
         """test two states""" 
         sys.argv = ['command_line.py', 'WA', 'NM']
         sys.stdout = StringIO()
-        mock_db_instance = MagicMock()
-        mock_db_class.return_value = mock_db_instance
-        mock_db_instance.get_states_data.return_value = \
+        mock_core.get_states_year.return_value = \
         [{'state': 'WA', 'year': 2023, 'generation': 5000, 'totalSales': 32475},
         {'state': 'NM', 'year': 2023, 'generation': 30000, 'totalSales': 9999999}]
         main()
@@ -49,14 +45,12 @@ class TestCommandLine(unittest.TestCase):
         self.assertIn('32,475', output)
         self.assertIn('------', output)
 
-    @patch('command_line.DataSource')
-    def test_compare_states(self, mock_db_class):
+    @patch('command_line.core')
+    def test_compare_states(self, mock_core):
         """test two states with compare""" 
         sys.argv = ['command_line.py', '-c', 'WA', 'NM']
         sys.stdout = StringIO()
-        mock_db_instance = MagicMock()
-        mock_db_class.return_value = mock_db_instance
-        mock_db_instance.get_comparison.return_value = \
+        mock_core.get_comparison_year.return_value = \
         [{'state': 'WA', 'year': 2023, 'generation': 5000, 'totalSales': 32475},
         {'state': 'NM', 'year': 2023, 'generation': 30000, 'totalSales': 9999999},
         {'state': 'comparison', 'generation': 25000, 'totalSales': 9967524}]
