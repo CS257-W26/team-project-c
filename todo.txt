@@ -1,6 +1,5 @@
 
 _ multi year refactoring 
-   _ add functions in Datasource
    _ refactor core
    _ refactor front end
 _ revise user stories

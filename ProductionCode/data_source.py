@@ -4,8 +4,10 @@ File contains DataSource Class for data base queries
 import records
 
 import ProductionCode.psql_config as config
-from ProductionCode.config import DICTIONARY_KEYS_ORDERED
+from ProductionCode.config import DICTIONARY_KEYS_ORDERED, DICTIONARY_KEYS_EMMISIONS_INDEXES
+from ProductionCode.config import DICTIONARY_KEYS_PRICES_INDEXES
 from ProductionCode.config import AVAILABLE_YEARS
+from ProductionCode.config import SQL_ALIASES
 US_CODE = "US"
 class DataSource:
     ''' 
@@ -153,7 +155,7 @@ class DataSource:
         '''
         results = []
         for state in states:
-            if state == 'US':
+            if state == US_CODE:
                 results.append(self.get_us_year_data(year))
             else:
                 sales = self.get_sales_state_year(state, year)
@@ -191,20 +193,35 @@ class DataSource:
         us_result = {'state': US_CODE} | emissions | sales
         return us_result
 
-    def get_state_all_years(self, state) -> list:
+    def get_graphable_data(self, state, graph_type) -> list:
         '''
-        Gets state data for all years available
+        Gets data for a certain state over all available years
         param state str: two letter state code of state data to get
-        return data: list of list of dicts: each dictionary contains data for each year
+        param graph_type: type of graph to get data for. Must be in config.DICTIONARY_KEYS_ORDERED
+        return data: list of data, 
+            [0] = state code, 
+            [1] = graph title, 
+            [2, 3, ...] = data
         '''
-        data = []
-        for year in AVAILABLE_YEARS:
-            data.append(self.get_states_data([state], year))
-        return data
+        try:
+            index = DICTIONARY_KEYS_ORDERED.index(graph_type)
+            sql_col = SQL_ALIASES[index][1]
+        except:
+            raise KeyError('graph type not present')
+        #TODO change graph type to a nice title?
+        data = [state, graph_type]
+        if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
+            table = "emissions"
+        elif index in DICTIONARY_KEYS_PRICES_INDEXES:
+            table = "sales_revenue"
+        else:
+            raise IndexError('index not within queriable values')
 
-    def get_us_all_years(self) -> list:
-        '''
-        Gets us data for all years available - seperate function for clarity at higher levels
-        return: list of dicts: each dictionary contains data for each year
-        '''
-        return self.get_state_all_years('US')
+        query_result = db.query("""
+            SELECT :sql_col FROM :table 
+            WHERE 
+            """,
+            sql_col=sql_col,
+            table=table
+        )
+        

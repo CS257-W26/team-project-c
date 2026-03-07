@@ -83,40 +83,41 @@ AVAILABLE_YEARS = [
     '2013'
 ]
 
-DISPLAY_ALIASES = [
-    ("state"                          , "State                           "),
-    ("year"                           , "Year                            "),
-    ("generation"                     , "Generation                 (kWh)"),
-    ("thermalOutput"                  , "Useful Thermal Output    (MMBtu)"),
-    ("totalFuelConsumption"           , "Total Fuel Consumption   (MMBtu)"),
-    ("totalFuelConsumptionGeneration" , "Total Fuel Consumption for      |\n\
-Electric Generation      (MMBtu)"),
-    ("fuelConsumptionThermalOutput"   , "Fuel Consumption for Useful     |\n\
-Thermal Output           (MMBtu)"),
-    ("quantityOfFuelConsumed"         , "Quanitty of Fuel Units Consumed "),
-    ("co2Tons"                        , "CO2 Emmissions            (Tons)"),
-    ("co2MetricTons"                  , "CO2 Emmissions     (Metric Tons)"),
-    ("residentialRevenue"             , "Residential Revenue        ($1K)"),
-    ("residentialSales"               , "Residential Sales          (MWh)"),
-    ("residentialCustomers"           , "Residential Customers           "),
-    ("residentialPrice"               , "Residential Price    (cents/kWh)"),
-    ("commercialRevenue"              , "Commercial Revenue         ($1K)"),
-    ("commercialSales"                , "Commercial Sales           (MWh)"),
-    ("commercialCustomers"            , "Commercial Customers            "),
-    ("commercialPrice"                , "Commercial Price     (cents/kWh)"),
-    ("industrialRevenue"              , "Industrial Revenue         ($1K)"),
-    ("industrialSales"                , "Industrial Sales           (MWh)"),
-    ("industrialCustomers"            , "Industrial Customers            "),
-    ("industrialPrice"                , "Industrial Price     (cents/kWh)"),
-    ("transportationRevenue"          , "Transportation Revenue     ($1K)"),
-    ("transportationSales"            , "Transportation Sales       (MWh)"),
-    ("transportationCustomers"        , "Transportation Customers        "),
-    ("transportationPrice"            , "Transportation Price (cents/kWh)"),
-    ("totalRevenue"                   , "total Revenue              ($1K)"),
-    ("totalSales"                     , "total Sales                (MWh)"),
-    ("totalCustomers"                 , "total Customers                 "),
-    ("totalPrice"                     , "total Price          (cents/kWh)")
+ALIASES = [
+    ("state"                          , "state"                                    , "State                           "),
+    ("year"                           , "year"                                     , "Year                            "),
+    ("generation"                     , "generation"                               , "Generation                 (kWh)"),
+    ("thermalOutput"                  , "usefulthermaloutput"                      , "Useful Thermal Output    (MMBtu)"),
+    ("totalFuelConsumption"           , "totalfuelconsumption"                     , "Total Fuel Consumption   (MMBtu)"),
+    ("totalFuelConsumptionGeneration" , "fuelconsumptionelectricgeneration"        , "Total Fuel Consumption for      |\nElectric Generation      (MMBtu)"),
+    ("fuelConsumptionThermalOutput"   , "fuelconsumptionusefulthermaloutput"       , "Fuel Consumption for Useful     |\nThermal Output           (MMBtu)"),
+    ("quantityOfFuelConsumed"         , "quantityfuelconsumed "                    , "Quanitty of Fuel Units Consumed "),
+    ("co2Tons"                        , "tonsco2emmissions"                        , "CO2 Emmissions            (Tons)"),
+    ("co2MetricTons"                  , "metrictonsco2emmissions"                  , "CO2 Emmissions     (Metric Tons)"),
+    ("residentialRevenue"             , "residentialrevenue"                       , "Residential Revenue        ($1K)"),
+    ("residentialSales"               , "residentialsales"                         , "Residential Sales          (MWh)"),
+    ("residentialCustomers"           , "residentialcustomers"                     , "Residential Customers           "),
+    ("residentialPrice"               , "residentialprice"                         , "Residential Price    (cents/kWh)"),
+    ("commercialRevenue"              , "commercialrevenue"                        , "Commercial Revenue         ($1K)"),
+    ("commercialSales"                , "commercialsales"                          , "Commercial Sales           (MWh)"),
+    ("commercialCustomers"            , "commercialcustomers"                      , "Commercial Customers            "),
+    ("commercialPrice"                , "commercialprice"                          , "Commercial Price     (cents/kWh)"),
+    ("industrialRevenue"              , "industrialrevenue"                        , "Industrial Revenue         ($1K)"),
+    ("industrialSales"                , "industrialsales"                          , "Industrial Sales           (MWh)"),
+    ("industrialCustomers"            , "industrialcustomers"                      , "Industrial Customers            "),
+    ("industrialPrice"                , "industrialprice"                          , "Industrial Price     (cents/kWh)"),
+    ("transportationRevenue"          , "transportationrevenue"                    , "Transportation Revenue     ($1K)"),
+    ("transportationSales"            , "transportationsales"                      , "Transportation Sales       (MWh)"),
+    ("transportationCustomers"        , "transportationcustomers"                  , "Transportation Customers        "),
+    ("transportationPrice"            , "transportationprice"                      , "Transportation Price (cents/kWh)"),
+    ("totalRevenue"                   , "totalrevenue"                             , "total Revenue              ($1K)"),
+    ("totalSales"                     , "totalsales"                               , "total Sales                (MWh)"),
+    ("totalCustomers"                 , "totalcustomers"                           , "total Customers                 "),
+    ("totalPrice"                     , "totalprice"                               , "total Price          (cents/kWh)")
 ]
+
+SQL_ALIASES = [(x[0], x[1]) for x in ALIASES]
+DISPLAY_ALIASES = [(x[0], x[2]) for x in ALIASES]
 
 DICTIONARY_KEYS_ORDERED = [x[0] for x in DISPLAY_ALIASES]
 DICTIONARY_KEYS_EMMISIONS_INDEXES = range(2,8)

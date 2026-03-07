@@ -72,11 +72,4 @@ def get_state_year_data(state, year):
     for key in data:
         if key != 'year':
             data[key] = format_string(data[key])
-    return data
-
-def get_state_graphable_data(state):
-    '''
-    gets the state data and restructures it to be more compatable with graphing
-    param state str: two letter state code of state to get data for
-    return #TODO
-    '''
+    return data            
