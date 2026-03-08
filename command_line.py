@@ -12,8 +12,12 @@ def main():
 
 
     if args.compareMode:
+        ds = DataSource()
+        print(ds.get_graphable_data('MN', 'generation'))
+        '''
         states_codes_string = "".join(args.args)
         states_results = core.get_comparison_year(states_codes_string, args.year)
+        '''
     else:
         states_results = core.get_states_year(args.args, args.year)
 

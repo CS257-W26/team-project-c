@@ -232,9 +232,4 @@ class DataSource:
         for row in query_result:
             data.append(row[1])
 
-        return data
-
-if __name__ == "__main__":
-    ds = DataSource()
-    print(ds.get_graphable_data('MN', 'generation'))
-        
+        return data        
