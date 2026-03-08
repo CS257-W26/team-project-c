@@ -212,9 +212,9 @@ class DataSource:
         #TODO change graph_type to a nice title?
         data = [state, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
-            table = "emissions"
+            table = 'emissions'
         elif index in DICTIONARY_KEYS_PRICES_INDEXES:
-            table = "sales_revenue"
+            table = 'sales_revenue'
         else:
             raise IndexError('index not within queriable values')
 
