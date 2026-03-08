@@ -216,16 +216,14 @@ class DataSource:
         elif index in DICTIONARY_KEYS_PRICES_INDEXES:
             table = 'sales_revenue'
         else:
-            raise IndexError('index not within queriable values')
+            raise IndexError('data in graph_type is not graphable')
 
         query_result = self.db.query("""
-            SELECT year, :sql_col FROM :table 
+            SELECT year, generation FROM emissions 
             WHERE state = :state 
             GROUP BY state, year
             ORDER BY year ASC
             """,
-            sql_col=sql_col,
-            table=table,
             state=state
         )
 
