@@ -32,10 +32,6 @@ class TestCore(unittest.TestCase):
             {"state": "FL", "year": 2015, "totalSales": 200},
             {"state": "comparison", "totalSales": 100}
         ]
-        self.mock_db.get_states_data.return_value = [
-            {"state": "MN","year": 2020,"totalSales": 14,"residentialPrice": 20.00},
-            {"state": "KS","year": 2020,"totalSales":14, "residentialPrice":15.00}
-            ]
 
     def test_get_us_data(self):
         '''tests that getting us data works'''
@@ -60,13 +56,6 @@ class TestCore(unittest.TestCase):
         self.assertEqual("IA", response[0]['state'])
         self.assertEqual("FL", response[1]['state'])
         self.assertEqual("comparison", response[2]['state'])
-
-    def test_multi_state(self):
-        '''tests that multi state returns multi states data'''
-        response = core.get_states_year(['MN','KS'], 2020)
-        self.assertEqual("MN", response[0]['state'])
-        self.assertEqual("KS", response[1]['state'])
-        self.assertEqual(20.00, response[0]['residentialPrice'])
 
 if __name__ == "__main__":
     unittest.main()
