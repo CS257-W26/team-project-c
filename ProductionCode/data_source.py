@@ -225,7 +225,7 @@ class DataSource:
             ORDER BY year ASC
             """,
             sql_col=sql_col,
-            table=table
+            table=table,
             state=state
         )
 
