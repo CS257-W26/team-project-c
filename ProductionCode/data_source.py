@@ -208,7 +208,8 @@ class DataSource:
             sql_col = SQL_ALIASES[index][1]
         except:
             raise KeyError('graph type not present')
-        #TODO change graph type to a nice title?
+
+        #TODO change graph_type to a nice title?
         data = [state, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
             table = "emissions"
@@ -218,10 +219,22 @@ class DataSource:
             raise IndexError('index not within queriable values')
 
         query_result = db.query("""
-            SELECT :sql_col FROM :table 
-            WHERE 
+            SELECT year, :sql_col FROM :table 
+            WHERE state = :state 
+            GROUP BY state, year
+            ORDER BY year ASC
             """,
             sql_col=sql_col,
             table=table
+            state=state
         )
+
+        for row in query_result:
+            data.append(row[1])
+
+        return data
+
+if __name__ == "__main__":
+    ds = DataSource()
+    print(ds.get_graphable_data('MN', 'generation'))
         
