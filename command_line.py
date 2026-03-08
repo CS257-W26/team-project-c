@@ -4,6 +4,8 @@ import sys
 from ProductionCode.table_maker import TableMaker
 from ProductionCode.config import STATES_LIST
 from ProductionCode import core
+#TODO remove
+from ProductionCode.data_source import DataSource
 
 def main():
     '''Handles user input with argparse calls data retrival functions, displays to command line'''
