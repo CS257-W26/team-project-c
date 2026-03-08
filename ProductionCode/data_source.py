@@ -218,7 +218,7 @@ class DataSource:
         else:
             raise IndexError('index not within queriable values')
 
-        query_result = db.query("""
+        query_result = self.db.query("""
             SELECT year, :sql_col FROM :table 
             WHERE state = :state 
             GROUP BY state, year
