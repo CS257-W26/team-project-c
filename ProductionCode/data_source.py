@@ -219,7 +219,7 @@ class DataSource:
             raise IndexError('data in graph_type is not graphable')
 
         query_result = self.db.query("""
-            SELECT year, generation FROM emissions 
+            SELECT year, SUM(generation) as "generation" FROM emissions 
             WHERE state = :state 
             GROUP BY state, year
             ORDER BY year ASC
