@@ -73,3 +73,14 @@ def get_state_year_data(state, year):
         if key != 'year':
             data[key] = format_string(data[key])
     return data            
+
+def get_states_year(states, year):
+    '''
+    Get data for a year for passed states
+    param states list: list of two letter state code of states to get data for
+    param year int: year to get data fro 
+    return data: list of dicts of data for states
+    '''
+    db=_get_db()
+    results = db.get_states_data(states, year)
+    return results
