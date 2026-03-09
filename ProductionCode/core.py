@@ -72,7 +72,7 @@ def get_state_year_data(state, year):
     for key in data:
         if key != 'year':
             data[key] = format_string(data[key])
-    return data            
+    return data
 
 def get_states_year(states, year):
     '''
