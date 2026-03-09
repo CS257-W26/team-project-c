@@ -203,6 +203,10 @@ class DataSource:
             [1] = graph title, 
             [2, 3, ...] = data
         '''
+        
+        if state == US_CODE:
+            return self.get_us_graphable_data(graph_type)
+
         try:
             index = DICTIONARY_KEYS_ORDERED.index(graph_type)
             sql_col = SQL_ALIASES[index][1]
@@ -218,8 +222,8 @@ class DataSource:
         else:
             raise IndexError('data in graph_type is not graphable')
 
-        query_result = self.db.query("""
-            SELECT year, SUM(generation) as "generation" FROM emissions 
+        query_result = self.db.query(f"""
+            SELECT year, {sql_col} FROM {table} 
             WHERE state = :state 
             GROUP BY state, year
             ORDER BY year ASC
@@ -230,4 +234,40 @@ class DataSource:
         for row in query_result:
             data.append(row[1])
 
-        return data        
+        return data   
+
+    def get_us_graphable_data(self, graph_type) -> lsit:
+        '''
+        Gets data for the US over all available years
+        param graph_type: type of graph to get data for. Must be in config.DICTIONARY_KEYS_ORDERED
+        return data: list of data, 
+            [0] = state code - set to US_CODE, 
+            [1] = graph title, 
+            [2, 3, ...] = data
+        '''
+        try:
+            index = DICTIONARY_KEYS_ORDERED.index(graph_type)
+            sql_col = SQL_ALIASES[index][1]
+        except:
+            raise KeyError('graph type not present')
+
+        #TODO change graph_type to a nice title?
+        data = [US_CODE, graph_type]
+        if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
+            table = 'emissions'
+        elif index in DICTIONARY_KEYS_PRICES_INDEXES:
+            table = 'sales_revenue'
+        else:
+            raise IndexError('data in graph_type is not graphable')
+
+        query_result = self.db.query(f"""
+            SELECT year, {sql_col} FROM {table}
+            GROUP BY year
+            ORDER BY year ASC
+            """,
+        )
+
+        for row in query_result:
+            data.append(row[1])
+
+        return data
