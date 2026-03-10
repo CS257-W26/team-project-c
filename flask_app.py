@@ -67,7 +67,7 @@ def compareutility():
     return redirect(url_for('compare_states', states=agg_state_code, year=request.form['year']))
 
 @app.route('/compare/<states>/<graph_type>/')
-def compare_states(states, year):
+def compare_states(states, graph_type):
     """route for comparison page"""
 
     state_data = core.get_graph_data_multi(state, graph_type)
