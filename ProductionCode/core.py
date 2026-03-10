@@ -99,3 +99,17 @@ def get_graph_data(state, graph_type):
         data[i] = float(data[i])
     '''
     return data
+
+def get_graph_data_comparison(states, graph_type):
+    '''
+    Gets the data for a graph
+    param states str, concatinated string of state codes to get data for
+    param graph_type str, desired data to get. Must be a value in config.py DICTIONARY_KEYS_ORDERED
+    return: list of lists containing info for graph
+    '''
+    states = parse_states(states)
+    db=_get_db()
+    data = []
+    for state in states:
+        data.append(db.get_graphable_data(state, graph_type))
+    return data

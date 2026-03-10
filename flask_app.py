@@ -66,16 +66,25 @@ def compareutility():
     agg_state_code = AUTOCOMPLETE_ALLIASES[state1_index] + AUTOCOMPLETE_ALLIASES[state2_index]
     return redirect(url_for('compare_states', states=agg_state_code, year=request.form['year']))
 
-@app.route('/compare/<states>/<year>/')
+@app.route('/compare/<states>/<graph_type>/')
 def compare_states(states, year):
     """route for comparison page"""
-    data = core.get_comparison_year(states, year)
-    #TODO_later restructure the following when moving to graphs
-    keys = [x[0] for x in DISPLAY_ALIASES]
-    labels = [x[1] for x in DISPLAY_ALIASES]
-    return render_template('compare.html', keys=keys, labels=labels, \
-        state1data=data[0], state2data=data[1], comparison=data[2], \
-        autocomplete=AUTOCOMPLETE_OPTIONS, available_years=AVAILABLE_YEARS)
+
+    state_data = core.get_graph_data_multi(state, graph_type)
+    plot = PlotBuilder()
+    plot.add_data(state_data[0])
+    plot.add_data(state_data[1])
+    plot_base64 = plot.get_fig()
+
+    return render_template(
+        "compare.html",
+        autocomplete=AUTOCOMPLETE_OPTIONS,
+        autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
+        available_years=AVAILABLE_YEARS,
+        state1=state_data[0][0],
+        state2=state_data[1][0],
+        plot_png=plot_base64,
+    )
 
 @app.route('/us')
 def display_us_data():
