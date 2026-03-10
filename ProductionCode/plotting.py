@@ -19,7 +19,9 @@ class PlotBuilder:
     def add_data(self, data):
         self.ax.set_title(data[1])
         print(data)
-        self.ax.plot([int(i) for i in AVAILABLE_YEARS.reverse()], data[2:])
+        reformated_years = [int(i) for i in AVAILABLE_YEARS.reverse()]
+        print(reformated_years)
+        self.ax.plot(reformated_years, data[2:])
 
     def get_fig(self):
         return self.fig_to_base64()
