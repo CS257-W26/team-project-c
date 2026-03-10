@@ -29,7 +29,9 @@ class PlotBuilder:
         """Convert a matplotlib Figure into a base64 PNG string."""
         png_output = io.BytesIO()
         FigureCanvas(self.fig).print_png(png_output)
-        return base64.b64encode(png_output.getvalue()).decode("utf-8")
+        pngImageB64String = "data:image/png;base64,"
+        pngImageB64String += base64.b64encode(png_output.getvalue()).decode("utf-8")
+        return pngImageB64String
 
 
 
