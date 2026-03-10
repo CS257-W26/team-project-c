@@ -6,9 +6,30 @@ import io
 import base64
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from ProductionCode.config import AVAILABLE_YEARS
 
 class PlotBuilder:
     """Builds matplotlib figures and returns them as base64 PNG strings."""
+
+    def __init__(self)
+        self.fig = Figure(figsize=(7.5, 4.5))
+        self.ax = self.fig.add_axes()
+        self.ax.set_xlabel('Year')
+
+    def add_data(self, data):
+        self.ax.set_title(data[1])
+        self.ax.plot(AVAILABLE_YEARS.reverse(), data[2:])
+
+    def get_fig(self):
+        return self.fig_to_base64()
+
+    def fig_to_base64(self):
+        """Convert a matplotlib Figure into a base64 PNG string."""
+        png_output = io.BytesIO()
+        FigureCanvas(self.fig).print_png(png_output)
+        return base64.b64encode(png_output.getvalue()).decode("utf-8")
+
+
 
     def to_number(self, value):
         """Convert a value to float for plotting."""
@@ -21,12 +42,6 @@ class PlotBuilder:
             return float(cleaned)
         except (ValueError, TypeError):
             return 0.0
-
-    def fig_to_base64(self, fig):
-        """Convert a matplotlib Figure into a base64 PNG string."""
-        png_output = io.BytesIO()
-        FigureCanvas(fig).print_png(png_output)
-        return base64.b64encode(png_output.getvalue()).decode("utf-8")
 
     def emissions_intensity_tons_per_mwh(self, data):
         """Compute CO2 intensity = tons CO2 per MWh generated."""

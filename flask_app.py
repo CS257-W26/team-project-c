@@ -31,25 +31,22 @@ def search():
     state_code = AUTOCOMPLETE_ALLIASES[state_index]
     return redirect(url_for('bystate', state=state_code, year=request.form['year']))
 
-@app.route("/bystate/<state>/<year>/")
+@app.route("/bystate/<state>/<graph_type>/")
 def bystate(state, year):
     """Route for individual state data page."""
-    year_int = int(year)
 
-    state_data = core.get_state_year_data(state, year_int)
-    us_data = core.get_us_year_data(year_int)
+    state_data = core.get_graphable_data(state, graph_type)
+    plot = PlotBuilder()
+    plot.add_data(state_data)
+    plot_base64 = plot.get_fig()
 
     return render_template(
         "bystate.html",
         autocomplete=AUTOCOMPLETE_OPTIONS,
         autocomplete_aliases=AUTOCOMPLETE_ALLIASES,
         available_years=AVAILABLE_YEARS,
-        state=state_data.get("state", state),
-        year=year_int,
-        state_data=state_data,
-        DISPLAY_ALIASES=DISPLAY_ALIASES,
-        price_plot_png=plotter.price_plot_base64(state_data),
-        emissions_plot_png=plotter.emissions_plot_base64(state_data, us_data),
+        state=state_data[0],
+        plot_png=plot_base64,
     )
 
 @app.route('/compareutility', methods=['GET', 'POST'])

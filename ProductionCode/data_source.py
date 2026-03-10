@@ -263,7 +263,7 @@ class DataSource:
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table}
             GROUP BY year
-            ORDER BY year ASC
+            ORDER BY year DESC
             """,
         )
 
