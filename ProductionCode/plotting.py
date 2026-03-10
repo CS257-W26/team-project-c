@@ -19,7 +19,7 @@ class PlotBuilder:
     def add_data(self, data):
         self.ax.set_title(data[1])
         print(data)
-        reformated_years = [int(i) for i in AVAILABLE_YEARS.reverse()]
+        reformated_years = [int(i) for i in AVAILABLE_YEARS].reverse()
         print(reformated_years)
         self.ax.plot(reformated_years, data[2:])
 
