@@ -93,4 +93,7 @@ def get_graph_data(state, graph_type):
     return: list containing info for graph
     '''
     db=_get_db()
-    return db.get_graphable_data(state, graph_type)
+    data = db.get_graphable_data(state, graph_type)
+    for i, _ in enumerate(data[2:]):
+        data[i] = float(data[i])
+    return data

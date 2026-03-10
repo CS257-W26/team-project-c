@@ -36,7 +36,6 @@ def bystate(state, graph_type):
     """Route for individual state data page."""
 
     state_data = core.get_graph_data(state, graph_type)
-    print(state_data)
     plot = PlotBuilder()
     plot.add_data(state_data)
     plot_base64 = plot.get_fig()
