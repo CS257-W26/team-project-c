@@ -13,7 +13,7 @@ class PlotBuilder:
 
     def __init__(self):
         self.fig = Figure(figsize=(7.5, 4.5))
-        self.ax = self.fig.add_axes()
+        self.ax = self.fig.add_axes([0.1, 0.1, 0.8, 0.8])
         self.ax.set_xlabel('Year')
 
     def add_data(self, data):
