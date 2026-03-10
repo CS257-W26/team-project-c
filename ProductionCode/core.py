@@ -92,5 +92,5 @@ def get_graph_data(state, graph_type):
     param graph_type str, desired data to get. Must be a value in config.py DICTIONARY_KEYS_ORDERED
     return: list containing info for graph
     '''
-    db-_get_db()
+    db=_get_db()
     return db.get_graphable_data(state, graph_type)
