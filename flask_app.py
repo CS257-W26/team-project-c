@@ -32,7 +32,7 @@ def search():
     return redirect(url_for('bystate', state=state_code, year=request.form['year']))
 
 @app.route("/bystate/<state>/<graph_type>/")
-def bystate(state, year):
+def bystate(state, graph_type):
     """Route for individual state data page."""
 
     state_data = core.get_graphable_data(state, graph_type)
