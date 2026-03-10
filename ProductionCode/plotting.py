@@ -18,6 +18,7 @@ class PlotBuilder:
 
     def add_data(self, data):
         self.ax.set_title(data[1])
+        print(data)
         self.ax.plot([int(i) for i in AVAILABLE_YEARS.reverse()], data[2:])
 
     def get_fig(self):
