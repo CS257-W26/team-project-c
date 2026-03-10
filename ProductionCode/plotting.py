@@ -11,7 +11,7 @@ from ProductionCode.config import AVAILABLE_YEARS
 class PlotBuilder:
     """Builds matplotlib figures and returns them as base64 PNG strings."""
 
-    def __init__(self)
+    def __init__(self):
         self.fig = Figure(figsize=(7.5, 4.5))
         self.ax = self.fig.add_axes()
         self.ax.set_xlabel('Year')
