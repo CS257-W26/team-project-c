@@ -70,7 +70,7 @@ def compareutility():
 def compare_states(states, graph_type):
     """route for comparison page"""
 
-    state_data = core.get_graph_data_multi(state, graph_type)
+    state_data = core.get_graph_data_comparison(state, graph_type)
     plot = PlotBuilder()
     plot.add_data(state_data[0])
     plot.add_data(state_data[1])
