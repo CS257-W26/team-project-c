@@ -111,5 +111,5 @@ def get_graph_data_comparison(states, graph_type):
     db=_get_db()
     data = []
     for state in states:
-        data.append(db.get_graphable_data(state, graph_type))
+        data.append(get_graph_data(state, graph_type))
     return data
