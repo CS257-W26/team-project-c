@@ -94,6 +94,8 @@ def get_graph_data(state, graph_type):
     '''
     db=_get_db()
     data = db.get_graphable_data(state, graph_type)
+    '''
     for i, _ in enumerate(data[2:], start=2):
         data[i] = float(data[i])
+    '''
     return data
