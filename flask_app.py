@@ -5,7 +5,7 @@ from flask import Flask, request, render_template, url_for, redirect
 from ProductionCode import core
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import  TITLE_ALIASES
-DATA_OPTIONS = [x for x in TITLE_ALIASES]
+DATA_OPTIONS = [x[1] for x in TITLE_ALIASES]
 from ProductionCode.plotting import PlotBuilder
 from flask_api import api
 
