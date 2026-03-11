@@ -236,7 +236,7 @@ class DataSource:
 
         return data   
 
-    def get_us_graphable_data(self, graph_type) -> lsit:
+    def get_us_graphable_data(self, graph_type) -> list:
         '''
         Gets data for the US over all available years
         param graph_type: type of graph to get data for. Must be in config.DICTIONARY_KEYS_ORDERED
