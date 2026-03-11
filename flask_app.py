@@ -30,7 +30,7 @@ def search():
     state = request.form['state']
     state_index = AUTOCOMPLETE_OPTIONS.index(state)
     state_code = AUTOCOMPLETE_ALLIASES[state_index]
-    return redirect(url_for('bystate', state=state_code, data_type=request.form['data_type']))
+    return redirect(url_for('bystate', state=state_code, graph_type=request.form['graph_type']))
 
 @app.route("/bystate/<state>/<graph_type>/")
 def bystate(state, graph_type):
@@ -65,7 +65,7 @@ def compareutility():
     state1_index = AUTOCOMPLETE_OPTIONS.index(state1)
     state2_index = AUTOCOMPLETE_OPTIONS.index(state2)
     agg_state_code = AUTOCOMPLETE_ALLIASES[state1_index] + AUTOCOMPLETE_ALLIASES[state2_index]
-    return redirect(url_for('compare_states', states=agg_state_code, data_type=request.form['data_type']))
+    return redirect(url_for('compare_states', states=agg_state_code, graph_type=request.form['graph_type']))
 
 @app.route('/compare/<states>/<graph_type>/')
 def compare_states(states, graph_type):
