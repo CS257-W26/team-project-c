@@ -17,8 +17,8 @@ rel="stylesheet" type="text/css" />
 
 <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
 <input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
-<select id="year" name="year" aria-label="Select year">
-    {% for i in available_years %}
+<select id="data_type" name="data_type" aria-label="Select data">
+    {% for i in data_options %}
         <option value="{{i}}">{{i}}</option>
     {% endfor %}
 </select>
