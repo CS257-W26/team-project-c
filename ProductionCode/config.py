@@ -210,7 +210,8 @@ ALIASES = [
 
 SQL_ALIASES = [(x[0], x[1]) for x in ALIASES]
 DISPLAY_ALIASES = [(x[0], x[2]) for x in ALIASES]
-TITLE_ALIASES = [(x[0], x[3]) for x in ALIASES]
+#[2:] because the first two, state, year, are ungraphable
+TITLE_ALIASES = [(x[0], x[3]) for x in ALIASES][2:]
 
 DICTIONARY_KEYS_ORDERED = [x[0] for x in DISPLAY_ALIASES]
 DICTIONARY_KEYS_EMMISIONS_INDEXES = range(2,8)
