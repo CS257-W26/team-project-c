@@ -94,11 +94,12 @@ def display_us_data():
     '''
     graph_type =  request.args.get("graph_type", type=int)
     data = None
+    plot_base64 = None
     if graph_type:
         data = core.get_graphable_data('US', graph_type)
-    plot = PlotBuilder()
-    plot.add_data(state_data)
-    plot_base64 = plot.get_fig()
+        plot = PlotBuilder()
+        plot.add_data(data)
+        plot_base64 = plot.get_fig()
     return render_template('us.html',plot_png = plot_base64, data_options=DATA_OPTIONS,
     selected_data=graph_type, autocomplete=AUTOCOMPLETE_OPTIONS,)
 
