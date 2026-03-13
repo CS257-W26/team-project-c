@@ -267,7 +267,12 @@ class DataSource:
             """,
         )
 
+        year_iterator = AVAILABLE_YEARS[0]
         for row in query_result:
-            data.append(row[1])
+            if row[0] == year_iterator:
+                data.append(row[1])
+            else:
+                data.append(0)
+            year_iterator -= 1
 
         return data
