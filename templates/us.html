@@ -63,10 +63,10 @@
                     <th scope="col"></th>
                     <th scope="col">{{ table_data["state"] }}</th>
                 </tr>
-                {% for i in range(title_aliases|length) %}
+                {% for alias in title_aliases %}
                 <tr>
-                    <th class="rowHeaders" scope="row">{{ i[1] }}</th>
-                    <td>{{ table_data[i[0]] }}</td>
+                    <th class="rowHeaders" scope="row">{{ alias[1] }}</th>
+                    <td>{{ table_data[alias[0]] }}</td>
                 </tr>
                 {% endfor %}
             </table>

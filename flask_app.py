@@ -135,7 +135,6 @@ def display_us_data():
     table_data = None
     if year:
         table_data = core.get_us_year_data(year)
-    print(table_data)
     
     return render_template('us.html',
         autocomplete=AUTOCOMPLETE_OPTIONS,
