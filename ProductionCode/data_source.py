@@ -225,10 +225,14 @@ class DataSource:
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table} 
             WHERE state = :state 
+            AND year <= :high_year
+            AND year >= :low_year
             GROUP BY state, year
             ORDER BY year ASC
             """,
-            state=state
+            state=state,
+            high_year=AVAILABLE_YEARS[0],
+            low_year=AVAILABLE_YEARS[-1]
         )
 
         year_iterator = AVAILABLE_YEARS[0]
@@ -267,9 +271,13 @@ class DataSource:
 
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table}
+            AND year <= :high_year
+            AND year >= :low_year
             GROUP BY year
             ORDER BY year DESC
             """,
+            high_year=AVAILABLE_YEARS[0],
+            low_year=AVAILABLE_YEARS[-1]
         )
 
         year_iterator = AVAILABLE_YEARS[0]
