@@ -135,6 +135,7 @@ def display_us_data():
     table_data = None
     if year:
         table_data = core.get_us_year_data(year)
+    print(table_data)
     
     return render_template('us.html',
         autocomplete=AUTOCOMPLETE_OPTIONS,
@@ -145,7 +146,8 @@ def display_us_data():
         selected_graph=graph_title,
 
         plot_png=plot_base64, 
-        table_data=table_data[0],)
+        table_data=table_data
+    )
 
 @app.errorhandler(404)
 def page_not_found(e):
