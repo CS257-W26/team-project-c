@@ -105,6 +105,7 @@ def compare_states(states):
         autocomplete=AUTOCOMPLETE_OPTIONS,
         data_options=DATA_OPTIONS,
         year_options=AVAILABLE_YEARS,
+        title_aliases=TITLE_ALIASES
 
         state1=states[:2],
         state2=states[2:],
