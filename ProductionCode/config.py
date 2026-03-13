@@ -119,11 +119,11 @@ ALIASES = [
         , "Quanitty of Fuel Units Consumed \
         (but this is wrong and we need to get rid of it from UI)"),
     ("co2Tons"                        
-        , 'SUM(tonsco2emissions) as "co2Tons"'
+        , 'SUM(tonsco2Emissions) as "co2Tons"'
         , "CO2 Emmissions            (Tons)"
         , "CO2 Emmissions (Tons)"),
     ("co2MetricTons"                  
-        , 'SUM(metrictonnesco2emissions) as "co2MetricTons"'
+        , 'SUM(metricTonnesco2Emissions) as "co2MetricTons"'
         , "CO2 Emmissions     (Metric Tons)"
         , "CO2 Emmissions (Metric Tons)"),
     ("residentialRevenue"             
