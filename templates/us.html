@@ -9,59 +9,94 @@
 </head>
 
 <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
-    {% include 'header.html' %}
-    <div id="wrapper">
-    <main id="main-content">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+{% include 'header.html' %}
+<div id="wrapper">
 
-        <h1>United States Data</h1>
+    <h1>United States Data</h1>
+    <form method="GET" id="filter"></form>
+    <!--Declare Form to attach form fields to-->
 
-        <div class="content-wrapper">
+    <div class="centerFlexbox">
+        <h2>Select data to graph:</h2>
+        <select form="filter" id="graph_title" name="graph_title" aria-label="Select data to graph">
+            {% for i in data_options %}
+                <option value="{{i}}" 
+                {% if i == selected_graph %}selected{% endif %}>
+                {{i}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
 
-            <!-- Controls + Data -->
-            <section class="centered-section" aria-labelledby="filter-heading">
-                
-                <h2 id="filter-heading">Get graph:</h2>
+    <div class="centerFlexbox">
+        {% if plot_png %}
+        <img
+            class="plot-img"
+            src="{{ plot_png }}"
+            alt="Chart"
+            >
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}    
+    </div>
 
-                <form method="GET">
-                    <div>
-                        <label for="graph-select">Choose a set of data</label>
-                        <select 
-                            id="graph-select"
-                            name="graph_type"
-                            required
-                            aria-describedby="data-description"
-                        >
-                            <option value="" disabled {% if not selected_data %}selected{% endif %}>
-                                Select what data you want to see
-                            </option>
+    <div class="centerFlexbox">
+        <h2>Select year for table data:</h2>
+        <select form="filter" id="year" name="year" aria-label="Select year for table data">
+            {% for i in year_options %}
+                <option value="{{i}}" 
+                {% if i == selected_year %}selected{% endif %}>
+                {{i}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
 
-                            {% for i in data_options %}
-                                <option value="{{ i }}"
-                                    {% if i == selected_data %}selected{% endif %}>
-                                    {{ i }}
-                                </option>
-                            {% endfor %}
-                        </select>
 
-                        <p id="data-description">
-                            Select a set of data to display.
-                        </p>
-                    </div>
+    <section class="centered-section" aria-labelledby="filter-heading">
+        
+        
 
-                    <button type="submit">Update</button>
-                </form>
-                  {% if plot_png %}
-                <img
-                    class="plot-img"
-                    src="{{ plot_png }}"
-                    alt="Bar chart of average electricity price by sector"
-                    >
-                {% else %}
-                    <p>No data loaded. Please select a set of data.</p>
-                {% endif %}
-        </div>
-    </main>
+        <form method="GET">
+            <div>
+                <label for="graph-select">Choose a set of data</label>
+                <select 
+                    id="graph-select"
+                    name="graph_type"
+                    required
+                    aria-describedby="data-description"
+                >
+                    <option value="" disabled {% if not selected_data %}selected{% endif %}>
+                        Select what data you want to see
+                    </option>
+
+                    {% for i in data_options %}
+                        <option value="{{ i }}"
+                            {% if i == selected_data %}selected{% endif %}>
+                            {{ i }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <p id="data-description">
+                    Select a set of data to display.
+                </p>
+            </div>
+
+            <button type="submit">Update</button>
+        </form>
+        {% if plot_png %}
+        <img
+            class="plot-img"
+            src="{{ plot_png }}"
+            alt="Bar chart of average electricity price by sector"
+            >
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}
 </div>
 </body>
 </html>

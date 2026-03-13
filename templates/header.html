@@ -17,11 +17,6 @@ rel="stylesheet" type="text/css" />
 
 <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
 <input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
-<select id="graph_type" name="graph_type" aria-label="Select data">
-    {% for i in data_options %}
-        <option value="{{i}}">{{i}}</option>
-    {% endfor %}
-</select>
 <input type="submit" value="Search">
 </form>
 </nav>
