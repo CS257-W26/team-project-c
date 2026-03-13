@@ -42,7 +42,7 @@ def bystate(state):
     graph_title = request.args.get("graph_title", type=str)
     plot_base64 = None
     if graph_title:
-        index = DATA_OPTIONS.index(state)
+        index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         graph_data = core.get_graph_data(state, graph_title_alias)
         plot = PlotBuilder()
@@ -92,7 +92,7 @@ def compare_states(states):
     graph_title = request.args.get("graph_title", type=str)
     plot_base64 = None
     if graph_title:
-        index = DATA_OPTIONS.index(state)
+        index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         state_data = core.get_graph_data_comparison(states, graph_title_alias)
         plot = PlotBuilder()
@@ -124,7 +124,7 @@ def display_us_data():
     graph_title = request.args.get("graph_title", type=str)
     plot_base64 = None
     if graph_title:
-        index = DATA_OPTIONS.index(state)
+        index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         data = core.get_graphable_data('US', graph_title_alias)
         plot = PlotBuilder()
