@@ -10,7 +10,7 @@ rel="stylesheet" type="text/css" />
 
 <nav>
 <div class="navButtons">
-    <a href="{{ url_for('display_us_data', graph_title='Generation (kWh)'|urlencode, year=2024) }}"><button>All US</button></a>
+    <a href="{{ url_for('display_us_data', graph_title='Generation (kWh)', year=2024) }}"><button>All US</button></a>
     <a href="{{ url_for('usmap') }}"><button>Map</button></a>
     <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
 </div>
