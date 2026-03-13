@@ -145,7 +145,7 @@ def display_us_data():
         selected_graph=graph_title,
 
         plot_png=plot_base64, 
-        table_data=table_data,)
+        table_data=table_data[0],)
 
 @app.errorhandler(404)
 def page_not_found(e):
