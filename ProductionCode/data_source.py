@@ -271,7 +271,7 @@ class DataSource:
 
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table}
-            AND year <= :high_year
+            WHERE year <= :high_year
             AND year >= :low_year
             GROUP BY year
             ORDER BY year DESC
