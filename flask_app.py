@@ -127,7 +127,6 @@ def display_us_data():
         index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         data = core.get_graph_data('US', graph_title_alias)
-        print(data)
         plot = PlotBuilder()
         plot.add_data(data)
         plot_base64 = plot.get_fig()
