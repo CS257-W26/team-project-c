@@ -18,11 +18,6 @@
     <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
 {% endif %}
 <input type="text" class="state" name="state2" placeholder="Enter state 2:" aria-label="Enter second state to compare">
-<select id="year" name="year" aria-label="Enter year">
-    {% for i in available_years %}
-        <option value="{{i}}">{{i}}</option>
-    {% endfor %}
-</select>
 <input type="submit" value="Search">
 </form>
 {% include 'compareutility_js.html' %}

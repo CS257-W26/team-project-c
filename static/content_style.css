@@ -1,3 +1,20 @@
+body h1 {
+    text-align: center;
+}
+
+table {
+    margin-bottom: 10px;
+}
+
+.plot-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 6px;
+    margin-top: 6px;
+}
+
 /*table style*/
 table {
     border: 3px solid gray;
@@ -15,13 +32,4 @@ td {
     border: 3px solid gray;
     text-align: center;
     padding: 3px;
-}
-
-.plot-img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ddd;
-    background: white;
-    padding: 6px;
-    margin-top: 6px;
 }
