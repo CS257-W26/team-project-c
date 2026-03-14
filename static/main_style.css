@@ -71,7 +71,7 @@ header nav div.navButtons {
     align-items: center;
     gap: 0px 4%; 
 }
-header nav div.navButtons button {
+header nav button {
     background: #ffffff;
 }
 
