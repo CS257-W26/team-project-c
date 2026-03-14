@@ -228,7 +228,7 @@ class DataSource:
             AND year <= :high_year
             AND year >= :low_year
             GROUP BY state, year
-            ORDER BY year ASC
+            ORDER BY year DESC
             """,
             state=state,
             high_year=AVAILABLE_YEARS[0],
