@@ -28,7 +28,8 @@ def search():
     state = request.form['state']
     state_index = AUTOCOMPLETE_OPTIONS.index(state)
     state_code = AUTOCOMPLETE_ALLIASES[state_index]
-    return redirect(url_for('bystate', state=state_code))
+    return redirect(url_for('bystate', state=state_code,
+        graph_title='Generation (kWh)', year=AVAILABLE_YEARS[0]))
 
 @app.route("/bystate/<state>/")
 def bystate(state):
@@ -52,8 +53,8 @@ def bystate(state):
     return render_template(
         "bystate.html",
         autocomplete=AUTOCOMPLETE_OPTIONS,
-        data_options=DATA_OPTIONS,
         year_options=AVAILABLE_YEARS,
+        title_aliases=TITLE_ALIASES,
 
         state=state,
         selected_graph=graph_title,
@@ -78,7 +79,8 @@ def compareutility():
     state1_index = AUTOCOMPLETE_OPTIONS.index(state1)
     state2_index = AUTOCOMPLETE_OPTIONS.index(state2)
     agg_state_code = AUTOCOMPLETE_ALLIASES[state1_index] + AUTOCOMPLETE_ALLIASES[state2_index]
-    return redirect(url_for('compare_states', states=agg_state_code))
+    return redirect(url_for('compare_states', states=agg_state_code,
+        graph_title='Generation (kWh)', year=AVAILABLE_YEARS[0]))
 
 @app.route('/compare/<states>/')
 def compare_states(states):
@@ -103,7 +105,6 @@ def compare_states(states):
     return render_template(
         "compare.html",
         autocomplete=AUTOCOMPLETE_OPTIONS,
-        data_options=DATA_OPTIONS,
         year_options=AVAILABLE_YEARS,
         title_aliases=TITLE_ALIASES,
 

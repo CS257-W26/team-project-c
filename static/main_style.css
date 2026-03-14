@@ -65,6 +65,10 @@ header nav form {
     display: none;
 }
 
+.skip_link {
+    display: none;
+}
+
 
 /*utility*/
 .centerFlexbox {
