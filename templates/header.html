@@ -15,9 +15,10 @@ rel="stylesheet" type="text/css" />
     <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
 </div>
 
-<form onsubmit="return checkSearchInput();" name="search" action="/search" method="post"></form>
-<input form="search" class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
-<button form="search" type="submit">Update</button>
+<form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
+<input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
+<button type="submit">Update</button>
+</form>
 </nav>
 
 </header>
