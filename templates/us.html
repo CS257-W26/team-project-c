@@ -32,8 +32,8 @@
                             required
                             aria-describedby="year-description"
                         >
-                            <option value="" disabled {% if not selected_year %}selected{% endif %}>
-                                Select a year
+                            <option value="{{ selected_year }}" {% if selected_year %}selected{% endif %}>
+                                {{ selected_year|default("Select a year") }}
                             </option>
 
                             {% for year in years %}
@@ -42,24 +42,26 @@
                                     {{ year }}
                                 </option>
                             {% endfor %}
+                           
                         </select>
-
+                        <button type="submit">Update Data</button>
                         <p id="year-description">
                             Select a year to display national energy generation data.
                         </p>
                     </div>
 
-                    <button type="submit">Update Data</button>
+                    
                 </form>
                   {% if us_data %}
                 <h2 id="table-heading">Energy Data Table</h2>
                 <div class="table-wrapper" role="region" aria-live="polite">
                     <table>
                         <tbody>
-                            {% for key, value in us_data.items() %}
+                            {% for i in range(labels|length) %}
+                            {% set key = keys[i] %}
                             <tr>
-                                <th scope="row">{{ key|capitalize }}</th>
-                                <td>{{ value }}</td>
+                                <th scope="row">{{ labels[i]}}</th>
+                                <td>{{ us_data[key] }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

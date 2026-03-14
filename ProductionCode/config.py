@@ -137,13 +137,13 @@ ALIASES = [
     ("transportationPrice"            , 'Round(Avg(transportationPrice)::numeric, 2) as "transportationPrice"'
         , "Transportation Price (cents/kWh)"),
     ("totalRevenue"                   , 'Sum(totalRevenue) as "totalRevenue"'
-        , "total Revenue              ($1K)"),
+        , "Total Revenue              ($1K)"),
     ("totalSales"                     , 'Sum(totalSales) as "totalSales"'
-        , "total Sales                (MWh)"),
+        , "Total Sales                (MWh)"),
     ("totalCustomers"                 , 'Round(Avg(totalCustomers)::numeric, 2) as "totalCustomers"'
-        , "total Customers                 "),
+        , "Total Customers                 "),
     ("totalPrice"                     , 'Round(Avg(totalPrice)::numeric, 2) as "totalPrice"'
-        , "total Price          (cents/kWh)")
+        , "Total Price          (cents/kWh)")
 ]
 
 SQL_ALIASES = [(x[0], x[1]) for x in ALIASES]

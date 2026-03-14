@@ -87,11 +87,13 @@ def display_us_data():
     '''
     selected_year =  request.args.get("year", type=int)
     data = None
+    keys = [x[0] for x in DISPLAY_ALIASES]
+    labels = [x[1] for x in DISPLAY_ALIASES]
     if selected_year:
         data = core.get_us_year_data(selected_year)
     return render_template('us.html',us_data = data,years = AVAILABLE_YEARS,
     selected_year=selected_year, autocomplete=AUTOCOMPLETE_OPTIONS,
-    available_years=AVAILABLE_YEARS)
+    available_years=AVAILABLE_YEARS, keys = keys, labels = labels)
 
 @app.errorhandler(404)
 def page_not_found(e):
