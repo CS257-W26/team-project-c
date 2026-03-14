@@ -76,7 +76,7 @@ header nav button {
 }
 
 header nav form {
-    flex: 1;
+    display: flex;
     align-items: stretch;
     height: 34px;
 }
