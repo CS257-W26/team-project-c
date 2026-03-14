@@ -235,8 +235,6 @@ class DataSource:
             low_year=AVAILABLE_YEARS[-1]
         )
 
-        print(query_result)
-
         year_iterator = AVAILABLE_YEARS[0]
         for row in query_result:
             if row[0] == year_iterator:
