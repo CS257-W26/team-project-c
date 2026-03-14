@@ -10,14 +10,71 @@
 <div id="wrapper">
 <h1>Comparison for {{ state1 }} and {{ state2 }}</h1>
 
-<div class="centerFlexbox">
-<img
-      class="plot-img"
-      src="{{ plot_png }}"
-      alt="Bar chart of average electricity price by sector"
-    >
-</div>
-</div>
+    <form method="GET" id="filter"></form>
+    <!--Declare Form to attach form fields to-->
 
+    <h2>Select data to graph:</h2>
+    <div class="centerFlexbox">
+        <select form="filter" id="graph_title" name="graph_title" aria-label="Select data to graph">
+            {% for i in title_aliases %}
+                {% set title = i[1] %}
+                <option value="{{title}}" 
+                {% if title == selected_graph %}selected{% endif %}>
+                {{title}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
+
+    <div class="centerFlexbox">
+        {% if plot_png %}
+        <img
+            class="plot-img"
+            src="{{ plot_png }}"
+            alt="Chart"
+            >
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}    
+    </div>
+
+    <h2>Select year for table data:</h2>
+    <div class="centerFlexbox">
+        <select form="filter" id="year" name="year" aria-label="Select year for table data">
+            {% for i in year_options %}
+                <option value="{{i}}" 
+                {% if i == selected_year %}selected{% endif %}>
+                {{i}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
+
+    <div class="centerFlexbox">
+        {% if table_data %}
+            <table>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">{{ state1 }}</th>
+                    <th scope="col">{{ state2 }}</th>
+                    <th scope="col">Comparison</th>
+                </tr>
+                {% for alias in title_aliases %}
+                {% set key = alias[0] %}
+                <tr>
+                    <th class="rowHeaders" scope="row">{{ alias[1] }}</th>
+                    <td>{{ table_data[0][key] }}</td>
+                    <td>{{ table_data[1][key] }}</td>
+                    <td>{{ table_data[2][key] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}  
+    </div>
+</div>
 </body>
 </html>

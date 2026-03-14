@@ -1,26 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data For {{ state }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>WattWatch USA - Data For {{ state }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='content_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
 </head>
 <body>
   {% include 'header.html' %}
 
   <div id="wrapper">
     <h1>Data For {{ state }}</h1>
+    <form method="GET" id="filter"></form>
+    <!--Declare Form to attach form fields to-->
+
+    <h2>Select data to graph:</h2>
     <div class="centerFlexbox">
-    <a href="{{ url_for('compareutility', state1=state) }}">
-      <button>Compare {{ state }} with another state</button>
-    </a>
+        <select form="filter" id="graph_title" name="graph_title" aria-label="Select data to graph">
+            {% for i in title_aliases %}
+                {% set title = i[1] %}
+                <option value="{{title}}" 
+                {% if title == selected_graph %}selected{% endif %}>
+                {{title}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
 
-    
+    <div class="centerFlexbox">
+        {% if plot_png %}
+        <img
+            class="plot-img"
+            src="{{ plot_png }}"
+            alt="Chart"
+            >
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}    
+    </div>
 
-    <img
-      class="plot-img"
-      src="{{ plot_png }}"
-      alt="Bar chart of average electricity price by sector"
-    >
+    <h2>Select year for table data:</h2>
+    <div class="centerFlexbox">
+        <select form="filter" id="year" name="year" aria-label="Select year for table data">
+            {% for i in year_options %}
+                <option value="{{i}}" 
+                {% if i == selected_year %}selected{% endif %}>
+                {{i}}
+                </option>
+            {% endfor %}
+        </select>
+        <button form="filter" type="submit">Update</button>
+    </div>
+
+    <div class="centerFlexbox">
+        {% if table_data %}
+            <table>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">{{ table_data["state"] }}</th>
+                </tr>
+                {% for alias in title_aliases %}
+                <tr>
+                    <th class="rowHeaders" scope="row">{{ alias[1] }}</th>
+                    <td>{{ table_data[alias[0]] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No data loaded. Please select a set of data.</p>
+        {% endif %}  
     </div>
   </div>
 </body>

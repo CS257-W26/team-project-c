@@ -65,38 +65,11 @@ header nav form {
     display: none;
 }
 
-/*table style*/
-table {
-    border: 3px solid gray;
-    border-collapse: collapse;
-}
-th {
-    background-color: tan;
-    border: 1px solid gray
-}
-th.rowHeaders {
-    text-align: left;
-    max-width: 20em;
-}
-td {
-    border: 3px solid gray;
-    text-align: center;
-    padding: 3px;
-}
 
 /*utility*/
 .centerFlexbox {
     display: flex;
     justify-content: center;
-}
-
-.plot-img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ddd;
-    background: white;
-    padding: 6px;
-    margin-top: 6px;
 }
 
 .muted {
