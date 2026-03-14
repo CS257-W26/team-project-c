@@ -46,8 +46,6 @@ def bystate(state):
         index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         graph_data = core.get_graph_data(state, graph_title_alias)
-        print(graph_data)
-        print(graph_title_alias)
         plot = PlotBuilder()
         plot.add_data(graph_data)
         plot_base64 = plot.get_fig()
