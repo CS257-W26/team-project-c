@@ -5,6 +5,10 @@ body h1 {
 table {
     margin-bottom: 10px;
 }
+ 
+body h2 {
+    text-align: center;
+}
 
 .plot-img {
     max-width: 100%;
