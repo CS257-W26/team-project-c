@@ -31,7 +31,7 @@ button {
     border-radius: 3px;
     border: 1px solid transparent;
     transition: all .3s ease;
-    background: #fff;
+    background: #6391B8;
     border-color: #e8e8e8;
     color: #000;
     font-weight: 600;
@@ -70,6 +70,7 @@ header nav div.navButtons {
     justify-content: center;
     align-items: center;
     gap: 0px 4%; 
+    background: #ffffff;
 }
 header nav form {
     flex: 1;
@@ -88,7 +89,7 @@ header nav form {
     display: none;
 }
 
-.skip_link {
+.skip-link {
     display: none;
 }
 

@@ -13,9 +13,11 @@
 
   <div id="wrapper">
     <h1>Data For {{ state }}</h1>
-    <a href="{{ url_for('compareutility', state1=state) }}">
-      <button>Compare {{ state }} with another state</button>
-    </a>
+    <div class="centerFlexbox">
+        <a href="{{ url_for('compareutility', state1=state) }}">
+        <button>Compare {{ state }} with another state</button>
+        </a>
+    </div>
     <form method="GET" id="filter"></form>
     <!--Declare Form to attach form fields to-->
 
