@@ -70,8 +70,11 @@ header nav div.navButtons {
     justify-content: center;
     align-items: center;
     gap: 0px 4%; 
+}
+header nav div.navButtons button {
     background: #ffffff;
 }
+
 header nav form {
     flex: 1;
 }
