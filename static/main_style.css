@@ -77,11 +77,11 @@ header nav button {
 
 header nav form {
     flex: 1;
+    align-items: stretch;
 }
 .stateSearch {
     min-width: 100px;
     width: 20%;
-    height: 34px;
 }
 
 #searchErrorBanner {
