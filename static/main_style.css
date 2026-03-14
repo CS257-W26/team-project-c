@@ -78,7 +78,7 @@ header nav button {
 header nav form {
     display: flex;
     align-items: stretch;
-    flex-grow: 1;
+    justify-content: center;
     height: 34px;
 }
 .stateSearch {
