@@ -63,27 +63,9 @@ a.homeLogo {
 header {
     display: flex;
     align-items: center;
-<<<<<<< HEAD
-    gap: 0px 4%; 
-}
-header nav button {
-    background: #ffffff;
-}
-
-header nav form {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    height: 34px;
-}
-.stateSearch {
-    min-width: 100px;
-    width: 20%;
-=======
     justify-content: space-between;
     padding: 0 20px;
     background-color: gray;
->>>>>>> origin/main
 }
 
 /* Logo on the left */
