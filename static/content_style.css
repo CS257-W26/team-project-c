@@ -10,6 +10,11 @@ body h2 {
     text-align: center;
 }
 
+.filterForm {
+    gap: 10px;
+    margin: 0px 10px;
+}
+
 .plot-img {
     max-width: 100%;
     height: auto;

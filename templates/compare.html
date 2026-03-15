@@ -14,7 +14,7 @@
     <!--Declare Form to attach form fields to-->
 
     <h2>Select data to graph:</h2>
-    <div class="centerFlexbox">
+    <div class="centerFlexbox filterForm">
         <select form="filter" id="graph_title" name="graph_title" aria-label="Select data to graph">
             {% for i in title_aliases %}
                 {% set title = i[1] %}
@@ -40,7 +40,7 @@
     </div>
 
     <h2>Select year for table data:</h2>
-    <div class="centerFlexbox">
+    <div class="centerFlexbox filterForm">
         <select form="filter" id="year" name="year" aria-label="Select year for table data">
             {% for i in year_options %}
                 <option value="{{i}}" 
