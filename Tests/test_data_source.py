@@ -114,3 +114,23 @@ class DataSourceTests(unittest.TestCase):
             {"state": "comparison", "generation": 50, "residentialRevenue": 20},
         ]
         self.assertEqual(result, expected)
+
+    @patch.object(DataSource, "get_graphable_data")
+    def test_get_comparison(self, mock_graphable_data):
+        mock_graphable_data.return_value = ['AR', 'generation',
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        result = self.test_source.get_graphable_data('AR', 'generation')
+        mock_graphable_data.assert_called_once_with('AR', 'generation')
+        expected = ['AR', 'generation',
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        self.assertEqual(result, expected)
+
+    @patch.object(DataSource, "get_us_graphable_data")
+    def test_get_comparison(self, mock_us_graphable_data):
+        mock_us_graphable_data.return_value = ['US', 'generation',
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        result = self.test_source.get_us_graphable_data('US', 'generation')
+        mock_us_graphable_data.assert_called_once_with('US', 'generation')
+        expected = ['US', 'generation',
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        self.assertEqual(result, expected)
