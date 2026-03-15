@@ -6,7 +6,7 @@ VALID_TABLE= "State                           | MN   | WY   | US         \n"\
 "Total Fuel Consumption for      |\n"\
 "Electric Generation      (MMBtu)| 100  | NULL | NULL       \n"\
 "CO2 Emmissions            (Tons)| NULL | NULL | 50,000,000 \n"\
-"total Revenue              ($1K)| NULL | 1.20 | NULL"
+"Total Revenue              ($1K)| NULL | 1.20 | NULL"
 
 
 VALID_CA_TABLE= "State                           | CA             \n"\
@@ -38,10 +38,10 @@ VALID_CA_TABLE= "State                           | CA             \n"\
 "Transportation Sales       (MWh)| 715,100.01     \n"\
 "Transportation Customers        | 12.58          \n"\
 "Transportation Price (cents/kWh)| 16.79          \n"\
-"total Revenue              ($1K)| 66,441,528.70  \n"\
-"total Sales                (MWh)| 245,717,144    \n"\
-"total Customers                 | 16,140,818.50  \n"\
-"total Price          (cents/kWh)| 26.82"
+"Total Revenue              ($1K)| 66,441,528.70  \n"\
+"Total Sales                (MWh)| 245,717,144    \n"\
+"Total Customers                 | 16,140,818.50  \n"\
+"Total Price          (cents/kWh)| 26.82"
 
 VALID_WA_NM_TABLE= "State                           | WA             | NM             \n"\
 "Year                            | 2024           | 2024           \n"\
@@ -72,10 +72,10 @@ VALID_WA_NM_TABLE= "State                           | WA             | NM       
 "Transportation Sales       (MWh)| 93,797.01      | 0              \n"\
 "Transportation Customers        | 5              | 0              \n"\
 "Transportation Price (cents/kWh)| 11.65          | 0              \n"\
-"total Revenue              ($1K)| 9,114,338.70   | 2,779,735.90   \n"\
-"total Sales                (MWh)| 89,981,629.10  | 30,296,354.10  \n"\
-"total Customers                 | 3,800,673.83   | 1,093,454.92   \n"\
-"total Price          (cents/kWh)| 10.12          | 9.14"
+"Total Revenue              ($1K)| 9,114,338.70   | 2,779,735.90   \n"\
+"Total Sales                (MWh)| 89,981,629.10  | 30,296,354.10  \n"\
+"Total Customers                 | 3,800,673.83   | 1,093,454.92   \n"\
+"Total Price          (cents/kWh)| 10.12          | 9.14"
 
 VALID_ND_SD_TABLE= "State                           | ND             | SD            \n"\
 "Year                            | 2024           | 2024          \n"\
@@ -103,10 +103,10 @@ VALID_ND_SD_TABLE= "State                           | ND             | SD       
 "Transportation Sales       (MWh)| 0              | 0             \n"\
 "Transportation Customers        | 0              | 0             \n"\
 "Transportation Price (cents/kWh)| 0              | 0             \n"\
-"total Revenue              ($1K)| 2,359,831      | 1,481,978     \n"\
-"total Sales                (MWh)| 29,769,699     | 13,637,205    \n"\
-"total Customers                 | 485,893        | 516,146.42    \n"\
-"total Price          (cents/kWh)| 7.93           | 10.87"
+"Total Revenue              ($1K)| 2,359,831      | 1,481,978     \n"\
+"Total Sales                (MWh)| 29,769,699     | 13,637,205    \n"\
+"Total Customers                 | 485,893        | 516,146.42    \n"\
+"Total Price          (cents/kWh)| 7.93           | 10.87"
 
 
 VALID_MN_TABLE= "State                           | MN             \n"\
@@ -135,10 +135,10 @@ VALID_MN_TABLE= "State                           | MN             \n"\
 "Transportation Sales       (MWh)| 15,331         \n"\
 "Transportation Customers        | 1              \n"\
 "Transportation Price (cents/kWh)| 12.88          \n"\
-"total Revenue              ($1K)| 7,971,414      \n"\
-"total Sales                (MWh)| 64,562,108     \n"\
-"total Customers                 | 2,899,044.58   \n"\
-"total Price          (cents/kWh)| 12.33"
+"Total Revenue              ($1K)| 7,971,414      \n"\
+"Total Sales                (MWh)| 64,562,108     \n"\
+"Total Customers                 | 2,899,044.58   \n"\
+"Total Price          (cents/kWh)| 12.33"
 
 VALID_US_PRICE_TABLE= "State                           | US               \n"\
 "Year                            | 2024             \n"\
@@ -159,7 +159,7 @@ VALID_US_PRICE_TABLE= "State                           | US               \n"\
 "Transportation Sales       (MWh)| 6,982,850        \n"\
 "Transportation Customers        | 4,109.75         \n"\
 "Transportation Price (cents/kWh)| 6.67             \n"\
-"total Revenue              ($1K)| 514,395,778      \n"\
-"total Sales                (MWh)| 3,975,381,862    \n"\
-"total Customers                 | 8,350,784,646.25 \n"\
-"total Price          (cents/kWh)| 13.73"
+"Total Revenue              ($1K)| 514,395,778      \n"\
+"Total Sales                (MWh)| 3,975,381,862    \n"\
+"Total Customers                 | 8,350,784,646.25 \n"\
+"Total Price          (cents/kWh)| 13.73"

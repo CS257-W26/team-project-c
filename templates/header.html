@@ -6,20 +6,21 @@
 rel="stylesheet" type="text/css" /> 
 
 <header>
-<a href="{{ url_for('homepage') }}" class="homeLogo">Watt Watch USA</a>
+    <a href="{{ url_for('homepage') }}" class="homeLogo">Watt Watch USA</a>
 
-<nav>
-<form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
-<input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
-<button type="submit">Update</button>
-</form>
-<div class="navButtons">
-    <a href="{{ url_for('display_us_data', graph_title='Generation (kWh)', year=2024) }}"><button>All US</button></a>
-    <a href="{{ url_for('usmap') }}"><button>Map</button></a>
-    <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
-</div>
-</nav>
+    <nav>
+        <!-- Search form -->
+        <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
+        <input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
+        <button type="submit" class="siteButton">Update</button>
+        </form>
 
+        <!-- Nav buttons -->
+        <div class="navButtons">
+            <a href="{{ url_for('display_us_data') }}"><button class="siteButton">All US</button></a>
+            <a href="{{ url_for('compareutility') }}"><button class="siteButton">Compare</button></a>
+        </div>
+    </nav>
 </header>
 
 <div id="searchErrorBanner"></div>

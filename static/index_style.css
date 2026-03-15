@@ -14,3 +14,84 @@ p.forGraders {
     margin-right: 15%;
     padding: 3px;
 }
+
+.homeSearchContainer {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    gap: 10px;
+}
+
+.homeSearchContainer input.stateSearch,
+.homeSearchContainer select,
+.homeSearchContainer input[type="submit"] {
+    font-size: 16px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.homeSearchContainer input.stateSearch {
+    min-width: 180px;
+}
+
+.homeSearchContainer input[type="submit"] {
+    background-color: #2c7be5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.homeSearchContainer input[type="submit"]:hover {
+    background-color: #1a5fc1;
+}
+
+.homeButtons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;   /* space between button cards */
+    margin-bottom: 50px;
+}
+
+.buttonCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #f5f5f5;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 220px; /* uniform width */
+    text-decoration: none; /* remove link underline */
+    color: inherit; /* inherit text color */
+}
+
+.buttonCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.buttonCard button {
+    font-size: 20px;
+    padding: 16px 28px;
+    border-radius: 10px;
+    border: none;
+    background-color: #2c7be5;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.buttonCard button:hover {
+    background-color: #1a5fc1;
+}
+
+.buttonDescription {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+}

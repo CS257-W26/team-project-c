@@ -67,3 +67,10 @@ Fix: Made DataSource a singleton in ProductionCode/data_source.py by overiding t
 
 ### plotting.py
 All of the plotting with matplotlib was in functions in the flask_app file which was not ideal. In order to fix this added a new file, ProductionCode/plotting.py, which made a plot class in order to better handle making graphs for the different web pages. Moved all of the code related to plotting from flask_app which was lines 16-90 to ProductionCode/plotting.py and made a plotbuilder object in flask_app to be used. 
+
+## UI improvements
+### Buttons and Stuff
+Made all buttons across site have same styling as well as increased the size of all the buttons, also improved look of all dropdowns and search bars. On home page added functionality to navigate to other pages on main section of homepage instead of everything being through header. (Since during ui testing everyone was just looking straight to main part of page to try to find info)
+
+### Graphs
+Graphs yippee

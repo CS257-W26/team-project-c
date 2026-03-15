@@ -1,9 +1,55 @@
+/* Keep h1 centered */
 body h1 {
     text-align: center;
 }
 
+/* Center the compare form container */
 .compareutilityform {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Form layout like header search */
+form.siteForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;      /* wrap inputs nicely on smaller screens */
+    justify-content: center;
+}
+
+/* State inputs (state1, state2) */
+form.siteForm input.stateInput {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Year select styling */
+form.siteForm select {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Submit button styling (reuse siteButton) */
+form.siteForm input.siteButton[type="submit"] {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2c7be5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form.siteForm input.siteButton[type="submit"]:hover {
+    background-color: #1a5fc1;
 }

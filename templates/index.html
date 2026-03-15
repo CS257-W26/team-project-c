@@ -9,6 +9,35 @@
 {% include 'header.html' %}
 <div id="wrapper">
 <h1>Watt Watch USA</h1>
+<div class="homeSearchContainer">
+    <form action="{{ url_for('search') }}" method="post">
+        <input list="states" class="stateSearch" name="state" placeholder="Enter state" aria-label="Enter state">
+        <datalist id="states">
+            {% for state in autocomplete %}
+                <option value="{{ state }}">
+            {% endfor %}
+        </datalist>
+
+        <select name="year" aria-label="Select year">
+            {% for year in available_years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div class="homeButtons">
+    <a href="{{ url_for('display_us_data') }}" class="buttonCard">
+        <button class="siteButton">All US</button>
+        <p class="buttonDescription">View energy data for the entire United States.</p>
+    </a>
+
+    <a href="{{ url_for('compareutility') }}" class="buttonCard">
+        <button class="siteButton">Compare</button>
+        <p class="buttonDescription">Compare two states side by side for energy and emissions data.</p>
+    </a>
+</div>
 <br>
 <h2>About US</h2>
 
