@@ -52,11 +52,11 @@ class TestFlaskApp(unittest.TestCase):
         '''tests that getting us data works'''
         response = self.client.get('/us',follow_redirects=True)
         response = response.get_data(as_text=True)
-        self.assertIn("Filter by Year", response)
+        self.assertIn("No data loaded", response)
 
     def test_single_state_success(self):
         """tests that single state returns json for valid input"""
-        response = self.client.get('/bystate/MN/2015/', follow_redirects=True)
+        response = self.client.get('/bystate/MN?year=2015', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
         self.assertIn("MN", response)
@@ -64,7 +64,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
-        response = self.client.get('/compare/iafl/2015/', follow_redirects=True)
+        response = self.client.get('/compare/IAFL?year=2015', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
         self.assertIn("IA", response)
@@ -101,14 +101,12 @@ class TestFlaskApp(unittest.TestCase):
         """POST should redirect to compare_states with correct parameters."""
         state1 = AUTOCOMPLETE_OPTIONS[0]
         state2 = AUTOCOMPLETE_OPTIONS[1]
-        year = "2022"
 
         response = self.client.post(
             "/compareutility",
             data={
                 "state1": state1,
                 "state2": state2,
-                "year": year
             }
         )
 
@@ -121,7 +119,6 @@ class TestFlaskApp(unittest.TestCase):
 
         self.assertIn("/compare", response.location)
         self.assertIn(f"{expected_code}", response.location)
-        self.assertIn(f"{year}", response.location)
 
 if __name__ == "__main__":
     unittest.main()

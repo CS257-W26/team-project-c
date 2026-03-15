@@ -39,7 +39,7 @@ class TestFullStack(unittest.TestCase):
             "totalPrice": 12.54
         }]
 
-        response = self.client.get("/bystate/MN/2020/", follow_redirects=True)
+        response = self.client.get("/bystate/MN?year=2020", follow_redirects=True)
         body = response.get_data(as_text=True)
         self.assertIn("MN", body)
         self.assertIn("12.54", body)

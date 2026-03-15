@@ -24,11 +24,11 @@ class TestFullStackComparison(unittest.TestCase):
 
     def test_multi_state_comparison(self):
         '''tests two state comparison'''
-        response = self.client.get("/compare/IAFL/2015/", follow_redirects=True)
+        response = self.client.get("/compare/IAFL?year=2015", follow_redirects=True)
         body = response.get_data(as_text=True)
         self.assertIn("IA", body)
         self.assertIn("FL", body)
-        self.assertIn("comparison", body)
+        self.assertIn("Comparison", body)
 
 if __name__ == "__main__":
     unittest.main()
