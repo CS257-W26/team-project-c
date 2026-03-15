@@ -1,3 +1,53 @@
+/* Container to center label + dropdown + button */
+.year-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;                  /* space between elements */
+    justify-content: center;     /* center horizontally */
+    margin-bottom: 20px;
+    flex-wrap: wrap;             /* wrap on small screens */
+}
+
+/* Label styling */
+.year-selector-wrapper label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Year select dropdown styling */
+#year-select {
+    height: 36px;             
+    font-size: 14px;          
+    padding: 0 10px;          
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Focus effect */
+#year-select:focus {
+    outline: none;
+    border-color: #2c7be5;
+    box-shadow: 0 0 3px rgba(44, 123, 229, 0.4);
+}
+
+/* Button styling */
+button.siteButton {
+    height: 36px;             
+    font-size: 14px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2c7be5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button.siteButton:hover {
+    background-color: #1a5fc1;
+}
 .content-wrapper {
     display: flex;
     gap: 30px;

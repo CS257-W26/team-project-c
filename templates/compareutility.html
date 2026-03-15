@@ -10,23 +10,38 @@
 <div id="wrapper">
 <h1>COMPARE STATES:</h1>
 <div class="compareutilityform">
-<form onsubmit="return checkCompareUtilityInput();" name="compareutility" action="compareutility" method="post">
-{% if state1_autofill != None %}
-    <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare"
-    value="{{ state1_autofill }}">
-{% else %}
-    <input type="text" class="state" name="state1" placeholder="Enter state 1:" aria-label="Enter first state to compare">
-{% endif %}
-<input type="text" class="state" name="state2" placeholder="Enter state 2:" aria-label="Enter second state to compare">
-<select id="year" name="year" aria-label="Enter year">
-    {% for i in available_years %}
-        <option value="{{i}}">{{i}}</option>
-    {% endfor %}
-</select>
-<input type="submit" value="Search">
+    <form class="siteForm" onsubmit="return checkCompareUtilityInput();" name="compareutility" action="compareutility" method="post">
+    
+    {% if state1_autofill != None %}
+        <input type="text" class="stateInput" name="state1"
+               placeholder="Enter state 1:" aria-label="Enter first state to compare"
+               list="states" value="{{ state1_autofill }}">
+    {% else %}
+        <input type="text" class="stateInput" name="state1"
+               placeholder="Enter state 1:" aria-label="Enter first state to compare"
+               list="states">
+    {% endif %}
+
+    <input type="text" class="stateInput" name="state2"
+           placeholder="Enter state 2:" aria-label="Enter second state to compare"
+           list="states">
+
+    <datalist id="states">
+        {% for state in autocomplete %}
+            <option value="{{ state }}">
+        {% endfor %}
+    </datalist>
+
+    <select id="year" name="year" aria-label="Enter year">
+        {% for i in available_years %}
+            <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" class="siteButton" value="Search">
 </form>
-{% include 'compareutility_js.html' %}
 </div>
+{% include 'compareutility_js.html' %}
 </div>
 </body>
 </html>

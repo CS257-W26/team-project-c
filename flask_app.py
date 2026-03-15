@@ -113,4 +113,4 @@ def server_error(e):
 
 if __name__ == '__main__':
     app.register_blueprint(api, url_prefix='/api')
-    app.run(host='0.0.0.0', port=5212)
+    app.run(host='0.0.0.0', port=5112)

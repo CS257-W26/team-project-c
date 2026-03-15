@@ -20,6 +20,23 @@ p {
     margin-right: 10%;
     font-size: 16pt;
 }
+.siteButton {
+    font-size: 18px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2c7be5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-block;  
+    text-align: center;
+    text-decoration: none;  
+}
+
+.siteButton:hover {
+    background-color: #1a5fc1;
+}
 
 /*header*/
 /* Header overall */
@@ -42,52 +59,90 @@ a.homeLogo {
 }
 
 /* Nav container */
-header nav {
-    flex: 1;
+/* Header overall layout */
+header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* space between center search and buttons */
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color: gray;
+}
+
+/* Logo on the left */
+a.homeLogo {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: tan;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Nav container: search center, buttons right */
+header nav {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* spacing between search and buttons */
 }
 
 /* Center the search form */
-header nav form {
-    flex: 1;
+form.headerSearch {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    flex: 1;               /* allow search to expand */
+    justify-content: center; /* keep search centered */
+    min-width: 0;          /* allows shrinking on smaller screens */
 }
 
-/* Search input styling */
-.stateSearch, header nav form select {
-    height: 44px;  /* match button height */
-    font-size: 16px;
+/* Search input and select */
+form.headerSearch input.stateSearch,
+form.headerSearch select {
+    height: 36px;
+    font-size: 14px;
     padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Search submit button */
+form.headerSearch input[type="submit"] {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2c7be5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form.headerSearch input[type="submit"]:hover {
+    background-color: #1a5fc1;
 }
 
 /* Nav buttons on the right */
-header nav div.navButtons {
+header nav .navButtons {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
     gap: 10px;
+    flex-shrink: 0; /* prevent buttons from shrinking */
 }
 
-/* Buttons styling */
-header nav div.navButtons button,
-header nav form input[type="submit"] {
-    font-size: 18px;     
-    padding: 12px 24px;   
-    border-radius: 8px;   
+/* Nav buttons style */
+header nav .navButtons button {
+    font-size: 18px;
+    padding: 12px 24px;
+    border-radius: 8px;
     border: none;
     background-color: #2c7be5;
     color: white;
     cursor: pointer;
 }
 
-/* Hover effect */
-header nav div.navButtons button:hover,
-header nav form input[type="submit"]:hover {
+header nav .navButtons button:hover {
     background-color: #1a5fc1;
 }
 
