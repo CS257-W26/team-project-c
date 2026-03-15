@@ -10,14 +10,14 @@ rel="stylesheet" type="text/css" />
 
     <nav>
         <!-- Search form -->
-        <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
+        <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post" class="headerSearch">
         <input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
         <button type="submit" class="siteButton">Search</button>
         </form>
 
         <!-- Nav buttons -->
         <div class="navButtons">
-            <a href="{{ url_for('display_us_data') }}"><button class="siteButton">All US</button></a>
+            <a href="{{ url_for('display_us_data', graph_title='Generation (kWh)', year=2024) }}"><button class="siteButton">All US</button></a>
             <a href="{{ url_for('compareutility') }}"><button class="siteButton">Compare</button></a>
         </div>
     </nav>

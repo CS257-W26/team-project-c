@@ -17,18 +17,11 @@
                 <option value="{{ state }}">
             {% endfor %}
         </datalist>
-
-        <select name="year" aria-label="Select year">
-            {% for year in available_years %}
-                <option value="{{ year }}">{{ year }}</option>
-            {% endfor %}
-        </select>
-
         <input type="submit" value="Search">
     </form>
 </div>
 <div class="homeButtons">
-    <a href="{{ url_for('display_us_data') }}" class="buttonCard">
+    <a href="{{ url_for('display_us_data', graph_title='Generation (kWh)', year=2024) }}" class="buttonCard">
         <button class="siteButton">All US</button>
         <p class="buttonDescription">View energy data for the entire United States.</p>
     </a>
