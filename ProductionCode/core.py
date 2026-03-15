@@ -4,7 +4,7 @@ re-packaaging/formating data for front end, and interperating
 the <states> part of url routes'''
 
 from ProductionCode.data_source import DataSource
-from ProductionCode.config import STATES_LIST TITLE_ALIASES
+from ProductionCode.config import STATES_LIST, TITLE_ALIASES
 from ProductionCode.data_processing import format_string
 
 
