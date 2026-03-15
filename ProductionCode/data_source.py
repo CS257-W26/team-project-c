@@ -209,8 +209,8 @@ class DataSource:
         try:
             index = DICTIONARY_KEYS_ORDERED.index(graph_type)
             sql_col = SQL_ALIASES[index][1]
-        except:
-            raise KeyError('graph type not present')
+        except Exception as exc:
+            raise KeyError('graph type not present') from exc
 
         data = [state, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
@@ -221,8 +221,8 @@ class DataSource:
             raise KeyError('data in graph_type is not graphable')
 
         query_result = self.db.query(f"""
-            SELECT year, {sql_col} FROM {table} 
-            WHERE state = :state 
+            SELECT year, {sql_col} FROM {table}
+            WHERE state = :state
             AND year <= :high_year
             AND year >= :low_year
             GROUP BY state, year
@@ -241,7 +241,7 @@ class DataSource:
                 data.append(0)
             year_iterator -= 1
 
-        return data   
+        return data
 
     def get_us_graphable_data(self, graph_type) -> list:
         '''
@@ -255,8 +255,8 @@ class DataSource:
         try:
             index = DICTIONARY_KEYS_ORDERED.index(graph_type)
             sql_col = SQL_ALIASES[index][1]
-        except:
-            raise KeyError('graph type not present')
+        except Exception as exc:
+            raise KeyError('graph type not present') from exc
 
         data = [US_CODE, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:

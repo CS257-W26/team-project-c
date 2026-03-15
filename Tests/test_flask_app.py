@@ -40,6 +40,24 @@ class TestFlaskApp(unittest.TestCase):
             {"state": "comparison", "totalSales": 100}
         ]
 
+        self.mock_data.get_graph_data.return_value = [
+            'AR',
+            'Generation (kWh)',
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+        ]
+
+
     def test_homepage(self):
         '''Tests that homepage is good'''
         response = self.client.get('/', follow_redirects=True)
@@ -56,7 +74,8 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_single_state_success(self):
         """tests that single state returns json for valid input"""
-        response = self.client.get('/bystate/MN?year=2015', follow_redirects=True)
+        response = self.client.get("/bystate/MN?graph_title='Generation (kWh)'&year=2015",
+            follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
         self.assertIn("MN", response)
@@ -64,7 +83,8 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
-        response = self.client.get('/compare/IAFL?year=2015', follow_redirects=True)
+        response = self.client.get("/compare/IAFL?graph_title='Generation (kWh)'&year=2015",
+            follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
         self.assertIn("IA", response)

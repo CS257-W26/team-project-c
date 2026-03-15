@@ -46,6 +46,6 @@ class PlotBuilder:
         """
         png_output = io.BytesIO()
         FigureCanvas(self.fig).print_png(png_output)
-        png_B64_String = "data:image/png;base64,"
-        png_B64_String += base64.b64encode(png_output.getvalue()).decode("utf-8")
-        return png_B64_String
+        png_b64_string = "data:image/png;base64,"
+        png_b64_string += base64.b64encode(png_output.getvalue()).decode("utf-8")
+        return png_b64_string
