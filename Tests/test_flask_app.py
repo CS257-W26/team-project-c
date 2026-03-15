@@ -74,7 +74,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_single_state_success(self):
         """tests that single state returns json for valid input"""
-        response = self.client.get("/bystate/MN?graph_title='Generation (kWh)'&year=2015",
+        response = self.client.get("/bystate/MN?graph_title=Generation (kWh)&year=2015",
             follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
@@ -83,7 +83,7 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_multi_state_comparison(self):
         """tests two state comparison"""
-        response = self.client.get("/compare/IAFL?graph_title='Generation (kWh)'&year=2015",
+        response = self.client.get("/compare/IAFL?graph_title=Generation (kWh)&year=2015",
             follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         response = response.get_data(as_text=True)
