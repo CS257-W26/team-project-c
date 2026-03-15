@@ -4,7 +4,7 @@ re-packaaging/formating data for front end, and interperating
 the <states> part of url routes'''
 
 from ProductionCode.data_source import DataSource
-from ProductionCode.config import STATES_LIST
+from ProductionCode.config import STATES_LIST TITLE_ALIASES
 from ProductionCode.data_processing import format_string
 
 
@@ -94,6 +94,9 @@ def get_graph_data(state, graph_type):
     '''
     db=_get_db()
     data = db.get_graphable_data(state, graph_type)
+    index = [x[0] for x in TITLE_ALIASES].index(graph_type)
+    graph_title = TITLE_ALIASES[index][1]
+    data[1] = graph_title
     return data
 
 def get_graph_data_comparison(states, graph_type):
@@ -108,4 +111,7 @@ def get_graph_data_comparison(states, graph_type):
     data = []
     for state in states:
         data.append(db.get_graphable_data(state, graph_type))
+        index = [x[0] for x in TITLE_ALIASES].index(graph_type)
+        graph_title = TITLE_ALIASES[index][1]
+        data[1] = graph_title
     return data
