@@ -11,6 +11,7 @@ body {
     margin-left: 3%;
     margin-right: 3%;
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 3px;
     background-color: white;
     box-shadow: 5px 5px 15px 5px #585858;
@@ -23,6 +24,7 @@ p {
 .siteButton {
     font-size: 18px;
     padding: 12px 24px;
+    margin: 10px 10px;
     border-radius: 8px;
     border: none;
     background-color: #2c7be5;
