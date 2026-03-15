@@ -56,6 +56,37 @@ class TestFlaskApp(unittest.TestCase):
             11,
             12
         ]
+        self.mock_data.get_graph_data_comparison.return_value = [[
+            'AR',
+            'Generation (kWh)',
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+        ],[
+            'AR',
+            'Generation (kWh)',
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+        ]]
 
 
     def test_homepage(self):

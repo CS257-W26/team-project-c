@@ -97,7 +97,6 @@ def compare_states(states):
         index = DATA_OPTIONS.index(graph_title)
         graph_title_alias = TITLE_ALIASES[index][0]
         state_data = core.get_graph_data_comparison(states, graph_title_alias)
-        print(state_data)
         plot = PlotBuilder()
         plot.add_data(state_data[0])
         plot.add_data(state_data[1])
