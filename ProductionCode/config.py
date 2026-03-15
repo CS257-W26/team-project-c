@@ -85,56 +85,58 @@ AVAILABLE_YEARS = [
 
 # (Dict alias, TableMaker alias, sql col alias, General Title)
 ALIASES = [
-    ("state"                          
-        , "state"                                    
+    ("state"
+        , "state"
         , "State                           "
         , 'State'),
-    ("year"                           
-        , "year"                                     
+    ("year"
+        , "year"
         , "Year                            "
         , "Year"),
-    ("generation"                     
-        , 'SUM(generation) as "generation"'          
+    ("generation"
+        , 'SUM(generation) as "generation"'
         , "Generation                 (kWh)"
         , "Generation (kWh)"),
-    ("thermalOutput"                  
+    ("thermalOutput"
         , 'SUM(usefullthermaloutput) as "thermalOutput"'
         , "Useful Thermal Output    (MMBtu)"
         , "Useful Thermal Output (MMBtu)"),
-    ("totalFuelConsumption"           
+    ("totalFuelConsumption"
         , 'SUM(totalfuelconsumption) as "totalFuelConsumption"'
         , "Total Fuel Consumption   (MMBtu)"
         , "Total Fuel Consumption (MMBtu)"),
-    ("totalFuelConsumptionGeneration" 
-        , 'SUM(fuelconsumptionelectricgeneration) as "totalFuelConsumptionGeneration"'
+    ("totalFuelConsumptionGeneration"
+        , 'SUM(fuelconsumptionelectricgeneration) \
+        as "totalFuelConsumptionGeneration"'
         , "Total Fuel Consumption for      |\nElectric Generation      (MMBtu)"
         , "Total Fuel Consumption for Electric Generation (MMBtu)"),
-    ("fuelConsumptionThermalOutput"   
-        , 'SUM(fuelconsumptionusefulthermaloutput) as "fuelConsumptionThermalOutput"'
+    ("fuelConsumptionThermalOutput"
+        , 'SUM(fuelconsumptionusefulthermaloutput) \
+        as "fuelConsumptionThermalOutput"'
         , "Fuel Consumption for Useful     |\nThermal Output           (MMBtu)"
         , "Fuel Consumption for Useful Thermal Output (MMBtu)"),
-    ("quantityOfFuelConsumed"         
+    ("quantityOfFuelConsumed"
         , 'SUM(quantityoffuelconsumed) as "quantityOfFuelConsumed"'
         , "Quanitty of Fuel Units Consumed"
         , "Quanitty of Fuel Units Consumed \
         (but this is wrong and we need to get rid of it from UI)"),
-    ("co2Tons"                        
+    ("co2Tons"
         , 'SUM(tonsco2Emissions) as "co2Tons"'
         , "CO2 Emmissions            (Tons)"
         , "CO2 Emmissions (Tons)"),
-    ("co2MetricTons"                  
+    ("co2MetricTons"
         , 'SUM(metricTonnesco2Emissions) as "co2MetricTons"'
         , "CO2 Emmissions     (Metric Tons)"
         , "CO2 Emmissions (Metric Tons)"),
-    ("residentialRevenue"             
+    ("residentialRevenue"
         , 'Sum(residentialRevenue) as "residentialRevenue"'
         , "Residential Revenue        ($1K)"
         , "Residential Revenue ($1K)"),
-    ("residentialSales"               
+    ("residentialSales"
         , 'Sum(residentialSales) as "residentialSales"'
         , "Residential Sales          (MWh)"
         , "Residential Sales (MWh)"),
-    ("residentialCustomers"           
+    ("residentialCustomers"
         , 'Round(Avg(residentialCustomers)::numeric, 2) as "residentialCustomers"'
         , "Residential Customers           "
         , "Residential Customers"),
@@ -142,67 +144,67 @@ ALIASES = [
         , 'Round(Avg(residentialPrice)::numeric, 2) as "residentialPrice"'
         , "Residential Price    (cents/kWh)"
         , "Residential Price (cents/kWh)"),
-    ("commercialRevenue"              
+    ("commercialRevenue"
         , 'Sum(commercialRevenue) as "commercialRevenue"'
         , "Commercial Revenue         ($1K)"
         , "Commercial Revenue ($1K)"),
-    ("commercialSales"                
+    ("commercialSales"
         , 'Sum(commercialSales) as "commercialSales"'
         , "Commercial Sales           (MWh)"
         , "Commercial Sales (MWh)"),
-    ("commercialCustomers"            
+    ("commercialCustomers"
         , 'Round(Avg(commercialCustomers)::numeric, 2) as "commercialCustomers"'
         , "Commercial Customers            "
         , "Commercial Customers"),
-    ("commercialPrice"                
+    ("commercialPrice"
         , 'Round(Avg(commercialPrice)::numeric, 2) as "commercialPrice"'
         , "Commercial Price     (cents/kWh)"
         , "Commercial Price (cents/kWh)"),
-    ("industrialRevenue"              
+    ("industrialRevenue"
         , 'Sum(industrialRevenue) as "industrialRevenue"'
         , "Industrial Revenue         ($1K)"
         , "Industrial Revenue ($1K)"),
-    ("industrialSales"                
+    ("industrialSales"
         , 'Sum(industrialSales) as "industrialSales"'
         , "Industrial Sales           (MWh)"
         , "Industrial Sales (MWh)"),
-    ("industrialCustomers"            
+    ("industrialCustomers"
         , 'Round(Avg(industrialCustomers)::numeric, 2) as "industrialCustomers"'
         , "Industrial Customers            "
         , "Industrial Customers"),
-    ("industrialPrice"                
+    ("industrialPrice"
         , 'Round(Avg(industrialPrice)::numeric, 2) as "industrialPrice"'
         , "Industrial Price     (cents/kWh)"
         , "Industrial Price (cents/kWh)"),
-    ("transportationRevenue"          
+    ("transportationRevenue"
         , 'Sum(transportationRevenue) as "transportationRevenue"'
         , "Transportation Revenue     ($1K)"
         , "Transportation Revenue ($1K)"),
-    ("transportationSales"            
+    ("transportationSales"
         , 'Sum(transportationSales) as "transportationSales"'
         , "Transportation Sales       (MWh)"
         , "Transportation Sales (MWh)"),
-    ("transportationCustomers"        
+    ("transportationCustomers"
         , 'Round(Avg(transportationCustomers)::numeric, 2) as "transportationCustomers"'
         , "Transportation Customers        "
         , "Transportation Customers"),
-    ("transportationPrice"            
+    ("transportationPrice"
         , 'Round(Avg(transportationPrice)::numeric, 2) as "transportationPrice"'
         , "Transportation Price (cents/kWh)"
         , "Transportation Price (cents/kWh)"),
-    ("totalRevenue"                   
+    ("totalRevenue"
         , 'Sum(totalRevenue) as "totalRevenue"'
         , "Total Revenue              ($1K)"
         , "Total Revenue ($1K)"),
-    ("totalSales"                     
+    ("totalSales"
         , 'Sum(totalSales) as "totalSales"'
         , "Total Sales                (MWh)"
         , "Total Sales (MWh)"),
-    ("totalCustomers"                 
+    ("totalCustomers"
         , 'Round(Avg(totalCustomers)::numeric, 2) as "totalCustomers"'
         , "Total Customers                 "
         , "Total Customers"),
-    ("totalPrice"                     
+    ("totalPrice"
         , 'Round(Avg(totalPrice)::numeric, 2) as "totalPrice"'
         , "Total Price          (cents/kWh)"
         , "Total Price (cents/kWh)")

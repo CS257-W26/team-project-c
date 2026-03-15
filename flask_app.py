@@ -1,13 +1,13 @@
 """flask app for website navigation and rendering"""
 
 from flask import Flask, request, render_template, url_for, redirect
-
+from flask_api import api
 from ProductionCode import core
+from ProductionCode.plotting import PlotBuilder
 from ProductionCode.config import AUTOCOMPLETE_OPTIONS, AUTOCOMPLETE_ALLIASES
 from ProductionCode.config import TITLE_ALIASES, AVAILABLE_YEARS
 DATA_OPTIONS = [x[1] for x in TITLE_ALIASES]
-from ProductionCode.plotting import PlotBuilder
-from flask_api import api
+
 
 app = Flask(__name__)
 plotter = PlotBuilder()
@@ -131,12 +131,12 @@ def display_us_data():
         plot = PlotBuilder()
         plot.add_data(data)
         plot_base64 = plot.get_fig()
-    
+
     year = request.args.get("year", type=int)
     table_data = None
     if year:
         table_data = core.get_us_year_data(year)
-    
+
     return render_template('us.html',
         autocomplete=AUTOCOMPLETE_OPTIONS,
         year_options=AVAILABLE_YEARS,
@@ -145,7 +145,7 @@ def display_us_data():
         selected_year=year,
         selected_graph=graph_title,
 
-        plot_png=plot_base64, 
+        plot_png=plot_base64,
         table_data=table_data
     )
 

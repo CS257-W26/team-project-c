@@ -203,7 +203,6 @@ class DataSource:
             [1] = graph title, 
             [2, 3, ...] = data
         '''
-        
         if state == US_CODE:
             return self.get_us_graphable_data(graph_type)
 
@@ -213,14 +212,13 @@ class DataSource:
         except:
             raise KeyError('graph type not present')
 
-        #TODO change graph_type to a nice title?
         data = [state, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
             table = 'emissions'
         elif index in DICTIONARY_KEYS_PRICES_INDEXES:
             table = 'sales_revenue'
         else:
-            raise IndexError('data in graph_type is not graphable')
+            raise KeyError('data in graph_type is not graphable')
 
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table} 
@@ -260,14 +258,13 @@ class DataSource:
         except:
             raise KeyError('graph type not present')
 
-        #TODO change graph_type to a nice title?
         data = [US_CODE, graph_type]
         if index in DICTIONARY_KEYS_EMMISIONS_INDEXES:
             table = 'emissions'
         elif index in DICTIONARY_KEYS_PRICES_INDEXES:
             table = 'sales_revenue'
         else:
-            raise IndexError('data in graph_type is not graphable')
+            raise KeyError('data in graph_type is not graphable')
 
         query_result = self.db.query(f"""
             SELECT year, {sql_col} FROM {table}
