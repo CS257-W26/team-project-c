@@ -9,12 +9,6 @@ rel="stylesheet" type="text/css" />
 <a href="{{ url_for('homepage') }}" class="homeLogo">Watt Watch USA</a>
 
 <nav>
-<div class="navButtons">
-    <a href="{{ url_for('display_us_data') }}"><button>All US</button></a>
-    <!--<a href="{{ url_for('usmap') }}"><button>Map</button></a>-->
-    <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
-</div>
-
 <form onsubmit="return checkSearchInput();" name="search" action="/search" method="post">
 <input class="stateSearch" type="text" id="stateSearch" name="state" placeholder="Enter state:" aria-label="Enter state to search">
 <select id="year" name="year" aria-label="Select year">
@@ -24,6 +18,11 @@ rel="stylesheet" type="text/css" />
 </select>
 <input type="submit" value="Search">
 </form>
+<div class="navButtons">
+    <a href="{{ url_for('display_us_data') }}"><button>All US</button></a>
+    <!--<a href="{{ url_for('usmap') }}"><button>Map</button></a>-->
+    <a href="{{ url_for('compareutility') }}"><button>Compare</button></a>
+</div>
 </nav>
 
 </header>
