@@ -140,7 +140,7 @@ ALIASES = [
         , 'Round(Avg(residentialCustomers)::numeric, 2) as "residentialCustomers"'
         , "Residential Customers           "
         , "Residential Customers"),
-    ("residentialPrice"               
+    ("residentialPrice"
         , 'Round(Avg(residentialPrice)::numeric, 2) as "residentialPrice"'
         , "Residential Price    (cents/kWh)"
         , "Residential Price (cents/kWh)"),
