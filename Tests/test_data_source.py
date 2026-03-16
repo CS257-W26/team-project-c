@@ -15,6 +15,7 @@ class DataSourceTests(unittest.TestCase):
 
     def setUp(self):
         '''create mock data source object to be used'''
+        DataSource.instance = None
         self.patcher = patch("ProductionCode.data_source.records.Database")
         self.mock_database_class = self.patcher.start()
 
@@ -22,6 +23,10 @@ class DataSourceTests(unittest.TestCase):
         self.mock_database_class.return_value = self.mock_db_instance
 
         self.test_source = DataSource()
+
+    def tearDown(self):
+        self.patcher.stop()
+        DataSource.instance = None
 
     def test_sales_state_year(self):
         '''Tests queries for sales for given year and state'''
@@ -105,7 +110,7 @@ class DataSourceTests(unittest.TestCase):
 
         results = self.test_source.get_states_data(["KS", "US"], 2024)
         self.assertEqual(
-            result,
+            results,
             [
                 {"residentialRevenue": 12345, "generation": 2345},
                 {"state": "US", "generation": 23456}
@@ -136,7 +141,7 @@ class DataSourceTests(unittest.TestCase):
             {"state": "MN", "generation": 150, "residentialRevenue": 70},
         ]
 
-        result = self.source.get_comparison(["KS", "MN"], 2024)
+        result = self.test_source.get_comparison(["KS", "MN"], 2024)
 
         self.assertEqual(result[2]["state"], "comparison")
         self.assertEqual(result[2]["generation"], 50)
