@@ -1,6 +1,6 @@
 '''Tests for data source'''
 import unittest
-from unittest.mock import MagicMock, patch, call
+from unittest.mock import MagicMock, patch
 from records import Record
 from ProductionCode.data_source import DataSource
 from ProductionCode.config import AVAILABLE_YEARS
@@ -150,10 +150,9 @@ class DataSourceTests(unittest.TestCase):
     def test_get_graphable_data(self):
         '''Gets graphable state emissions data'''
         self.mock_db_instance.query.return_value = [
-            Record((AVAILABLE_YEARS[0], 100), ("year", "generation")),
-            Record((AVAILABLE_YEARS[1], 90), ("year", "generation"))
+            Record(["year", "generation"], [AVAILABLE_YEARS[0], 100]),
+            Record(["year", "generation"], [AVAILABLE_YEARS[1], 90])
         ]
-
         result = self.test_source.get_graphable_data("AR", "generation")
 
         self.assertEqual(result[0], "AR")
@@ -164,10 +163,9 @@ class DataSourceTests(unittest.TestCase):
     def test_get_graphable_data_price(self):
         '''Gets graphable state price data'''
         self.mock_db_instance.query.return_value = [
-            Record((AVAILABLE_YEARS[0], 15), ("year", "totalPrice")),
-            Record((AVAILABLE_YEARS[1], 14), ("year", "totalPrice"))
+            Record(["year", "totalPrice"], [AVAILABLE_YEARS[0], 15]),
+            Record(["year", "totalPrice"], [AVAILABLE_YEARS[1], 14])
         ]
-
         result = self.test_source.get_graphable_data("AR", "totalPrice")
 
         self.assertEqual(result[0], "AR")
@@ -194,8 +192,8 @@ class DataSourceTests(unittest.TestCase):
     def test_get_us_graphable_data(self):
         '''Gets graphable US emissions'''
         self.mock_db_instance.query.return_value = [
-            Record((AVAILABLE_YEARS[0], 500), ("year", "generation")),
-            Record((AVAILABLE_YEARS[1], 400), ("year", "generation"))
+            Record(["year", "generation"], [AVAILABLE_YEARS[0], 500]),
+            Record(["year", "generation"], [AVAILABLE_YEARS[1], 400])
         ]
 
         result = self.test_source.get_us_graphable_data("generation")
@@ -206,8 +204,8 @@ class DataSourceTests(unittest.TestCase):
     def test_get_us_graphable_data_price(self):
         '''Gets graphable US price data'''
         self.mock_db_instance.query.return_value = [
-            Record((AVAILABLE_YEARS[0], 12), ("year", "totalPrice")),
-            Record((AVAILABLE_YEARS[1], 11), ("year", "totalPrice"))
+            Record(["year", "totalPrice"], [AVAILABLE_YEARS[0], 12]),
+            Record(["year", "totalPrice"], [AVAILABLE_YEARS[1], 11])
         ]
 
         result = self.test_source.get_us_graphable_data("totalPrice")
