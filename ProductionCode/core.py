@@ -110,8 +110,9 @@ def get_graph_data_comparison(states, graph_type):
     db=_get_db()
     data = []
     for state in states:
-        data.append(db.get_graphable_data(state, graph_type))
+        entry = db.get_graphable_data(state, graph_type)
         index = [x[0] for x in TITLE_ALIASES].index(graph_type)
         graph_title = TITLE_ALIASES[index][1]
-        data[1] = graph_title
+        entry[1] = graph_title
+        data.append(entry)
     return data
