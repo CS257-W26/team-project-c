@@ -117,6 +117,9 @@ class DataSourceTests(unittest.TestCase):
 
     @patch.object(DataSource, "get_graphable_data")
     def test_get_graphable(self, mock_graphable_data):
+        '''
+        Tests get_graphable_data
+        '''
         mock_graphable_data.return_value = ['AR', 'generation',
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         result = self.test_source.get_graphable_data('AR', 'generation')
@@ -127,6 +130,9 @@ class DataSourceTests(unittest.TestCase):
 
     @patch.object(DataSource, "get_us_graphable_data")
     def test_get_us_graphable(self, mock_us_graphable_data):
+        '''
+        Tests get_us_graphable_data
+        '''
         mock_us_graphable_data.return_value = ['US', 'generation',
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         result = self.test_source.get_us_graphable_data('US', 'generation')
