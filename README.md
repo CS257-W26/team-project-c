@@ -48,7 +48,7 @@ Go to compare page using bottom in top nav bar
 ### Feature 2 
 Using search bar in navbar search for state and select year
 ### Feature 
-Go to all us page using all us button in nav bar
+Go to all-us page using all us button in nav bar
 
 ## Scanning
 Our website enables scanning, there are bullet points and there are clear headings on every page.
@@ -70,7 +70,7 @@ All of the plotting with matplotlib was in functions in the flask_app file which
 
 ## UI improvements
 ### Buttons and Stuff
-Made all buttons across site have same styling as well as increased the size of all the buttons, also improved look of all dropdowns and search bars. On home page added functionality to navigate to other pages on main section of homepage instead of everything being through header. (Since during ui testing everyone was just looking straight to main part of page to try to find info)
+Made all buttons across site have same styling as well as increased the size of all the buttons, also improved look of all dropdowns and search bars. On home page added functionality to navigate to other pages on main section of homepage instead of everything being through header. (Since during ui testing everyone was just looking straight to main part of page to try to find info) Also added a button on the US data page to compare with another state to help show that the US can be queried on the compare page.
 
 ### Graphs
-Graphs yippee
+We added graphs to all the main data pages: bystate, allus, and compare! This allows the user to view changes in data over time not just for a given year.
